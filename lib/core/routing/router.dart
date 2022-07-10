@@ -1,5 +1,5 @@
-import 'package:clean_architecture_null_safety/core/routing/page_routing.dart';
-import 'package:clean_architecture_null_safety/features/splash_screen.dart';
+import 'package:ojrek_hris/core/routing/page_routing.dart';
+import 'package:ojrek_hris/features/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'undefined_view.dart';

@@ -1,5 +1,5 @@
-import 'package:clean_architecture_null_safety/core/error/error_result.dart';
-import 'package:clean_architecture_null_safety/core/remote/safe_call_api.dart';
+import 'package:ojrek_hris/core/error/error_result.dart';
+import 'package:ojrek_hris/core/remote/safe_call_api.dart';
 import 'package:dio/dio.dart';
 import 'dio_model.dart';
 

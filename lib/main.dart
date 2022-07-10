@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ojrek_hris/core/injection/injection.dart';
+
+import 'core/config/flavor_config.dart';
+import 'core/remote/dio_model.dart';
+import 'core/routing/get_router.dart';
+import 'core/utils/package.info.dart';
+import 'features/splash_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  PackageInfoApp packageInfoApp = new PackageInfoApp();
+
+  FlavorConfig(
+    flavor: Flavor.PRODUCTION,
+    values: FlavorValues(
+      baseUrl: ApiUrl.baseUrl,
+      appVersion: packageInfoApp.getVersion(),
+    ),
+  );
+  
+  AppModule.setup();
   runApp(MyApp());
 }
 
@@ -8,21 +29,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return GetMaterialApp(
+      defaultTransition: Transition.downToUp,
+      transitionDuration: Duration(milliseconds: 500),
+      home: SplashScreen(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      getPages: GetRouter.generateRoute(),
     );
   }
 }

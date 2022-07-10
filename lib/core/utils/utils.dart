@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/assets/my_cons.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

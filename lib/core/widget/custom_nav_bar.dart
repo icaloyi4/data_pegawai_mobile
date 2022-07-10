@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_nav_bar_model.dart';

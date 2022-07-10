@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ical.risaldi.clean_architecture_null_safety">
    <application
-        android:label="clean_architecture_null_safety"
+        android:label="OJREK"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

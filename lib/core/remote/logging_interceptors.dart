@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/assets/my_cons.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:dio/dio.dart';
 
 class LoggingInterceptor extends Interceptor {

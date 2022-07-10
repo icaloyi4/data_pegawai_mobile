@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -32,9 +32,9 @@ class AppTheme {
   );
 
   static final ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: MyColors.mainColor10,
+    scaffoldBackgroundColor: Colors.black,
     bottomAppBarTheme: BottomAppBarTheme(color: MyColors.mainColor10),
-    primaryColor: MyColors.mainColor,
+    primaryColor: Colors.black,
     backgroundColor: Colors.black,
     dialogBackgroundColor: Colors.black,
     appBarTheme: AppBarTheme(

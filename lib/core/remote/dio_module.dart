@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/config/flavor_config.dart';
+import 'package:ojrek_hris/core/config/flavor_config.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 

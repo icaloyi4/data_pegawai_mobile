@@ -1,4 +1,4 @@
-import 'package:clean_architecture_null_safety/core/error/error_result.dart';
+import 'package:ojrek_hris/core/error/error_result.dart';
 import 'package:dio/dio.dart';
 
 typedef ResponseConverter<T> = T Function(dynamic response);

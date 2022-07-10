@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:clean_architecture_null_safety/core/assets/my_color.dart';
-import 'package:clean_architecture_null_safety/core/assets/my_cons.dart';
+import 'package:ojrek_hris/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:flutter/material.dart';
 
 TextStyle styleHeader(double size,
@@ -32,8 +32,15 @@ BoxDecoration styleBoxAll() {
           color: MyCons.darkModeEnabled ? MyColors.mainColor : Colors.black38));
 }
 
+BoxDecoration styleBoxAllWithColor({Color colors = Colors.transparent, Border? border}) {
+  return BoxDecoration(
+      color: colors,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      border: border);
+}
+
 InputDecoration fieldDecoration(String label,
-    {required Icon icon, Color borderColor = Colors.black38}) {
+    {required IconData icon, Color borderColor = Colors.black38}) {
   return new InputDecoration(
       enabledBorder: new OutlineInputBorder(
         borderRadius: new BorderRadius.circular(10.0),
@@ -55,7 +62,7 @@ InputDecoration fieldDecoration(String label,
         color: Colors.red, // or any other color
       ),
       labelText: label,
-      prefixIcon: icon);
+      prefixIcon: Icon(icon));
 }
 
 InputDecoration decorationDropdown(String label) {
