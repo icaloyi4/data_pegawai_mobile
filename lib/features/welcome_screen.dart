@@ -90,11 +90,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: [
           Container(
             decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-            child: Text(
-              "Register My Company",
-              textAlign: TextAlign.center,
-              style: styleHeader(20,
-                  color: Colors.white, fontWeight: FontWeight.bold),
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(PageRouting.REGISTER);
+              },
+              child: Text(
+                "Register My Company",
+                textAlign: TextAlign.center,
+                style: styleHeader(20,
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ),
             ),
             alignment: Alignment.center,
             height: MediaQuery.of(context).size.height * 0.4,

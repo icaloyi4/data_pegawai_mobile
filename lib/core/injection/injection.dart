@@ -1,6 +1,11 @@
 import 'package:ojrek_hris/core/remote/dio_module.dart';
 import 'package:dio/dio.dart';
 import 'package:kiwi/kiwi.dart';
+import '../../features/register_page/bloc/register_bloc.dart';
+import '../../features/register_page/data/local/register_local_source.dart';
+import '../../features/register_page/domain/repository/register_repository.dart';
+import '../../features/register_page/domain/repository/register_repository_impl.dart';
+import '../../features/register_page/data/remote/register_remote_source.dart';
 
 import '../../features/login_page/bloc/login_bloc.dart';
 import '../../features/login_page/data/local/login_local_source.dart';
@@ -28,6 +33,14 @@ abstract class Injection {
       from: LoginRepositoryImpl,
       resolvers: {LoginRemoteSource: "", LoginLocalSource: ""})
   @Register.factory(LoginBloc, resolvers: {LoginRepository: ""})
+
+  //Login
+  @Register.singleton(RegisterRemoteSource, resolvers: {Dio: ""})
+  @Register.singleton(RegisterLocalSource)
+  @Register.singleton(RegisterRepository,
+      from: RegisterRepositoryImpl,
+      resolvers: {RegisterRemoteSource: "", RegisterLocalSource: ""})
+  @Register.factory(RegisterBloc, resolvers: {RegisterRepository: ""})
   void configure();
 }
 

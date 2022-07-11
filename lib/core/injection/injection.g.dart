@@ -14,8 +14,13 @@ class _$Injection extends Injection {
       ..registerSingleton<Dio>((c) => DioModule())
       ..registerSingleton((c) => LoginRemoteSource(c<Dio>()))
       ..registerSingleton((c) => LoginLocalSource())
-      ..registerSingleton<LoginRepository>((c) => LoginRepositoryImpl(
-          c<LoginRemoteSource>(), c<LoginLocalSource>()))
-      ..registerFactory((c) => LoginBloc(c<LoginRepository>()));
+      ..registerSingleton<LoginRepository>((c) =>
+          LoginRepositoryImpl(c<LoginRemoteSource>(), c<LoginLocalSource>()))
+      ..registerFactory((c) => LoginBloc(c<LoginRepository>()))
+      ..registerSingleton((c) => RegisterRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => RegisterLocalSource())
+      ..registerSingleton<RegisterRepository>((c) => RegisterRepositoryImpl(
+          c<RegisterRemoteSource>(), c<RegisterLocalSource>()))
+      ..registerFactory((c) => RegisterBloc(c<RegisterRepository>()));
   }
 }
