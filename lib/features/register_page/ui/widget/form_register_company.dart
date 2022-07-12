@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../bloc/register_bloc.dart';
@@ -41,15 +43,20 @@ class _FormRegisterCompanyPage
   Widget buttonLogin() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-        child: Text(
-          "Continue",
-          style:
-              styleHeader(20, color: Colors.white, fontWeight: FontWeight.bold),
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(PageRouting.REGISTER_SUCCESS);
+        },
+        child: Container(
+          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+          child: Text(
+            "Continue",
+            style: styleHeader(
+                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+          ),
+          alignment: Alignment.center,
+          height: 50,
         ),
-        alignment: Alignment.center,
-        height: 50,
       ),
     );
   }

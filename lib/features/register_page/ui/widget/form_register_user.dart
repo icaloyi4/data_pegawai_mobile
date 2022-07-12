@@ -49,7 +49,7 @@ class _FormRegisterUserPage
         child: Text(
           "Continue",
           style:
-              styleHeader(20, color: Colors.white, fontWeight: FontWeight.bold),
+              styleHeader( color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
         ),
         alignment: Alignment.center,
         height: 50,

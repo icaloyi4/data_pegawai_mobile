@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../bloc/login_bloc.dart';
@@ -31,15 +33,20 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
   Widget buttonLogin() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
-        decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-        child: Text(
-          "Login",
-          style:
-              styleHeader(20, color: Colors.white, fontWeight: FontWeight.bold),
+      child: GestureDetector(
+        onTap: () {
+          Get.offAllNamed(PageRouting.HOME);
+        },
+        child: Container(
+          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+          child: Text(
+            "Login",
+            style: styleHeader(
+                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+          ),
+          alignment: Alignment.center,
+          height: 50,
         ),
-        alignment: Alignment.center,
-        height: 50,
       ),
     );
   }
@@ -49,7 +56,7 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
       children: [
         Container(
           child: TextFormField(
-            decoration: fieldDecoration('Email', Icons.person, false),
+            decoration: fieldDecoration('Email', Icons.email, false),
           ),
         ),
         SizedBox(
@@ -57,6 +64,7 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
         ),
         Container(
           child: TextFormField(
+            obscureText: _passwordVisible,
             decoration: fieldDecoration('Password', Icons.lock, true),
           ),
         ),

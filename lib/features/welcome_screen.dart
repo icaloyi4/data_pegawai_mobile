@@ -68,13 +68,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: [
           Text(
             "Employee Management System",
-            style: styleHeader(30,
-                color: Colors.black, fontWeight: FontWeight.bold),
+            style: styleHeader(
+                color: Colors.black, textStyleWeight: TextStyleWeight.Title),
           ),
           Text(
             "Trust us to manage your company's employees. we can help you manage employees in your company easier and faster like lightning.",
-            style: styleHeader(20,
-                color: Colors.black45, fontWeight: FontWeight.normal),
+            style: styleHeader(
+                color: Colors.black45, textStyleWeight: TextStyleWeight.subtitle2),
           ),
         ],
       ),
@@ -97,8 +97,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Text(
                 "Register My Company",
                 textAlign: TextAlign.center,
-                style: styleHeader(20,
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                style: styleHeader(
+                    color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
               ),
             ),
             alignment: Alignment.center,
@@ -114,8 +114,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 },
                 child: Text(
                   "Login",
-                  style: styleHeader(20,
-                      color: MyColors.mainColor, fontWeight: FontWeight.bold),
+                  style: styleHeader(
+                      color: MyColors.mainColor, textStyleWeight: TextStyleWeight.Title3),
                 ),
               ),
               height: MediaQuery.of(context).size.height * 0.4,

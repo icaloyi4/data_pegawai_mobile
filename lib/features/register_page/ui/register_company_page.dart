@@ -40,16 +40,18 @@ class _RegisterCompanyPage extends State<RegisterCompanyPage> {
       children: [
         Text(
           "Last Step,",
-          style: styleHeader(30,
-              color: MyColors.mainColor, fontWeight: FontWeight.bold),
+          style: styleHeader(
+              color: MyColors.mainColor,
+              textStyleWeight: TextStyleWeight.Title),
         ),
         SizedBox(
           height: 10,
         ),
         Text(
           "Please introduce yout company.",
-          style: styleHeader(20,
-              color: Colors.black45, fontWeight: FontWeight.normal),
+          style: styleHeader(
+              color: Colors.black45,
+              textStyleWeight: TextStyleWeight.subtitle2),
         ),
       ],
     );

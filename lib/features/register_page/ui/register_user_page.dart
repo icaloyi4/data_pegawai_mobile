@@ -40,16 +40,18 @@ class _RegisterPage extends State<RegisterPage> {
       children: [
         Text(
           "Welcome to ojrek,",
-          style: styleHeader(30,
-              color: MyColors.mainColor, fontWeight: FontWeight.bold),
+          style: styleHeader(
+              color: MyColors.mainColor,
+              textStyleWeight: TextStyleWeight.Title),
         ),
         SizedBox(
           height: 10,
         ),
         Text(
           "Before that. \nPlease introduce yourself first.",
-          style: styleHeader(20,
-              color: Colors.black45, fontWeight: FontWeight.normal),
+          style: styleHeader(
+              color: Colors.black45,
+              textStyleWeight: TextStyleWeight.subtitle2),
         ),
       ],
     );

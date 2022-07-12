@@ -1,4 +1,6 @@
+import 'package:ojrek_hris/features/main_page.dart';
 import 'package:ojrek_hris/features/register_page/ui/register_company_page.dart';
+import 'package:ojrek_hris/features/register_page/ui/register_success_page.dart';
 import 'package:ojrek_hris/features/register_page/ui/register_user_page.dart';
 import 'package:ojrek_hris/features/splash_screen.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,11 @@ class GetRouter {
           name: PageRouting.REGISTER_COMPANY,
           page: () => RegisterCompanyPage(),
           transition: Transition.rightToLeftWithFade),
+      GetPage(
+          name: PageRouting.REGISTER_SUCCESS,
+          page: () => RegisterSuccessPage(),
+          transition: Transition.rightToLeftWithFade),
+      GetPage(name: PageRouting.HOME, page: () => MainPage())
     ];
   }
 }
