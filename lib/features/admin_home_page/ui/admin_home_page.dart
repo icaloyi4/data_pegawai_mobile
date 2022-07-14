@@ -17,54 +17,80 @@ class _AdminHomePage extends State<AdminHomePage> {
   @override
   void initState() {
     // TODO: implement initState
+
     _menu.add(
-        new CardMenuModel("User Management", "", CupertinoIcons.person, null));
+        new CardMenuModel("Company", "", CupertinoIcons.building_2_fill, null));
     _menu.add(new CardMenuModel(
-        "Company Management", "", CupertinoIcons.building_2_fill, null));
-    _menu.add(
-        new CardMenuModel("Company Management", "", CupertinoIcons.bag, null));
+        "Department", "", CupertinoIcons.briefcase_fill, null));
+    _menu
+        .add(new CardMenuModel("User", "", CupertinoIcons.person_3_fill, null));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(_menu.length, (index) {
-          return Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Card(
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Container(
-                  decoration: styleBoxAllWithColor(
-                      border: Border.all(width: 1, color: MyColors.mainColor)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Expanded(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0.5,
+        title: Text("Lunartechno.id",
+            style: styleHeader(
+                textStyleWeight: TextStyleWeight.Title3,
+                color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),
+      ),
+      body: GridView.count(
+          // Create a grid with 2 columns. If you change the scrollDirection to
+          // horizontal, this produces 2 rows.
+          crossAxisCount: 2,
+          // Generate 100 widgets that display their index in the List.
+          children: List.generate(_menu.length, (index) {
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Container(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          decoration: styleBoxAllWithColor(
+                              colors: MyColors.mainColor10),
+                          height: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(
-                          _menu[index].icon,
-                          size: 100,
-                        )),
-                        Text(
+                              _menu[index].icon,
+                              size: 75,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Container(
+                        height: 20,
+                        alignment: Alignment.center,
+                        child: Text(
                           _menu[index].title,
                           textAlign: TextAlign.center,
                           style: styleHeader(
-                              color: MyColors.mainColor,
-                              textStyleWeight: TextStyleWeight.Title3),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-          );
-        }));
+                              textStyleWeight: TextStyleWeight.body),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+              ),
+            );
+          })),
+    );
   }
 }

@@ -13,24 +13,22 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPage extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Container(
-              child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: body(),
-          ),
-          Expanded(child: FormRegisterUserPage())
-        ],
-      ))),
-    );
+    return Scaffold(
+        body: Container(
+            child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: body(),
+        ),
+        Expanded(child: FormRegisterUserPage())
+      ],
+    )));
   }
 
   Widget body() {

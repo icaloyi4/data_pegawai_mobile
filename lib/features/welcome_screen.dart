@@ -25,28 +25,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     MyCons.darkModeEnabled = brightness == Brightness.dark;
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor:
-            MyCons.darkModeEnabled ? Colors.blueGrey : Colors.white,
-        body: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: header()),
-                Container(
-                  child: body(),
-                  height: MediaQuery.of(context).size.height * 0.4,
-                ),
-                Container(
-                  child: footer(),
-                  height: MediaQuery.of(context).size.height * 0.1,
-                )
-              ],
-            ),
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: MyCons.darkModeEnabled ? Colors.blueGrey : Colors.white,
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: header()),
+              Container(
+                child: body(),
+                height: MediaQuery.of(context).size.height * 0.4,
+              ),
+              Container(
+                child: footer(),
+                height: MediaQuery.of(context).size.height * 0.1,
+              )
+            ],
           ),
         ),
       ),
@@ -74,7 +71,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Text(
             "Trust us to manage your company's employees. we can help you manage employees in your company easier and faster like lightning.",
             style: styleHeader(
-                color: Colors.black45, textStyleWeight: TextStyleWeight.subtitle2),
+                color: Colors.black45,
+                textStyleWeight: TextStyleWeight.subtitle2),
           ),
         ],
       ),
@@ -98,7 +96,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 "Register My Company",
                 textAlign: TextAlign.center,
                 style: styleHeader(
-                    color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+                    color: Colors.white,
+                    textStyleWeight: TextStyleWeight.Title3),
               ),
             ),
             alignment: Alignment.center,
@@ -115,7 +114,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Text(
                   "Login",
                   style: styleHeader(
-                      color: MyColors.mainColor, textStyleWeight: TextStyleWeight.Title3),
+                      color: MyColors.mainColor,
+                      textStyleWeight: TextStyleWeight.Title3),
                 ),
               ),
               height: MediaQuery.of(context).size.height * 0.4,

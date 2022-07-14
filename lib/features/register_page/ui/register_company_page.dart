@@ -13,24 +13,22 @@ class RegisterCompanyPage extends StatefulWidget {
 class _RegisterCompanyPage extends State<RegisterCompanyPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Container(
-              child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: body(),
-          ),
-          Expanded(child: FormRegisterCompanyPage())
-        ],
-      ))),
-    );
+    return Scaffold(
+        body: Container(
+            child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: body(),
+        ),
+        Expanded(child: FormRegisterCompanyPage())
+      ],
+    )));
   }
 
   Widget body() {

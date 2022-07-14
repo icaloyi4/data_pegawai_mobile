@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,7 @@ enum TextStyleWeight {
 }
 
 TextStyle styleHeader(
-    {Color? color,
-    TextStyleWeight textStyleWeight = TextStyleWeight.body}) {
+    {Color? color, TextStyleWeight textStyleWeight = TextStyleWeight.body}) {
   switch (textStyleWeight) {
     case TextStyleWeight.Title:
       return TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: color);
@@ -35,7 +35,7 @@ TextStyle styleHeader(
   }
 }
 
-BoxDecoration styleBoxUnderline({required Color color}) {
+BoxDecoration styleBoxUnderline({Color? color = Colors.transparent}) {
   return BoxDecoration(
       color: color,
       border: Border(bottom: BorderSide(color: Colors.black12, width: 1)));
@@ -50,13 +50,16 @@ BoxDecoration styleBoxCard({Color color = Colors.white}) {
       ));
 }
 
-BoxDecoration styleBoxAll() {
+BoxDecoration styleBoxAll({bool withBorder = false}) {
   return BoxDecoration(
       color: MyCons.darkModeEnabled ? Colors.transparent : Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      border: Border.all(
-          width: 1,
-          color: MyCons.darkModeEnabled ? MyColors.mainColor : Colors.black38));
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+      border: withBorder
+          ? Border.all(
+              width: 1,
+              color:
+                  MyCons.darkModeEnabled ? MyColors.mainColor : Colors.black38)
+          : null);
 }
 
 BoxDecoration styleBoxAllWithColor(
@@ -112,4 +115,29 @@ InputDecoration decorationDropdownUnderline({String label = ""}) {
       errorBorder:
           UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       labelText: label);
+}
+
+Widget textWithIcon(
+    {required IconData icon,
+    required String text,
+    Color? iconCustomColor,
+    TextStyle? textStyle}) {
+  return Row(
+    children: [
+      Icon(
+        icon,
+        color: iconCustomColor,
+      ),
+      SizedBox(
+        width: 10,
+      ),
+      Expanded(
+        child: Text(
+          text,
+          overflow: TextOverflow.ellipsis,
+          style: textStyle,
+        ),
+      ),
+    ],
+  );
 }

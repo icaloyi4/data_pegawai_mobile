@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ojrek_hris/core/injection/injection.dart';
+import 'package:ojrek_hris/core/utils/app_theme.dart';
 
 import 'core/config/flavor_config.dart';
 import 'core/remote/dio_model.dart';
@@ -29,12 +30,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    
     return GetMaterialApp(
       defaultTransition: Transition.downToUp,
       transitionDuration: Duration(milliseconds: 500),
       home: SplashScreen(),
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: new AppTheme(textTheme).lightTheme,
+      darkTheme: new AppTheme(textTheme).darkTheme,
       getPages: GetRouter.generateRoute(),
     );
   }

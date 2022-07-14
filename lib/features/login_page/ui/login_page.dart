@@ -16,27 +16,25 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Container(
-              child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            body(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.10,
-            ),
-            Expanded(child: FormLoginPage())
-          ],
-        ),
-      ))),
-    );
+    return Scaffold(
+        body: Container(
+            child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          body(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.10,
+          ),
+          Expanded(child: FormLoginPage())
+        ],
+      ),
+    )));
   }
 
   Widget body() {
@@ -47,7 +45,8 @@ class _LoginPage extends State<LoginPage> {
         Text(
           "Let's Sign You In",
           style: styleHeader(
-              color: MyColors.mainColor, textStyleWeight: TextStyleWeight.Title),
+              color: MyColors.mainColor,
+              textStyleWeight: TextStyleWeight.Title),
         ),
         SizedBox(
           height: 10,
@@ -55,7 +54,8 @@ class _LoginPage extends State<LoginPage> {
         Text(
           "Welcome Back. \nLets start working.",
           style: styleHeader(
-              color: Colors.black45, textStyleWeight: TextStyleWeight.subtitle1),
+              color: Colors.black45,
+              textStyleWeight: TextStyleWeight.subtitle1),
         ),
       ],
     );

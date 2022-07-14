@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cool_alert: ^1.1.0
   dio: ^4.0.4
+  dots_indicator: ^2.1.0
   # Bloc for state management
   flutter_bloc: ^8.0.1
   fluttertoast: ^8.0.8
@@ -47,6 +48,7 @@ dependencies:
   # Local cache
   shared_preferences: ^2.0.12
   shimmer: ^2.0.0
+  slide_digital_clock: ^1.0.2
 
 dev_dependencies:
   flutter_test:

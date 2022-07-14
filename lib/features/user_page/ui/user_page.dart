@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 
 import '../../../core/widget/styling.dart';
 import 'widget/list_menu_user.dart';
@@ -13,12 +14,13 @@ class _UserPage extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: MyColors.mainColor,
+      color: MyCons.darkModeEnabled ? Colors.blueGrey : MyColors.mainColor,
       child: Column(
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.4,
-            color: MyColors.mainColor,
+            color:
+                MyCons.darkModeEnabled ? Colors.blueGrey : MyColors.mainColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -47,7 +49,7 @@ class _UserPage extends State<UserPage> {
                   ),
                 ),
                 Text(
-                  "r.harisrisaldi@gmail.com",
+                  "Human Resource Supervisor",
                   style: styleHeader(
                       color: Colors.white,
                       textStyleWeight: TextStyleWeight.body),
@@ -57,7 +59,9 @@ class _UserPage extends State<UserPage> {
           ),
           Expanded(
               child: Container(
-            decoration: styleBoxCard(),
+            color: MyCons.darkModeEnabled
+                ? Colors.blueGrey[400]
+                : Colors.grey[200],
             child: ListMenu(),
           ))
         ],

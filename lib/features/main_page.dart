@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_home_page/ui/admin_home_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -40,7 +41,9 @@ class _MainPage extends State<MainPage> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.white, // Default is Colors.white.
+      backgroundColor: MyCons.darkModeEnabled
+          ? MyColors.mainColorDark10
+          : Colors.white, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
           true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
@@ -76,21 +79,23 @@ class _MainPage extends State<MainPage> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.group),
-        title: ("Company"),
-        activeColorPrimary: MyColors.mainColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
+          icon: Icon(CupertinoIcons.group),
+          title: ("Company"),
+          activeColorPrimary:
+              MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
+          inactiveColorPrimary: CupertinoColors.systemGrey),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: MyColors.mainColor,
+        activeColorPrimary:
+            MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.person),
         title: ("Profile"),
-        activeColorPrimary: MyColors.mainColor,
+        activeColorPrimary:
+            MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];

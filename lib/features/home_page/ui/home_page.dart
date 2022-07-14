@@ -1,4 +1,14 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ojrek_hris/core/widget/styling.dart';
+import 'package:ojrek_hris/features/home_page/ui/widget/announcement.dart';
+import 'package:ojrek_hris/features/home_page/ui/widget/header.dart';
+import 'package:ojrek_hris/features/home_page/ui/widget/menu_list.dart';
+import 'package:ojrek_hris/features/home_page/ui/widget/news.dart';
+import 'package:ojrek_hris/features/home_page/ui/widget/weather.dart';
+import 'package:slide_digital_clock/slide_digital_clock.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,9 +18,52 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("HomePage"),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Header(),
+                SizedBox(
+                  height: 20,
+                ),
+                //Weather
+                Weather(),
+                SizedBox(
+                  height: 15,
+                ),
+                MenuList(),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Announcement",
+                  style:
+                      styleHeader(textStyleWeight: TextStyleWeight.subtitle2),
+                ),
+                Announcement(),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "News",
+                  style:
+                      styleHeader(textStyleWeight: TextStyleWeight.subtitle2),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                News()
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
