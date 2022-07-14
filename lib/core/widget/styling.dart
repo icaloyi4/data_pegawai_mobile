@@ -35,7 +35,7 @@ TextStyle styleHeader(
   }
 }
 
-BoxDecoration styleBoxUnderline({Color? color = Colors.transparent}) {
+BoxDecoration styleBoxUnderline({Color? color = Colors.white}) {
   return BoxDecoration(
       color: color,
       border: Border(bottom: BorderSide(color: Colors.black12, width: 1)));

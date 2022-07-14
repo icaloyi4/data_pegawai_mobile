@@ -35,7 +35,9 @@ class _UserPage extends State<UserPage> {
                   child: Text(
                     "RH",
                     style: styleHeader(
-                        color: MyColors.mainColor,
+                        color: MyCons.darkModeEnabled
+                            ? Colors.blueGrey
+                            : MyColors.mainColor,
                         textStyleWeight: TextStyleWeight.Title),
                   ),
                 ),

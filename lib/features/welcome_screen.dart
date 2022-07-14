@@ -68,6 +68,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             style: styleHeader(
                 color: Colors.black, textStyleWeight: TextStyleWeight.Title),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Text(
             "Trust us to manage your company's employees. we can help you manage employees in your company easier and faster like lightning.",
             style: styleHeader(

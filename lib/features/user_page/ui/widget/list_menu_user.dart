@@ -19,6 +19,7 @@ class ListMenu extends StatelessWidget {
           Container(
             color: MyCons.darkModeEnabled ? Colors.blueGrey[200] : Colors.white,
             child: ExpansionTile(
+              textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600]  : null,
               title: textWithIcon(
                   icon: CupertinoIcons.building_2_fill,
                   iconCustomColor: MyCons.darkModeEnabled
@@ -38,6 +39,7 @@ class ListMenu extends StatelessWidget {
           Container(
             color: MyCons.darkModeEnabled ? Colors.blueGrey[200] : Colors.white,
             child: ExpansionTile(
+              textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
               title: textWithIcon(
                   icon: CupertinoIcons.person_alt,
                   iconCustomColor: MyCons.darkModeEnabled
@@ -59,7 +61,10 @@ class ListMenu extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: styleBoxUnderline(color: Colors.blueGrey[200]),
+                    decoration: styleBoxUnderline(
+                        color: MyCons.darkModeEnabled
+                            ? Colors.blueGrey[200]
+                            : null),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: textWithIcon(
@@ -71,7 +76,10 @@ class ListMenu extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    decoration: styleBoxUnderline(color: Colors.blueGrey[200]),
+                    decoration: styleBoxUnderline(
+                        color: MyCons.darkModeEnabled
+                            ? Colors.blueGrey[200]
+                            : null),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: textWithIcon(
@@ -83,7 +91,10 @@ class ListMenu extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    decoration: styleBoxUnderline(color: Colors.blueGrey[200]),
+                    decoration: styleBoxUnderline(
+                        color: MyCons.darkModeEnabled
+                            ? Colors.blueGrey[200]
+                            : null),
                     child: GestureDetector(
                       onTap: () {
                         Get.offAllNamed(PageRouting.LOGIN);
