@@ -90,9 +90,9 @@ String cekNullorEmpty(String? value) {
   if (value == null) {
     return "-";
   } else if (value == "") {
-    return value;
-  } else {
     return "-";
+  } else {
+    return value;
   }
 }
 
@@ -152,6 +152,38 @@ int getMaxDate(int month, int year) {
     default:
       return 30;
   }
+}
+
+String getHour() {
+  var hourNow = new DateTime.now().hour;
+  if (hourNow >= 4 && hourNow < 12) {
+    return "Morning";
+  }
+  if (hourNow >= 12 && hourNow < 15) {
+    return "Afternoon";
+  }
+
+  if (hourNow >= 15 && hourNow < 21) {
+    return "Evening";
+  }
+
+  return "Night";
+}
+
+String messageHeader() {
+  var hourNow = new DateTime.now().hour;
+  if (hourNow >= 4 && hourNow < 12) {
+    return "Have a Good Day";
+  }
+  if (hourNow >= 12 && hourNow < 15) {
+    return "Don't forget to be happy";
+  }
+
+  if (hourNow >= 15 && hourNow < 21) {
+    return "Let's spend the rest of the day with a smile";
+  }
+
+  return "Have a good rest, you had a wonderful day today";
 }
 
 // String cekDayType(String date,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/styling.dart';
 
 class Header extends StatelessWidget {
@@ -9,11 +10,11 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Good Morning",
+          "Good ${getHour()}",
           style: styleHeader(textStyleWeight: TextStyleWeight.Title),
         ),
         Text(
-          "Have a good day",
+          "${messageHeader()}",
           style: styleHeader(textStyleWeight: TextStyleWeight.subtitle2),
         ),
       ],

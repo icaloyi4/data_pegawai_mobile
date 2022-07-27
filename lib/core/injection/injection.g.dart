@@ -21,6 +21,16 @@ class _$Injection extends Injection {
       ..registerSingleton((c) => RegisterLocalSource())
       ..registerSingleton<RegisterRepository>((c) => RegisterRepositoryImpl(
           c<RegisterRemoteSource>(), c<RegisterLocalSource>()))
-      ..registerFactory((c) => RegisterBloc(c<RegisterRepository>()));
+      ..registerFactory((c) => RegisterBloc(c<RegisterRepository>()))
+      ..registerSingleton((c) => UserRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => UserLocalSource())
+      ..registerSingleton<UserRepository>((c) =>
+          UserRepositoryImpl(c<UserRemoteSource>(), c<UserLocalSource>()))
+      ..registerFactory((c) => UserBloc(c<UserRepository>()))
+      ..registerSingleton((c) => HomeRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => HomeLocalSource())
+      ..registerSingleton<HomeRepository>((c) =>
+          HomeRepositoryImpl(c<HomeRemoteSource>(), c<HomeLocalSource>()))
+      ..registerFactory((c) => HomeBloc(c<HomeRepository>()));
   }
 }

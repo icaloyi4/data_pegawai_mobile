@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
@@ -6,10 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
+import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
+import "package:google_maps_flutter_platform_interface/src/types/location.dart";
 
 import '../../bloc/register_bloc.dart';
 
 class FormRegisterCompanyPage extends StatefulWidget {
+  final RegisterModel registerModel;
+
+  const FormRegisterCompanyPage({required this.registerModel});
   @override
   _FormRegisterCompanyPage createState() => _FormRegisterCompanyPage();
 }
@@ -17,6 +23,8 @@ class FormRegisterCompanyPage extends StatefulWidget {
 class _FormRegisterCompanyPage
     extends BaseState<RegisterBloc, RegisterState, FormRegisterCompanyPage> {
   var _passwordVisible = false;
+  late RegisterModel _registerModel;
+  var _keyFormCompany = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,12 +43,12 @@ class _FormRegisterCompanyPage
                     onTap: () {
                       // Get.toNamed(PageRouting.REGISTER_COMPANY);
                     },
-                    child: buttonLogin())))
+                    child: buttonRegister())))
       ],
     ));
   }
 
-  Widget buttonLogin() {
+  Widget buttonRegister() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
@@ -62,66 +70,147 @@ class _FormRegisterCompanyPage
   }
 
   Widget formUser() {
-    return Column(
-      children: [
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Name', Icons.business_sharp, false),
+    return Form(
+      key: _keyFormCompany,
+      child: Column(
+        children: [
+          Container(
+            child: TextFormField(
+              decoration: fieldDecoration('Name', Icons.business_sharp, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyName = value;
+                return null;
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Email', Icons.email, false),
+          SizedBox(
+            height: 10,
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Phone', Icons.phone, false),
+          Container(
+            child: TextFormField(
+              decoration: fieldDecoration('Email', Icons.email, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyEmail = value;
+                return null;
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Company Address', Icons.domain, false),
+          SizedBox(
+            height: 10,
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Company City', Icons.domain, false),
+          Container(
+            child: TextFormField(
+              decoration: fieldDecoration('Phone', Icons.phone, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyPhone = value;
+                return null;
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Company Country', Icons.domain, false),
+          SizedBox(
+            height: 10,
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration(
-                'Location (Optional)', Icons.location_pin, false),
+          Container(
+            child: TextFormField(
+              decoration:
+                  fieldDecoration('Company Address', Icons.domain, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyAddress = value;
+                return null;
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-      ],
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: TextFormField(
+              decoration: fieldDecoration('Company City', Icons.domain, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyCity = value;
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: TextFormField(
+              decoration:
+                  fieldDecoration('Company Country', Icons.domain, false),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                _registerModel.companyCountry = value;
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: fieldDecoration(
+                        'Location (Optional)', Icons.location_pin, false),
+                    validator: (value) {
+                      _registerModel.companyLocation = value;
+                      return null;
+                    },
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlacePicker(
+                          apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
+                          onPlacePicked: (result) {
+                            print(result);
+                            Navigator.of(context).pop();
+                          },
+                          useCurrentLocation: true,
+                          initialPosition: LatLng(6.2088, 106.8456),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    color: Colors.blueGrey,
+                    child: Icon(Icons.location_pin),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 
@@ -180,6 +269,7 @@ class _FormRegisterCompanyPage
   @override
   void initState() {
     super.initState();
+    _registerModel = widget.registerModel;
     // bloc.pushEvent(GetDataLogin("-", "-"));
   }
 

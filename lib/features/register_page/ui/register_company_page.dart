@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
+import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
 import '../../../core/widget/styling.dart';
 import '../bloc/register_bloc.dart';
 import 'widget/form_register_company.dart';
@@ -11,6 +13,8 @@ class RegisterCompanyPage extends StatefulWidget {
 }
 
 class _RegisterCompanyPage extends State<RegisterCompanyPage> {
+  late RegisterModel _registerModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,7 @@ class _RegisterCompanyPage extends State<RegisterCompanyPage> {
           padding: const EdgeInsets.all(20.0),
           child: body(),
         ),
-        Expanded(child: FormRegisterCompanyPage())
+        Expanded(child: FormRegisterCompanyPage(registerModel: _registerModel))
       ],
     )));
   }
@@ -58,5 +62,11 @@ class _RegisterCompanyPage extends State<RegisterCompanyPage> {
   @override
   void initState() {
     super.initState();
+    try {
+      _registerModel = Get.arguments;
+      print(_registerModel);
+    } catch (e) {
+      print(e);
+    }
   }
 }

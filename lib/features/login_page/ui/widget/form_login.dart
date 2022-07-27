@@ -15,19 +15,37 @@ class FormLoginPage extends StatefulWidget {
 }
 
 class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
-  var _passwordVisible = false;
+  var _passwordNotVisible = true;
+  var _emailController = new TextEditingController();
+  var _passwordController = new TextEditingController();
+  var _formLogin = new GlobalKey<FormState>();
+  late var _mainContext;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext mainContext) {
+    _mainContext = mainContext;
     return Container(
         child: Column(
       children: [
         formLogin(),
         Expanded(
             child: Container(
-                alignment: Alignment.bottomCenter, child: buttonLogin()))
+          alignment: Alignment.bottomCenter,
+          child: StreamBuilder<LoginState>(
+              stream: bloc.stateStream,
+              initialData: InitState(),
+              builder: (blocCtx, snapshot) => mapStateHandler(snapshot.data)),
+        ))
       ],
     ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   Widget buttonLogin() {
@@ -35,7 +53,13 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
       padding: const EdgeInsets.all(20.0),
       child: GestureDetector(
         onTap: () {
-          Get.offAllNamed(PageRouting.HOME);
+          if (_formLogin.currentState != null) {
+            if (_formLogin.currentState!.validate()) {
+              bloc.pushEvent(LoginProcess(_emailController.text.toString(),
+                  _passwordController.text.toString(), _mainContext));
+            }
+            // Get.offAllNamed(PageRouting.HOME);
+          }
         },
         child: Container(
           decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
@@ -52,23 +76,40 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
   }
 
   Widget formLogin() {
-    return Column(
-      children: [
-        Container(
-          child: TextFormField(
-            decoration: fieldDecoration('Email', Icons.email, false),
+    return Form(
+      key: _formLogin,
+      child: Column(
+        children: [
+          Container(
+            child: TextFormField(
+              decoration: fieldDecoration('Email', Icons.email, false),
+              controller: _emailController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Name cannot be empty';
+                }
+                return null;
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: TextFormField(
-            obscureText: _passwordVisible,
-            decoration: fieldDecoration('Password', Icons.lock, true),
+          SizedBox(
+            height: 10,
           ),
-        ),
-      ],
+          Container(
+            child: TextFormField(
+              obscureText: _passwordNotVisible,
+              decoration: fieldDecoration('Password', Icons.lock, true),
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Password cannot be empty';
+                }
+                return null;
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -86,13 +127,13 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
           ? IconButton(
               icon: Icon(
                   // Based on passwordVisible state choose the icon
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  _passwordNotVisible ? Icons.visibility_off : Icons.visibility,
                   color: MyCons.darkModeEnabled
                       ? Colors.white
                       : MyColors.mainColor),
               onPressed: () {
                 setState(() {
-                  _passwordVisible = !_passwordVisible;
+                  _passwordNotVisible = !_passwordNotVisible;
                 });
               },
             )
@@ -146,6 +187,15 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
 
   @override
   Widget mapStateHandler(LoginState? state) {
+    if (state is LoadingState) {
+      return CircularProgressIndicator(
+        color: MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
+      );
+      // return buttonLogin();
+    }
+
+    return buttonLogin();
+
     // if (state is SuccessGetDataUser) {
     //   return Column(
     //     children: [
@@ -163,6 +213,5 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
     // } else {
     //   return Center(child: CircularProgressIndicator());
     // }
-    return Container();
   }
 }

@@ -9,6 +9,7 @@ class LoggingInterceptor extends Interceptor {
     print(
         "${dioError.response != null ? dioError.response?.data : 'Unknown Error'}");
     print("<-- End error");
+    handler.next(dioError);
   }
 
   @override
@@ -20,5 +21,6 @@ class LoggingInterceptor extends Interceptor {
     if (MyCons.IS_DEBUG) response.headers.forEach((k, v) => print('$k: $v'));
     print("Response: ${response.data}");
     print("<-- END HTTP");
+    handler.next(response);
   }
 }

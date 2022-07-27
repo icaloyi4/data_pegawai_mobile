@@ -8,7 +8,7 @@ import 'logging_interceptors.dart';
 class DioModule with DioMixin implements Dio {
   DioModule() {
     options = BaseOptions(
-      baseUrl: FlavorConfig.isProduction() ? ApiUrl.baseUrl : ApiUrl.baseUrlDev,
+      baseUrl: ApiUrl.baseUrl,
       contentType: 'application/json',
       connectTimeout: 30000,
       sendTimeout: 30000,

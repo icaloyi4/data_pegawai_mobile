@@ -51,7 +51,7 @@ class _UserPage extends State<UserPage> {
                   ),
                 ),
                 Text(
-                  "Human Resource Supervisor",
+                  "${(MyCons.dataUser?.position != null) ? MyCons.dataUser?.position?.name : "Not Assigned"}",
                   style: styleHeader(
                       color: Colors.white,
                       textStyleWeight: TextStyleWeight.body),

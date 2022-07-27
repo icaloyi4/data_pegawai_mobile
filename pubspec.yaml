@@ -31,24 +31,34 @@ dependencies:
   animate_do: ^2.1.0
   cupertino_icons: ^1.0.2
   cool_alert: ^1.1.0
+  date_time_picker: ^2.1.0
   dio: ^4.0.4
   dots_indicator: ^2.1.0
   # Bloc for state management
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^7.0.1
   fluttertoast: ^8.0.8
   get: ^4.6.1
   google_fonts: ^2.2.0
+  google_maps_flutter: ^2.1.8
+  geolocator: any
+  # google_map_location_picker: ^4.1.7
+  google_maps_place_picker_mb: ^2.0.0-mb.20
   intl: ^0.17.0
   # Local Database
   moor_flutter: ^4.0.0
   # Dependency Injector
   kiwi: ^4.0.1
-  package_info: ^2.0.2
+  package_info_plus: ^1.4.2
   persistent_bottom_nav_bar: ^4.0.2
   # Local cache
   shared_preferences: ^2.0.12
   shimmer: ^2.0.0
   slide_digital_clock: ^1.0.2
+  # weather_icons: ^3.0.0
+  weather: ^2.0.1
+
+flutter_localizations:
+  sdk: flutter
 
 dev_dependencies:
   flutter_test:

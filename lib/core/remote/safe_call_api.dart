@@ -9,6 +9,7 @@ Future<Result<T>> safeCallApi<T>(
     var transform = converter!(response.data);
     return Result.success(transform);
   } on DioError catch (e) {
+    print(e);
     return Result.error(
         e.type, e.response?.statusCode ??= 500, e.response?.data);
   }

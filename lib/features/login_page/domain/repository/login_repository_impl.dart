@@ -1,4 +1,4 @@
-
+import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 
 import '../../data/local/login_local_source.dart';
 import '../../data/remote/login_remote_source.dart';
@@ -9,6 +9,22 @@ class LoginRepositoryImpl implements LoginRepository {
   final LoginLocalSource _localSource;
 
   LoginRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  Future<void> login(String email, password,
+      {Function(LoginResponse? user)? onSuccess,
+      Function(String? message, int? code)? onError}) async {
+    try {
+      var response = await _remoteSource.login(email, password);
+      if (response.body?.code == 200) {
+        onSuccess!(response.body);
+      } else {
+        onError!(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError!("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

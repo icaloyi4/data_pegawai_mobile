@@ -1,6 +1,7 @@
 import 'package:ojrek_hris/core/error/error_result.dart';
 import 'package:ojrek_hris/core/remote/safe_call_api.dart';
 import 'package:dio/dio.dart';
+import '../assets/my_cons.dart';
 import 'dio_model.dart';
 
 abstract class BaseRemote {
@@ -14,12 +15,14 @@ abstract class BaseRemote {
     if (headers == null) {
       headers = {
         "Accept": "application/json",
-        // "Authorization": "${MyCons.user.prefix} ${MyCons.user.token}"
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MyCons.dataUser?.token}"
       };
     } else {
       headers.putIfAbsent("Accept", () => "application/json");
-      // headers.putIfAbsent(
-      //     "Authorization", () => "${MyCons.user.prefix} ${MyCons.user.token}");
+      headers.putIfAbsent("Content-Type", () => "application/json");
+      headers.putIfAbsent(
+          "Authorization", () => "Bearer ${MyCons.dataUser?.token}");
     }
     Options opsi = Options(headers: headers);
     var response =
@@ -36,16 +39,21 @@ abstract class BaseRemote {
     if (headers == null) {
       headers = {
         "Accept": "application/json",
-        // "Authorization": "${MyCons.user.prefix} ${MyCons.user.token}"
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MyCons.dataUser?.token}"
       };
     } else {
       headers.putIfAbsent("Accept", () => "application/json");
-      // headers.putIfAbsent(
-      //     "Authorization", () => "${MyCons.user.prefix} ${MyCons.user.token}");
+      headers.putIfAbsent("Content-Type", () => "application/json");
+      headers.putIfAbsent(
+          "Authorization", () => "Bearer ${MyCons.dataUser?.token}");
     }
     Options opsi = Options(headers: headers);
+    // var responsenya = await _dio.post(endpoint, data: data, options: opsi);
+    // print(responsenya);
     var response = await safeCallApi(
         _dio.post(endpoint, data: data, options: opsi), converter);
+
     return response;
   }
 
@@ -58,11 +66,13 @@ abstract class BaseRemote {
     if (headers == null) {
       headers = {
         "Accept": "application/json",
+        'Content-Type': 'application/json',
         // "Authorization":
         //     "${ApiUrl.PREFIX} ${FlavorConfig.isProduction() ? ApiUrl.TOKEN_PROD : ApiUrl.TOKEN_DEV}"
       };
     } else {
       headers.putIfAbsent("Accept", () => "application/json");
+      headers.putIfAbsent("Content-Type", () => "application/json");
       // headers.putIfAbsent(
       //     "Authorization",
       //     () =>

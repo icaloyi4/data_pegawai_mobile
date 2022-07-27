@@ -3,11 +3,8 @@ part of 'user_bloc.dart';
 @immutable
 abstract class UserEvent extends BlocEvent {}
 
-class GetDataUser extends UserEvent {
-  final String startDate;
-  final String endDate;
+class Logout extends UserEvent {
+  final BuildContext context;
 
-  GetDataUser(this.startDate, this.endDate);
+  Logout(this.context);
 }
-
-class Logout extends UserEvent {}

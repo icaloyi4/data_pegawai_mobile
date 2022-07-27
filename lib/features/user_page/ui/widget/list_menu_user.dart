@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
-import 'package:ojrek_hris/core/routing/page_routing.dart';
+import 'package:ojrek_hris/core/base/base_stateful.dart';
+import 'package:ojrek_hris/core/utils/utils.dart';
+import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
+import 'package:ojrek_hris/features/user_page/bloc/user_bloc.dart';
 
 import '../../../../core/assets/my_cons.dart';
 import '../../../../core/widget/styling.dart';
 
-class ListMenu extends StatelessWidget {
-  late BuildContext _buildContext;
+class ListMenu extends StatefulWidget {
+  @override
+  _ListMenu createState() => _ListMenu();
+}
+
+class _ListMenu extends BaseState<UserBloc, UserState, ListMenu> {
   @override
   Widget build(BuildContext context) {
-    _buildContext = context;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -19,7 +25,7 @@ class ListMenu extends StatelessWidget {
           Container(
             color: MyCons.darkModeEnabled ? Colors.blueGrey[200] : Colors.white,
             child: ExpansionTile(
-              textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600]  : null,
+              textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
               title: textWithIcon(
                   icon: CupertinoIcons.building_2_fill,
                   iconCustomColor: MyCons.darkModeEnabled
@@ -27,9 +33,23 @@ class ListMenu extends StatelessWidget {
                       : MyColors.mainColor,
                   text: "Company Profile"),
               children: [
-                listItem("Company", "Lunartecno.id"),
-                listItem("Address", "Jalan Sidarta Gautama 17, Bali"),
-                listItem("Department", "Human Resource Department"),
+                listItem(
+                    "Company", cekNullorEmpty(MyCons.dataUser?.company?.name)),
+                listItem(
+                    "Phone", cekNullorEmpty(MyCons.dataUser?.company?.phone)),
+                listItem(
+                    "Email", cekNullorEmpty(MyCons.dataUser?.company?.email)),
+                listItem("Address",
+                    cekNullorEmpty(MyCons.dataUser?.company?.address)),
+                listItem(
+                    "City", cekNullorEmpty(MyCons.dataUser?.company?.city)),
+                listItem("Location",
+                    cekNullorEmpty(MyCons.dataUser?.company?.location)),
+                listItem("Department",
+                    cekNullorEmpty(MyCons.dataUser?.department?.name)),
+                // (MyCons.dataUser?.department?.name != null)
+                //     ? listItem("Department", MyCons.dataUser?.department?.name)
+                //     : Container(),
               ],
             ),
           ),
@@ -47,9 +67,15 @@ class ListMenu extends StatelessWidget {
                       : MyColors.mainColor,
                   text: "User Profile"),
               children: [
-                listItem("Company", "Lunartecno.id"),
-                listItem("Address", "Jalan Sidarta Gautama 17, Bali"),
-                listItem("Department", "Human Resource Department"),
+                listItem("NIK", cekNullorEmpty(MyCons.dataUser?.user?.nIK)),
+                listItem("Phone", cekNullorEmpty(MyCons.dataUser?.user?.phone)),
+                listItem("Email", cekNullorEmpty(MyCons.dataUser?.user?.email)),
+                listItem(
+                    "Address", cekNullorEmpty(MyCons.dataUser?.user?.address)),
+                listItem("Birthday",
+                    cekNullorEmpty(MyCons.dataUser?.user?.birthday)),
+                listItem(
+                    "Join At", cekNullorEmpty(MyCons.dataUser?.user?.joinAt)),
               ],
             ),
           ),
@@ -96,19 +122,15 @@ class ListMenu extends StatelessWidget {
                             ? Colors.blueGrey[200]
                             : null),
                     child: GestureDetector(
-                      onTap: () {
-                        Get.offAllNamed(PageRouting.LOGIN);
-                      },
-                      child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: textWithIcon(
-                              icon: CupertinoIcons.square_arrow_left_fill,
-                              iconCustomColor: MyCons.darkModeEnabled
-                                  ? Colors.blueGrey
-                                  : MyColors.mainColor,
-                              text: "Sign Out",
-                              textStyle: styleHeader(color: Colors.red))),
-                    ),
+                        onTap: () {
+                          bloc.pushEvent(Logout(context));
+                          // Get.offAllNamed(PageRouting.LOGIN);
+                        },
+                        child: StreamBuilder<UserState>(
+                            stream: bloc.stateStream,
+                            initialData: InitState(),
+                            builder: (blocCtx, snapshot) =>
+                                mapStateHandler(snapshot.data))),
                   ),
                 ],
               )),
@@ -137,7 +159,7 @@ class ListMenu extends StatelessWidget {
     );
   }
 
-  Widget listItem(String title, String subtitle) {
+  Widget listItem(String? title, String? subtitle) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -147,9 +169,9 @@ class ListMenu extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: MediaQuery.of(_buildContext).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: Text(
-                  title,
+                  "$title",
                   style: TextStyle(fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -159,7 +181,7 @@ class ListMenu extends StatelessWidget {
               ),
               Expanded(
                   child: Text(
-                subtitle,
+                "$subtitle",
                 style: styleHeader(textStyleWeight: TextStyleWeight.body),
                 overflow: TextOverflow.ellipsis,
               ))
@@ -168,5 +190,22 @@ class ListMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  UserBloc initBloc() {
+    return KiwiContainer().resolve<UserBloc>();
+  }
+
+  @override
+  Widget mapStateHandler(UserState? state) {
+    return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: textWithIcon(
+            icon: CupertinoIcons.square_arrow_left_fill,
+            iconCustomColor:
+                MyCons.darkModeEnabled ? Colors.blueGrey : MyColors.mainColor,
+            text: "Sign Out",
+            textStyle: styleHeader(color: Colors.red)));
   }
 }

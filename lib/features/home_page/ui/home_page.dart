@@ -34,7 +34,7 @@ class _HomePage extends State<HomePage> {
                   height: 20,
                 ),
                 //Weather
-                Weather(),
+                WeatherCard(),
                 SizedBox(
                   height: 15,
                 ),

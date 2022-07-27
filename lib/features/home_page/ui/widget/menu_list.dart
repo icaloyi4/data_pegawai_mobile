@@ -25,6 +25,7 @@ class _MenuList extends State<MenuList> {
     _menu.add(new CardMenuModel("Parking", "", CupertinoIcons.car_fill, null));
     _menu.add(new CardMenuModel(
         "Training", "", CupertinoIcons.book_circle_fill, null));
+    _menu.add(new CardMenuModel("To Do", "", CupertinoIcons.list_bullet, null));
     _menu.add(new CardMenuModel(
         "Report", "", CupertinoIcons.chart_bar_square_fill, null));
     super.initState();

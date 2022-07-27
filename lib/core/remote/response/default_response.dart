@@ -1,21 +1,26 @@
 class DefaultResponse {
-  dynamic? data;
+  bool? status;
+  int? code;
   String? message;
-  int? status;
+  dynamic data;
 
-  DefaultResponse({this.data, this.message, this.status});
+  DefaultResponse({this.status, this.code, this.message, this.data});
 
   DefaultResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'];
-    message = json['message'];
     status = json['status'];
+    code = json['code'];
+    message = json['message'];
+    data = json['data']=null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['data'] = this.data;
-    data['message'] = this.message;
     data['status'] = this.status;
+    data['code'] = this.code;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
     return data;
   }
 }

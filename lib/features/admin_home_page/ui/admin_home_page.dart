@@ -17,11 +17,16 @@ class _AdminHomePage extends State<AdminHomePage> {
   @override
   void initState() {
     // TODO: implement initState
+    _menu.add(new CardMenuModel(
+        "Announcement", "", CupertinoIcons.bell_circle_fill, null));
 
     _menu.add(
         new CardMenuModel("Company", "", CupertinoIcons.building_2_fill, null));
     _menu.add(new CardMenuModel(
         "Department", "", CupertinoIcons.briefcase_fill, null));
+    _menu.add(new CardMenuModel(
+        "FAQ", "", CupertinoIcons.question_circle_fill, null));
+    _menu.add(new CardMenuModel("News", "", CupertinoIcons.news, null));
     _menu
         .add(new CardMenuModel("User", "", CupertinoIcons.person_3_fill, null));
     super.initState();
@@ -33,7 +38,7 @@ class _AdminHomePage extends State<AdminHomePage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.5,
-        title: Text("Lunartechno.id",
+        title: Text("${MyCons.dataUser?.company?.name}",
             style: styleHeader(
                 textStyleWeight: TextStyleWeight.Title3,
                 color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),

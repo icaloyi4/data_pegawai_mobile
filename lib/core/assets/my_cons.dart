@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../features/login_page/data/remote/login_response.dart';
+
 class MyCons {
   MyCons._();
   static String appVersion = "";
@@ -16,6 +18,10 @@ class MyCons {
   static bool IS_EMPLOYEE = true;
   static bool IS_DEBUG = false;
   static bool isSubscribe = false;
+  static String MAP_API_KEY = "AIzaSyApqRm9TawpEXnVEmMuMXi9gWvETcMh7-I";
+  static String WEATHER_API_KEY = "ae450429b599f03b9e4fc827c962f110";
+
+  static DataUser? dataUser;
 
   //Date Format
   static const String DATETIME_FORMAT_SERVER = "yyyy-MM-dd HH:mm:ss";

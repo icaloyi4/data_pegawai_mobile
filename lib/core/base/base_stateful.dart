@@ -16,7 +16,7 @@ abstract class BaseState<B extends BaseBloc, BS extends BlocState,
   @override
   void initState() {
     bloc = initBloc();
-    final window = WidgetsBinding.instance!.window;
+    final window = WidgetsBinding.instance.window;
     window.onPlatformBrightnessChanged = () {
       // This callback gets invoked every time brightness changes
       final brightness = window.platformBrightness;
@@ -44,6 +44,6 @@ abstract class BaseState<B extends BaseBloc, BS extends BlocState,
   }
 
   void executeUiAfterBuild(FrameCallback frameCallback) {
-    WidgetsBinding.instance!.addPostFrameCallback(frameCallback);
+    WidgetsBinding.instance.addPostFrameCallback(frameCallback);
   }
 }

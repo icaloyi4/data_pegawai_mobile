@@ -1,5 +1,3 @@
-
-
 import '../../data/local/user_local_source.dart';
 import '../../data/remote/user_remote_source.dart';
 import 'user_repository.dart';
@@ -9,6 +7,22 @@ class UserRepositoryImpl implements UserRepository {
   final UserLocalSource _localSource;
 
   UserRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  Future<void> logout(
+      {Function()? onSuccess,
+      Function(String message, int code)? onError}) async {
+    try {
+      var response = await _remoteSource.logout();
+      if (response.body?.code == 200) {
+        onSuccess!();
+      } else {
+        onError!(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError!("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

@@ -11,3 +11,5 @@ class GetDataHome extends HomeEvent {
 }
 
 class Logout extends HomeEvent {}
+
+class InitWeather extends HomeEvent {}

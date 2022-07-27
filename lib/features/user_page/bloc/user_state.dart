@@ -5,6 +5,10 @@ abstract class UserState extends BlocState {}
 
 class LoadingState extends UserState {}
 
+class LogoutState extends UserState {}
+
+class InitState extends UserState {}
+
 // class SuccessGetDataUser extends UserState {
 //   final usr.UserData user;
 //   final List<OvertimeData> overtime;

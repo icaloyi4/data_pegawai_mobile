@@ -73,17 +73,38 @@ class _MainPage extends State<MainPage> {
   }
 
   List<Widget> _buildScreens() {
-    return [AdminHomePage(), HomePage(), UserPage()];
+    if (MyCons.dataUser!.user!.roleId == 1)
+      return [AdminHomePage(), HomePage(), UserPage()];
+    return [HomePage(), UserPage()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.group),
-          title: ("Company"),
+    if (MyCons.dataUser!.user!.roleId == 1) {
+      return [
+        PersistentBottomNavBarItem(
+            icon: Icon(CupertinoIcons.group),
+            title: ("Company"),
+            activeColorPrimary:
+                MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
+            inactiveColorPrimary: CupertinoColors.systemGrey),
+        PersistentBottomNavBarItem(
+          icon: Icon(CupertinoIcons.home),
+          title: ("Home"),
           activeColorPrimary:
               MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
-          inactiveColorPrimary: CupertinoColors.systemGrey),
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(CupertinoIcons.person),
+          title: ("Profile"),
+          activeColorPrimary:
+              MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),
+      ];
+    }
+
+    return [
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
         title: ("Home"),
@@ -97,7 +118,7 @@ class _MainPage extends State<MainPage> {
         activeColorPrimary:
             MyCons.darkModeEnabled ? Colors.white : MyColors.mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
+      )
     ];
   }
 }
