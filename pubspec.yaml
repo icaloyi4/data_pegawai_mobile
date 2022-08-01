@@ -43,6 +43,7 @@ dependencies:
   geolocator: any
   # google_map_location_picker: ^4.1.7
   google_maps_place_picker_mb: ^2.0.0-mb.20
+  grouped_list: ^5.1.2
   intl: ^0.17.0
   # Local Database
   moor_flutter: ^4.0.0

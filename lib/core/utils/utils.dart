@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -186,6 +188,19 @@ String messageHeader() {
   return "Have a good rest, you had a wonderful day today";
 }
 
+String getInitial({String? value, required String pattern}) {
+  if (value != null) {
+    var splitter = value.split(pattern);
+    if (splitter.length == 1) {
+      return value.substring(0, 2).toUpperCase();
+    } else {
+      return splitter[0].toString().substring(0, 1).toUpperCase() +
+          splitter[1].toString().substring(0, 1).toUpperCase();
+    }
+  }
+  return "";
+}
+
 // String cekDayType(String date,
 //     {String format = "yyyy-MM-dd", List<HolidayData> holidayData}) {
 //   var now = parseStringtoDate(date: date, format: format);
@@ -209,4 +224,15 @@ bool cekRegexValidation(String text) {
     return true;
   }
   return false;
+}
+
+String randomPassword() {
+  const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+  return getRandomString(9);
 }

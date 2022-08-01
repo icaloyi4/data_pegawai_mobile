@@ -24,29 +24,46 @@ class UserBloc extends BaseBloc<UserEvent, UserState> {
   @override
   void mapEventToState(UserEvent event) {
     if (event is Logout) {
-      logout(event);
+      logout(event: event, repos: _repos);
     }
   }
 
-  void logout(Logout event) async {
+  static void logout({Logout? event, UserRepository? repos}) async {
     // emitState(LoadingState());
-    AlertMessage.showAlert(event.context,
-        message: "Loading ....", type: CoolAlertType.loading);
-    await _repos.logout(
-      onSuccess: () async {
-        var settingService = await SettingService.getService();
-        String? data = await settingService?.get(MyCons.myUser);
-        if (data != null) {
-          settingService?.del(MyCons.myUser);
-        }
-        Get.offAllNamed(PageRouting.WELCOME);
-      },
-      onError: (message, code) {
-        AlertMessage.showAlert(event.context,
-            title: "Login Failed",
-            message: "[$code] $message",
-            type: CoolAlertType.error);
-      },
-    );
+    if (event != null) {
+      AlertMessage.showAlert(event.context,
+          message: "Loading ....", type: CoolAlertType.loading);
+      await repos?.logout(
+        onSuccess: () async {
+          var settingService = await SettingService.getService();
+          String? data = await settingService?.get(MyCons.myUser);
+          if (data != null) {
+            settingService?.del(MyCons.myUser);
+          }
+          Get.offAllNamed(PageRouting.WELCOME);
+        },
+        onError: (message, code) async {
+          AlertMessage.showAlert(event.context,
+              title: "Login Failed",
+              message: "[$code] $message",
+              type: CoolAlertType.error);
+          if (code == 401) {
+            var settingService = await SettingService.getService();
+            String? data = await settingService?.get(MyCons.myUser);
+            if (data != null) {
+              settingService?.del(MyCons.myUser);
+            }
+            Get.offAllNamed(PageRouting.WELCOME);
+          }
+        },
+      );
+    } else {
+      var settingService = await SettingService.getService();
+      String? data = await settingService?.get(MyCons.myUser);
+      if (data != null) {
+        settingService?.del(MyCons.myUser);
+      }
+      Get.offAllNamed(PageRouting.WELCOME);
+    }
   }
 }

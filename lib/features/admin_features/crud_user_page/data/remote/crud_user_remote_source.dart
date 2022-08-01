@@ -1,0 +1,32 @@
+import 'package:ojrek_hris/core/remote/base_remote.dart';
+import 'package:dio/dio.dart';
+import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_department_position_response.dart';
+import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_user_response.dart';
+
+import '../../../../../core/error/error_result.dart';
+import '../../../../../core/remote/dio_model.dart';
+
+class CrudUserRemoteSource extends BaseRemote {
+  CrudUserRemoteSource(Dio dio) : super(dio);
+
+  Future<Result<GetUserResponse>> getUser() async {
+    var getUser;
+    var url =
+        "${ApiUrl.getUser}";
+    final result = await getMethod(
+      url,
+      converter: (response) => GetUserResponse.fromJson(response),
+    );
+    return result;
+  }
+  Future<Result<GetDepartmentPositionResponse>> getDeptPos() async {
+    var getUser;
+    var url =
+        "${ApiUrl.getDepartmentPosition}";
+    final result = await getMethod(
+      url,
+      converter: (response) => GetDepartmentPositionResponse.fromJson(response),
+    );
+    return result;
+  }
+}

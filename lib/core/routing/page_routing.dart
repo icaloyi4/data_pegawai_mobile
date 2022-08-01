@@ -6,8 +6,10 @@ class PageRouting {
   static const REGISTER = "/register";
   static const REGISTER_COMPANY = "/register-company";
   static const REGISTER_SUCCESS = "/register-success";
-  static const FORMOVERTIME = "/form-overtime";
+  static const CRUD_USER = "/crud-user";
   static const OVERTIME = "/overtime";
   static const DETAIL_OVERTIME = "/detail-overtime";
   static const SETTING = "/setting";
+
+  static const ADD_USER = "/add-user";
 }

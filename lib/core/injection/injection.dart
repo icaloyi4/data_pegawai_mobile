@@ -1,6 +1,11 @@
 import 'package:ojrek_hris/core/remote/dio_module.dart';
 import 'package:dio/dio.dart';
 import 'package:kiwi/kiwi.dart';
+import '../../features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
+import '../../features/admin_features/crud_user_page/data/local/crud_user_local_source.dart';
+import '../../features/admin_features/crud_user_page/data/remote/crud_user_remote_source.dart';
+import '../../features/admin_features/crud_user_page/domain/repository/crud_user_repository.dart';
+import '../../features/admin_features/crud_user_page/domain/repository/crud_user_repository_impl.dart';
 import '../../features/home_page/bloc/home_bloc.dart';
 import '../../features/home_page/data/local/home_local_source.dart';
 import '../../features/home_page/data/remote/home_remote_source.dart';
@@ -67,6 +72,14 @@ abstract class Injection {
       from: HomeRepositoryImpl,
       resolvers: {HomeRemoteSource: "", HomeLocalSource: ""})
   @Register.factory(HomeBloc, resolvers: {HomeRepository: ""})
+
+  //CRUD USER
+  @Register.singleton(CrudUserRemoteSource, resolvers: {Dio: ""})
+  @Register.singleton(CrudUserLocalSource)
+  @Register.singleton(CrudUserRepository,
+      from: CrudUserRepositoryImpl,
+      resolvers: {CrudUserRemoteSource: "", CrudUserLocalSource: ""})
+  @Register.factory(CrudUserBloc, resolvers: {CrudUserRepository: ""})
   
   void configure();
 }

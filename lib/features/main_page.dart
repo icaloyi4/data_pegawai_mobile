@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ojrek_hris/core/widget/styling.dart';
-import 'package:ojrek_hris/features/admin_home_page/ui/admin_home_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../core/assets/my_color.dart';
 import '../core/assets/my_cons.dart';
+import 'admin_features/admin_home_page/ui/admin_home_page.dart';
 import 'home_page/ui/home_page.dart';
 import 'user_page/ui/user_page.dart';
 
@@ -16,6 +15,15 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   PersistentTabController? _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (MyCons.dataUser!.user!.roleId == 1)
+      _controller = PersistentTabController(initialIndex: 1);
+    else
+      _controller = PersistentTabController(initialIndex: 0);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -14,8 +14,8 @@ class _$Injection extends Injection {
       ..registerSingleton<Dio>((c) => DioModule())
       ..registerSingleton((c) => LoginRemoteSource(c<Dio>()))
       ..registerSingleton((c) => LoginLocalSource())
-      ..registerSingleton<LoginRepository>((c) =>
-          LoginRepositoryImpl(c<LoginRemoteSource>(), c<LoginLocalSource>()))
+      ..registerSingleton<LoginRepository>((c) => LoginRepositoryImpl(
+          c<LoginRemoteSource>(), c<LoginLocalSource>()))
       ..registerFactory((c) => LoginBloc(c<LoginRepository>()))
       ..registerSingleton((c) => RegisterRemoteSource(c<Dio>()))
       ..registerSingleton((c) => RegisterLocalSource())
@@ -31,6 +31,11 @@ class _$Injection extends Injection {
       ..registerSingleton((c) => HomeLocalSource())
       ..registerSingleton<HomeRepository>((c) =>
           HomeRepositoryImpl(c<HomeRemoteSource>(), c<HomeLocalSource>()))
-      ..registerFactory((c) => HomeBloc(c<HomeRepository>()));
+      ..registerFactory((c) => HomeBloc(c<HomeRepository>()))
+      ..registerSingleton((c) => CrudUserRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => CrudUserLocalSource())
+      ..registerSingleton<CrudUserRepository>((c) => CrudUserRepositoryImpl(
+          c<CrudUserRemoteSource>(), c<CrudUserLocalSource>()))
+      ..registerFactory((c) => CrudUserBloc(c<CrudUserRepository>()));
   }
 }

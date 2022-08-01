@@ -2,16 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
-import 'package:ojrek_hris/features/admin_home_page/data/entities/card_list_model.dart';
+import 'package:ojrek_hris/features/admin_features/admin_home_page/data/entities/card_list_model.dart';
 
-import '../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_cons.dart';
 
-class AdminHomePage extends StatefulWidget {
+
+
+class CrudPositionPage extends StatefulWidget {
   @override
-  _AdminHomePage createState() => _AdminHomePage();
+  _CrudPositionPage createState() => _CrudPositionPage();
 }
 
-class _AdminHomePage extends State<AdminHomePage> {
+class _CrudPositionPage extends State<CrudPositionPage> {
   List<CardMenuModel> _menu = [];
 
   @override

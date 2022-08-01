@@ -63,11 +63,11 @@ BoxDecoration styleBoxAll({bool withBorder = false}) {
 }
 
 BoxDecoration styleBoxAllWithColor(
-    {Color colors = Colors.transparent, Border? border}) {
+    {Color colors = Colors.transparent, BoxBorder? border}) {
   return BoxDecoration(
       color: colors,
       borderRadius: BorderRadius.all(Radius.circular(10)),
-      border: border);
+      border: border,);
 }
 
 InputDecoration fieldDecoration(String label,
