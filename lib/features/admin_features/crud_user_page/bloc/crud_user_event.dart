@@ -14,3 +14,27 @@ class GetDepartmenPosition extends CrudUserEvent {
 
   GetDepartmenPosition(this.context);
 }
+
+class InitEvent extends CrudUserEvent {}
+
+class RegisterUser extends CrudUserEvent {
+  final BuildContext context;
+  final DataUserRegister userInputModel;
+  final bool isUpdate;
+
+  RegisterUser(this.context, this.userInputModel, this.isUpdate);
+}
+
+class DeleteUser extends CrudUserEvent {
+  final BuildContext context;
+  final int idUser;
+
+  DeleteUser(this.context, this.idUser);
+}
+
+class FilterUser extends CrudUserEvent {
+  final String filter;
+  final List<usr.DataUserRegister> dataUser;
+
+  FilterUser(this.filter, this.dataUser);
+}

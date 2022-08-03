@@ -8,13 +8,15 @@ class GetUserResponse {
   late final bool status;
   late final int code;
   late final String message;
-  late final List<Data> data;
+  late final List<DataUserRegister> data;
 
   GetUserResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     code = json['code'];
     message = json['message'];
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    data = List.from(json['data'])
+        .map((e) => DataUserRegister.fromJson(e))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +29,7 @@ class GetUserResponse {
   }
 }
 
-class Data {
+class DataUserRegister {
   int? id;
   String? name;
   String? email;
@@ -45,7 +47,9 @@ class Data {
   String? position;
   int? level;
 
-  Data(
+  String? password;
+
+  DataUserRegister(
       {this.id,
       this.name,
       this.email,
@@ -61,9 +65,10 @@ class Data {
       this.nIK,
       this.department,
       this.position,
-      this.level});
+      this.level,
+      this.password});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataUserRegister.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -99,7 +104,8 @@ class Data {
     data['NIK'] = this.nIK;
     data['department'] = this.department;
     data['position'] = this.position;
-    data['level'] = this.level;
+    if(this.password!=null)data['level'] = this.level;
+    if(this.password!=null)data['password'] = this.password;
     return data;
   }
 }

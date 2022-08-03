@@ -12,4 +12,6 @@ class PageRouting {
   static const SETTING = "/setting";
 
   static const ADD_USER = "/add-user";
+
+  static const CRUD_DEPARTMENT = "/crud-department";
 }

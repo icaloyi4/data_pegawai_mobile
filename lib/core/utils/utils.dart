@@ -226,9 +226,9 @@ bool cekRegexValidation(String text) {
   return false;
 }
 
-String randomPassword() {
-  const _chars =
-      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+String randomPassword({String? stringOptional = ""}) {
+  String _chars =
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^&*()_+${stringOptional?.trim()}';
   Random _rnd = Random();
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(

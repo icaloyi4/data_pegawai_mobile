@@ -1,5 +1,6 @@
+import 'package:ojrek_hris/features/admin_features/crud_department_page/data/remote/get_department_position_response.dart';
 
-
+import '../../../../user_page/bloc/user_bloc.dart';
 import '../../data/local/crud_department_local_source.dart';
 import '../../data/remote/crud_department_remote_source.dart';
 import 'crud_department_repository.dart';
@@ -9,6 +10,27 @@ class CrudDepartmentRepositoryImpl implements CrudDepartmentRepository {
   final CrudDepartmentLocalSource _localSource;
 
   CrudDepartmentRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  getDepartmenPosition(
+      {required Function(List<DataDepartment> dept) onSuccess,
+      required Function(dynamic message, dynamic code) onError}) async {
+    try {
+      var response = await _remoteSource.getDeptPos();
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        if (response.body?.data != null) {
+          onSuccess(response.body!.data!);
+        }
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

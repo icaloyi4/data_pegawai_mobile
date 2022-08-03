@@ -4,10 +4,33 @@ part of 'crud_department_bloc.dart';
 abstract class CrudDepartmentState extends BlocState {}
 
 class LoadingState extends CrudDepartmentState {}
+class SuccesGetDepartmentFilter extends CrudDepartmentState {
+  final List<DataDepartment> dataDepartment;
 
-// class SuccessGetDataUser extends UserState {
-//   final usr.UserData user;
+  SuccesGetDepartmentFilter(this.dataDepartment);
+}
+
+class ErrorGetDepartment extends CrudDepartmentState {}
+
+class SuccesGetDeptPos extends CrudDepartmentState {
+  final List<DataDepartment> dataDept;
+
+  SuccesGetDeptPos(this.dataDept);
+}
+
+class ErrorRegisterDepartment extends CrudDepartmentState {}
+
+class ErrorDeleteDepartment extends CrudDepartmentState {}
+
+class SuccesRegisterDepartment extends CrudDepartmentState {}
+
+class ErrorDeptPos extends CrudDepartmentState {}
+
+class InitState extends CrudDepartmentState {}
+
+// class SuccessGetDataUser extends DepartmentState {
+//   final usr.DepartmentData Department;
 //   final List<OvertimeData> overtime;
 
-//   SuccessGetDataUser(this.user, this.overtime);
+//   SuccessGetDataDepartment(this.Department, this.overtime);
 // }

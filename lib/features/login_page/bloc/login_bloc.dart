@@ -46,7 +46,7 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       onError: (message, code) {
         emitState(ErrorLogin());
         AlertMessage.showAlert(event.context,
-            title: "Login Failed",
+            title: "Failed",
             message: "[$code] $message",
             type: CoolAlertType.error);
       },

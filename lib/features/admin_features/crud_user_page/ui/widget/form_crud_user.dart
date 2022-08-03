@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -7,12 +8,12 @@ import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
+import 'package:ojrek_hris/core/widget/cool_alert.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_department_position_response.dart';
-import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
+import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_user_response.dart';
 
 class FormCrudUserPage extends StatefulWidget {
   final List<Data>? dataDept;
@@ -29,7 +30,8 @@ class _FormCrudUserPage
   var _formKey = new GlobalKey<FormState>();
   late var _deptSelectedValue;
   late var _positionSelectedValue;
-  late RegisterModel _registerModel;
+  late DataUserRegister _userInputModel;
+  var _isUpdate = false;
 
   var dropdownValue = "";
 
@@ -47,30 +49,47 @@ class _FormCrudUserPage
         Card(
             child: Container(
                 alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.toNamed(PageRouting.REGISTER_COMPANY,
-                            arguments: _registerModel);
-                      }
-                    },
-                    child: buttonLogin())))
+                child: StreamBuilder<CrudUserState>(
+                    stream: bloc.stateStream,
+                    initialData: InitState(),
+                    builder: (blocCtx, snapshot) =>
+                        mapStateHandler(snapshot.data))))
       ],
     ));
   }
 
   Widget buttonLogin() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-        child: Text(
-          "Continue",
-          style: styleHeader(
-              color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    return GestureDetector(
+      onTap: () {
+        if (_formKey.currentState!.validate()) {
+          // Get.back();
+          AlertMessage.showAlert(
+            context,
+            message: "Are you sure?",
+            title: "Confirmation",
+            type: CoolAlertType.confirm,
+            onConfirm: () {
+              Get.back();
+              bloc.pushEvent(RegisterUser(context, _userInputModel, _isUpdate));
+            },
+            onCancel: () {
+              Get.back();
+            },
+          );
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+          child: Text(
+            "Continue",
+            style: styleHeader(
+                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+          ),
+          alignment: Alignment.center,
+          height: 50,
         ),
-        alignment: Alignment.center,
-        height: 50,
       ),
     );
   }
@@ -79,16 +98,32 @@ class _FormCrudUserPage
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
             child: TextFormField(
+              initialValue: _userInputModel.name,
               decoration: fieldDecoration('Name', Icons.person, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Name cannot be empty';
                 }
-                _registerModel.userName = value;
+                _userInputModel.name = value;
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: TextFormField(
+              initialValue: _userInputModel.nIK,
+              decoration: fieldDecoration(
+                  'Employee Identification Number (Optional)',
+                  Icons.card_membership,
+                  false),
+              validator: (value) {
+                _userInputModel.nIK = value;
                 return null;
               },
             ),
@@ -99,12 +134,30 @@ class _FormCrudUserPage
           Container(
             child: TextFormField(
               decoration: fieldDecoration('Email', Icons.email, false),
+              initialValue: _userInputModel.email,
+              enabled: !_isUpdate,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Email cannot be empty';
                 }
-                _registerModel.userEmail = value;
+                _userInputModel.email = value;
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: TextFormField(
+              decoration:
+                  fieldDecoration('Address', Icons.maps_home_work, false),
+              initialValue: _userInputModel.address,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              validator: (value) {
+                _userInputModel.address = value;
                 return null;
               },
             ),
@@ -141,6 +194,8 @@ class _FormCrudUserPage
                           setState(() {
                             _deptSelectedValue = value;
                             _positionSelectedValue = value?.position[0];
+                            _userInputModel.departmentId = value?.id;
+                            _userInputModel.positionId = value?.position[0].id;
                           });
                         },
                         items: widget.dataDept?.map((Data map) {
@@ -185,6 +240,7 @@ class _FormCrudUserPage
                         onChanged: (Position? newValue) {
                           setState(() {
                             _positionSelectedValue = newValue!;
+                            _userInputModel.positionId = newValue.id;
                           });
                         },
                         items: _deptSelectedValue.position
@@ -206,13 +262,15 @@ class _FormCrudUserPage
           ),
           Container(
             child: TextFormField(
+              initialValue: _userInputModel.phone,
+              enabled: !_isUpdate,
               decoration: fieldDecoration('Phone', Icons.phone, false),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Phone cannot be empty';
                 }
-                _registerModel.userPhone = value;
+                _userInputModel.phone = value;
                 return null;
               },
             ),
@@ -220,82 +278,97 @@ class _FormCrudUserPage
           SizedBox(
             height: 10,
           ),
-          Container(
-            child: TextFormField(
-              decoration: fieldDecoration('Password', Icons.lock, false),
-              controller: _passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Password cannot be empty';
-                }
-                if (value.length <= 8) {
-                  return 'Password minimal 8 character';
-                }
+          _isUpdate
+              ? Container()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      child: TextFormField(
+                        decoration:
+                            fieldDecoration('Password', Icons.lock, false),
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password cannot be empty';
+                          }
+                          if (value.length <= 8) {
+                            return 'Password minimal 8 character';
+                          }
 
-                _registerModel.password = value;
-                return null;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _passwordController.text = randomPassword();
-                  },
-                  child: Text(
-                    "Generate",
-                    style:
-                        styleHeader(textStyleWeight: TextStyleWeight.subtitle3),
-                  ),
+                          _userInputModel.password = value;
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, right: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _passwordController.text = randomPassword(
+                                  stringOptional: _userInputModel.name);
+                            },
+                            child: Text(
+                              "Generate",
+                              style: styleHeader(
+                                  textStyleWeight: TextStyleWeight.subtitle3),
+                            ),
+                          ),
+                          Text(
+                            " | ",
+                            style: styleHeader(
+                                textStyleWeight: TextStyleWeight.subtitle3),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(ClipboardData(
+                                      text: _passwordController.text))
+                                  .then((_) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: Colors.grey,
+                                        content: Text(
+                                            "Password copied to clipboard")));
+                              });
+                            },
+                            child: Text(
+                              "Copy",
+                              style: styleHeader(
+                                  textStyleWeight: TextStyleWeight.subtitle3),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
-                Text(
-                  " | ",
-                  style:
-                      styleHeader(textStyleWeight: TextStyleWeight.subtitle3),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Clipboard.setData(
-                            ClipboardData(text: _passwordController.text))
-                        .then((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.grey,
-                          content: Text("Password copied to clipboard")));
-                    });
-                  },
-                  child: Text(
-                    "Copy",
-                    style:
-                        styleHeader(textStyleWeight: TextStyleWeight.subtitle3),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
           DateTimePicker(
             icon: Icon(Icons.date_range),
             cursorColor: Colors.red,
             decoration:
                 fieldDecoration('Bithday (Optional)', Icons.date_range, false),
-            initialValue: '',
+            initialValue: _userInputModel.birthday,
             firstDate: DateTime(1900),
             lastDate: DateTime(2100),
             dateLabelText: 'Date',
-            onChanged: (val) => print(val),
+            onChanged: (val) {
+              _userInputModel.birthday = val;
+              print(val);
+            },
             validator: (val) {
               print(val);
 
               return null;
             },
             onSaved: (val) {
-              _registerModel.userBirthday = val;
+              _userInputModel.birthday = val;
               print(val);
             },
           ),
@@ -307,18 +380,21 @@ class _FormCrudUserPage
             cursorColor: Colors.red,
             decoration: fieldDecoration(
                 'Join Company At (Optional)', Icons.date_range, false),
-            initialValue: '',
+            initialValue: _userInputModel.joinAt,
             firstDate: DateTime(1900),
             lastDate: DateTime(2100),
             dateLabelText: 'Date',
-            onChanged: (val) => print(val),
+            onChanged: (val) {
+              print(val);
+              _userInputModel.joinAt = val;
+            },
             validator: (val) {
               print(val);
 
               return null;
             },
             onSaved: (val) {
-              _registerModel.userJoinAt = val;
+              _userInputModel.joinAt = val;
               print(val);
             },
           ),
@@ -386,15 +462,50 @@ class _FormCrudUserPage
   void initState() {
     super.initState();
     // bloc.pushEvent(GetDataLogin("-", "-"));
-    _deptSelectedValue = widget.dataDept?[0];
-    _positionSelectedValue = widget.dataDept?[0].position[0];
-    _passwordController.text = randomPassword();
-    _registerModel = new RegisterModel(
-        userName: "",
-        userEmail: "",
-        password: "",
-        passwordConfirmation: "",
-        userPhone: "");
+    if (Get.arguments == null) {
+      _deptSelectedValue = widget.dataDept?[0];
+      _positionSelectedValue = widget.dataDept?[0].position[0];
+      _passwordController.text = randomPassword();
+      _userInputModel = new DataUserRegister(
+          email: '',
+          departmentId: _deptSelectedValue.id,
+          positionId: _positionSelectedValue.id,
+          password: '',
+          name: '',
+          phone: '');
+    } else {
+      _isUpdate = true;
+      _userInputModel = Get.arguments;
+
+      if (_userInputModel.departmentId == null) {
+        _deptSelectedValue = widget.dataDept?[0];
+        _positionSelectedValue = widget.dataDept?[0].position[0];
+        _userInputModel.departmentId = _deptSelectedValue.id;
+        _userInputModel.positionId = _positionSelectedValue.id;
+      } else {
+        int posDept = 0;
+        for (var element in widget.dataDept ?? []) {
+          if (element.id == _userInputModel.departmentId) {
+            _deptSelectedValue = widget.dataDept?[posDept];
+            int posPosition = 0;
+            for (var elementPos in widget.dataDept?[posDept].position ?? []) {
+              if (elementPos.id == _userInputModel.positionId) {
+                _positionSelectedValue =
+                    widget.dataDept?[posDept].position[posPosition];
+                break;
+              } else {
+                posPosition++;
+              }
+            }
+            break;
+          } else {
+            posDept++;
+          }
+        }
+      }
+
+      setState(() {});
+    }
   }
 
   // List<Widget> action = [
@@ -413,23 +524,14 @@ class _FormCrudUserPage
 
   @override
   Widget mapStateHandler(CrudUserState? state) {
-    // if (state is SuccessGetDataUser) {
-    //   return Column(
-    //     children: [
-    //       HeaderUser(
-    //         user: state.user,
-    //       ),
-    //       Expanded(
-    //         child: FormUser(
-    //           user: state.user,
-    //           overtime: state.overtime,
-    //         ),
-    //       )
-    //     ],
-    //   );
-    // } else {
-    //   return Center(child: CircularProgressIndicator());
-    // }
-    return Container();
+    if (state is LoadingState) {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    return buttonLogin();
   }
 }

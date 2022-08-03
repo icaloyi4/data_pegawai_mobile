@@ -50,24 +50,29 @@ BoxDecoration styleBoxCard({Color color = Colors.white}) {
       ));
 }
 
-BoxDecoration styleBoxAll({bool withBorder = false}) {
+BoxDecoration styleBoxBorderAll(
+    {Color? backgroundColor, bool withBorder = false, Color? borderColors}) {
   return BoxDecoration(
-      color: MyCons.darkModeEnabled ? Colors.transparent : Colors.white,
+      color: backgroundColor ??
+          (MyCons.darkModeEnabled ? Colors.transparent : Colors.white),
       borderRadius: BorderRadius.all(Radius.circular(15)),
       border: withBorder
           ? Border.all(
               width: 1,
-              color:
-                  MyCons.darkModeEnabled ? MyColors.mainColor : Colors.black38)
+              color: borderColors ??
+                  (MyCons.darkModeEnabled
+                      ? MyColors.mainColor
+                      : Colors.black38))
           : null);
 }
 
 BoxDecoration styleBoxAllWithColor(
     {Color colors = Colors.transparent, BoxBorder? border}) {
   return BoxDecoration(
-      color: colors,
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      border: border,);
+    color: colors,
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    border: border,
+  );
 }
 
 InputDecoration fieldDecoration(String label,

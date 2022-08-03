@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
+import 'package:ojrek_hris/core/utils/utils.dart';
 
 import '../../../core/widget/styling.dart';
 import 'widget/list_menu_user.dart';
@@ -33,7 +34,7 @@ class _UserPage extends State<UserPage> {
                     shape: BoxShape.circle,
                   ),
                   child: Text(
-                    "RH",
+                    getInitial(value:MyCons.dataUser?.user?.name?.toString(), pattern: " "),
                     style: styleHeader(
                         color: MyCons.darkModeEnabled
                             ? Colors.blueGrey
@@ -44,7 +45,7 @@ class _UserPage extends State<UserPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 2),
                   child: Text(
-                    "Rizky Haris Risaldi",
+                    "${MyCons.dataUser?.user?.name?.toString()}",
                     style: styleHeader(
                         color: Colors.white,
                         textStyleWeight: TextStyleWeight.Title3),

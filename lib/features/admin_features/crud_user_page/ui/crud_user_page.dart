@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
@@ -14,6 +15,7 @@ class CrudUserPage extends StatefulWidget {
 
 class _CrudUserName
     extends BaseState<CrudUserBloc, CrudUserState, CrudUserPage> {
+  bool _isUpdate = false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,7 +23,7 @@ class _CrudUserName
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.5,
-        title: Text("Add New Employee",
+        title: Text(_isUpdate ? "Edit Employee" : "Add New Employee",
             style: styleHeader(
                 textStyleWeight: TextStyleWeight.Title3,
                 color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),
@@ -38,6 +40,7 @@ class _CrudUserName
     // TODO: implement initState
     super.initState();
     bloc.pushEvent(GetDepartmenPosition(context));
+    _isUpdate = Get.arguments != null;
   }
 
   @override
