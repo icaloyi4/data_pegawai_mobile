@@ -15,4 +15,6 @@ class PageRouting {
 
   static const CRUD_DEPARTMENT = "/crud-department";
   static const ADD_DEPARTMENT = "/add-department";
+
+  static const EDIT_COMPANY = "/edit-department";
 }

@@ -24,8 +24,8 @@ class _AdminHomePage extends State<AdminHomePage> {
     _menu.add(new CardMenuModel(
         "Announcement", "", CupertinoIcons.bell_circle_fill, null));
 
-    _menu.add(
-        new CardMenuModel("Company", "", CupertinoIcons.building_2_fill, null));
+    _menu.add(new CardMenuModel("Company", PageRouting.EDIT_COMPANY,
+        CupertinoIcons.building_2_fill, null));
     _menu.add(new CardMenuModel("Department", PageRouting.CRUD_DEPARTMENT,
         CupertinoIcons.briefcase_fill, null));
     _menu.add(new CardMenuModel(

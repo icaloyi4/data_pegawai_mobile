@@ -1,65 +1,89 @@
-import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
-import 'package:ojrek_hris/core/assets/my_color.dart';
-import 'package:ojrek_hris/core/assets/my_cons.dart';
-import 'package:ojrek_hris/core/base/base_stateful.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
-import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
-import "package:google_maps_flutter_platform_interface/src/types/location.dart";
+import 'package:ojrek_hris/features/admin_features/crud_company_page/bloc/crud_company_bloc.dart';
+import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 
-import '../../bloc/register_bloc.dart';
+import '../../../../core/assets/my_cons.dart';
+import '../../../../core/base/base_stateful.dart';
+import '../../../../core/widget/cool_alert.dart';
 
-class FormRegisterCompanyPage extends StatefulWidget {
-  final RegisterModel registerModel;
-
-  const FormRegisterCompanyPage({required this.registerModel});
+class CrudCompanyPage extends StatefulWidget {
   @override
-  _FormRegisterCompanyPage createState() => _FormRegisterCompanyPage();
+  _CrudCompanyPage createState() => _CrudCompanyPage();
 }
 
-class _FormRegisterCompanyPage
-    extends BaseState<RegisterBloc, RegisterState, FormRegisterCompanyPage> {
-  var _passwordVisible = false;
-  late RegisterModel _registerModel;
+class _CrudCompanyPage
+    extends BaseState<CrudCompanyBloc, CrudCompanyState, CrudCompanyPage> {
   var _keyFormCompany = new GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        Expanded(
-            child: SingleChildScrollView(
-                child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: formCompany(),
-        ))),
-        Card(
-            child: Container(
-                alignment: Alignment.bottomCenter,
-                child: StreamBuilder<RegisterState>(
-                  stream: bloc.stateStream,
-                  initialData: InitState(),
-                  builder: (blocCtx, snapshot) =>
-                  mapStateHandler(snapshot.data))))
-      ],
-    ));
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0.5,
+        title: Text("Edit Company Info",
+            style: styleHeader(
+                textStyleWeight: TextStyleWeight.Title3,
+                color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),
+      ),
+      body: Container(
+          child: Column(
+        children: [
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: formCompany(),
+          ))),
+          Card(
+            child: StreamBuilder<CrudCompanyState>(
+                stream: bloc.stateStream,
+                initialData: InitState(),
+                builder: (blocCtx, snapshot) => mapStateHandler(snapshot.data)),
+            // Container(
+            //     alignment: Alignment.bottomCenter,
+            //     child: StreamBuilder<RegisterState>(
+            //         stream: bloc.stateStream,
+            //         initialData: InitState(),
+            //         builder: (blocCtx, snapshot) =>
+            //             mapStateHandler(snapshot.data)))
+          )
+        ],
+      )),
+    );
   }
 
-  Widget buttonRegister() {
+  Widget buttonSave() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
         onTap: () {
           // Get.toNamed(PageRouting.REGISTER_SUCCESS);
           if (_keyFormCompany.currentState!.validate()) {
-            bloc.pushEvent(SignUp(_registerModel, context));
+            AlertMessage.showAlert(
+              context,
+              message: "Are you sure?",
+              title: "Confirmation",
+              type: CoolAlertType.confirm,
+              onConfirm: () {
+                Get.back();
+                bloc.pushEvent(UpdateCompany(context, _companyData));
+              },
+              onCancel: () {
+                Get.back();
+              },
+            );
           }
         },
         child: Container(
           decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
           child: Text(
-            "Continue",
+            "Save",
             style: styleHeader(
                 color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
           ),
@@ -78,11 +102,15 @@ class _FormRegisterCompanyPage
           Container(
             child: TextFormField(
               decoration: fieldDecoration('Name', Icons.business_sharp, false),
+              enabled: true,
+              initialValue: _companyData?.name == null
+                  ? ""
+                  : _companyData?.name.toString(),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Name cannot be empty';
                 }
-                _registerModel.companyName = value;
+                _companyData?.name = value;
                 return null;
               },
             ),
@@ -92,12 +120,16 @@ class _FormRegisterCompanyPage
           ),
           Container(
             child: TextFormField(
+              enabled: false,
+              initialValue: _companyData?.email == null
+                  ? ""
+                  : _companyData?.email.toString(),
               decoration: fieldDecoration('Email', Icons.email, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Email cannot be empty';
                 }
-                _registerModel.companyEmail = value;
+                _companyData?.email = value;
                 return null;
               },
             ),
@@ -107,12 +139,16 @@ class _FormRegisterCompanyPage
           ),
           Container(
             child: TextFormField(
+              enabled: false,
+              initialValue: _companyData?.phone == null
+                  ? ""
+                  : _companyData?.phone.toString(),
               decoration: fieldDecoration('Phone', Icons.phone, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Phone cannot be empty';
                 }
-                _registerModel.companyPhone = value;
+                _companyData?.phone = value;
                 return null;
               },
             ),
@@ -122,13 +158,17 @@ class _FormRegisterCompanyPage
           ),
           Container(
             child: TextFormField(
+              enabled: true,
+              initialValue: _companyData?.address == null
+                  ? ""
+                  : _companyData?.address.toString(),
               decoration:
                   fieldDecoration('Company Address', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company address cannot be empty';
                 }
-                _registerModel.companyAddress = value;
+                _companyData?.address = value;
                 return null;
               },
             ),
@@ -138,12 +178,16 @@ class _FormRegisterCompanyPage
           ),
           Container(
             child: TextFormField(
+              enabled: true,
+              initialValue: _companyData?.city == null
+                  ? ""
+                  : _companyData?.city.toString(),
               decoration: fieldDecoration('Company City', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company city cannot be empty';
                 }
-                _registerModel.companyCity = value;
+                _companyData?.city = value;
                 return null;
               },
             ),
@@ -153,13 +197,17 @@ class _FormRegisterCompanyPage
           ),
           Container(
             child: TextFormField(
+              enabled: true,
+              initialValue: _companyData?.country == null
+                  ? ""
+                  : _companyData?.country.toString(),
               decoration:
                   fieldDecoration('Company Country', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company country cannot be empty';
                 }
-                _registerModel.companyCountry = value;
+                _companyData?.country = value;
                 return null;
               },
             ),
@@ -172,30 +220,35 @@ class _FormRegisterCompanyPage
               children: [
                 Expanded(
                   child: TextFormField(
+                    enabled: true,
+                    initialValue: _companyData?.location == null
+                        ? ""
+                        : _companyData?.location.toString(),
                     decoration: fieldDecoration(
                         'Location (Optional)', Icons.location_pin, false),
                     validator: (value) {
-                      _registerModel.companyLocation = value;
+                      _companyData?.location =
+                          value.toString().isEmpty ? null : value;
                       return null;
                     },
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlacePicker(
-                          apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
-                          onPlacePicked: (result) {
-                            print(result);
-                            Navigator.of(context).pop();
-                          },
-                          useCurrentLocation: true,
-                          initialPosition: LatLng(6.2088, 106.8456),
-                        ),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => PlacePicker(
+                    //       apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
+                    //       onPlacePicked: (result) {
+                    //         print(result);
+                    //         Navigator.of(context).pop();
+                    //       },
+                    //       useCurrentLocation: true,
+                    //       initialPosition: LatLng(6.2088, 106.8456),
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     width: 100,
@@ -225,21 +278,6 @@ class _FormRegisterCompanyPage
         icon,
         color: MyColors.mainColor,
       ),
-      suffixIcon: isPassword
-          ? IconButton(
-              icon: Icon(
-                  // Based on passwordVisible state choose the icon
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: MyCons.darkModeEnabled
-                      ? Colors.white
-                      : MyColors.mainColor),
-              onPressed: () {
-                setState(() {
-                  _passwordVisible = !_passwordVisible;
-                });
-              },
-            )
-          : null,
       enabledBorder: new OutlineInputBorder(
         borderRadius: new BorderRadius.circular(10.0),
         borderSide: BorderSide(color: MyColors.mainColor),
@@ -262,56 +300,28 @@ class _FormRegisterCompanyPage
     );
   }
 
-  @override
-  RegisterBloc initBloc() {
-    return KiwiContainer().resolve<RegisterBloc>();
-  }
-
+  late Company? _companyData;
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _registerModel = widget.registerModel;
-    // bloc.pushEvent(GetDataLogin("-", "-"));
+    _companyData = MyCons.dataUser?.company;
   }
 
-  // List<Widget> action = [
-  //   GestureDetector(
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(8.0),
-  //       child: Icon(Icons.exit_to_app),
-  //     ),
-  //     onTap: () => logout(),
-  //   ),
-  // ];
-
-  // void logout() {
-  //   bloc.pushEvent(Logout());
-  // }
+  @override
+  CrudCompanyBloc initBloc() {
+    // TODO: implement initBloc
+    return KiwiContainer().resolve<CrudCompanyBloc>();
+  }
 
   @override
-  Widget mapStateHandler(RegisterState? state) {
+  Widget mapStateHandler(CrudCompanyState? state) {
     if (state is LoadingState) {
       return Center(
         child: CircularProgressIndicator(),
       );
     }
-    // if (state is SuccessGetDataUser) {
-    //   return Column(
-    //     children: [
-    //       HeaderUser(
-    //         user: state.user,
-    //       ),
-    //       Expanded(
-    //         child: FormUser(
-    //           user: state.user,
-    //           overtime: state.overtime,
-    //         ),
-    //       )
-    //     ],
-    //   );
-    // } else {
-    //   return Center(child: CircularProgressIndicator());
-    // }
-    return buttonRegister();
+
+    return buttonSave();
   }
 }

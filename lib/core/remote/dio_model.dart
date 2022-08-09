@@ -13,6 +13,7 @@ class ApiUrl {
   static const register = "register";
   static const user = "users";
   static const department = "departments";
+  static const companies = "companies";
   static const registerDepartment = "registerDepartment";
   static const updateDepartment = "updateDepartment";
   static const getDepartmentPosition = "departments/getDepartmentWithPosition";

@@ -1,3 +1,4 @@
+import 'package:ojrek_hris/features/admin_features/crud_company_page/ui/crud_company_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/crud_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/list_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/crud_user_page.dart';
@@ -35,6 +36,7 @@ class GetRouter {
       GetPage(
           name: PageRouting.CRUD_DEPARTMENT, page: () => ListDepartmentPage()),
       GetPage(name: PageRouting.ADD_DEPARTMENT, page: () => CrudDepartmentPage()),
+      GetPage(name: PageRouting.EDIT_COMPANY, page: () => CrudCompanyPage()),
     ];
   }
 }

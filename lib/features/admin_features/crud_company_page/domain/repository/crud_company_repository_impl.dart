@@ -1,14 +1,34 @@
+import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 
+import '../../../../user_page/bloc/user_bloc.dart';
+import '../../data/local/crud_company_local_source.dart';
+import '../../data/remote/crud_company_remote_source.dart';
+import 'crud_company_repository.dart';
 
-import '../../data/local/company_local_source.dart';
-import '../../data/remote/company_remote_source.dart';
-import 'company_repository.dart';
+class CrudCompanyRepositoryImpl implements CrudCompanyRepository {
+  final CrudCompanyRemoteSource _remoteSource;
+  final CrudCompanyLocalSource _localSource;
 
-class CompanyRepositoryImpl implements CompanyRepository {
-  final CompanyRemoteSource _remoteSource;
-  final CompanyLocalSource _localSource;
+  CrudCompanyRepositoryImpl(this._remoteSource, this._localSource);
 
-  CompanyRepositoryImpl(this._remoteSource, this._localSource);
+  @override
+  updateCompany(Company? company,
+      {required Function() onSuccess,
+      required Function(dynamic message, dynamic code) onError}) async {
+    try {
+      var response = await _remoteSource.updateCompany(company);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess();
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

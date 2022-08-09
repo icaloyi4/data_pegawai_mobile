@@ -1,4 +1,4 @@
-class CompanyLocalSource {
+class CrudCompanyLocalSource {
   // final HCSSODao _hrisDao;
   // SettingService _settingService;
 
