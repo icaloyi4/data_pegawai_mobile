@@ -1,4 +1,5 @@
-
+import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
+import 'package:ojrek_hris/features/register_page/data/remote/register_response.dart';
 
 import '../../data/local/register_local_source.dart';
 import '../../data/remote/register_remote_source.dart';
@@ -9,6 +10,22 @@ class RegisterRepositoryImpl implements RegisterRepository {
   final RegisterLocalSource _localSource;
 
   RegisterRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  Future<void> signUp(RegisterModel registerModel,
+      {required Function(RegisterResponse? user) onSuccess,
+      required Function(String message, int code) onError}) async {
+    try {
+      var response = await _remoteSource.signUp(registerModel);
+      if (response.body?.code == 200) {
+        onSuccess(response.body);
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

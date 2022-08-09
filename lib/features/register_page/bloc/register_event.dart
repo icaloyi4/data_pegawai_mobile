@@ -3,11 +3,11 @@ part of 'register_bloc.dart';
 @immutable
 abstract class RegisterEvent extends BlocEvent {}
 
-class GetDataRegister extends RegisterEvent {
-  final String startDate;
-  final String endDate;
+class SignUp extends RegisterEvent {
+  final RegisterModel registerModel;
+  final BuildContext context;
 
-  GetDataRegister(this.startDate, this.endDate);
+  SignUp(this.registerModel, this.context);
 }
 
-class Logout extends RegisterEvent {}
+

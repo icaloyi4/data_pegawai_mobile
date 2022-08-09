@@ -169,10 +169,13 @@ class _FormRegisterUserPage extends State<FormRegisterUserPage> {
             firstDate: DateTime(1900),
             lastDate: DateTime(2100),
             dateLabelText: 'Date',
-            onChanged: (val) => print(val),
+            onChanged: (val) {
+              _registerModel.userBirthday = val;
+              print(val);
+            },
             validator: (val) {
               print(val);
-
+              _registerModel.userBirthday = val;
               return null;
             },
             onSaved: (val) {
@@ -192,10 +195,13 @@ class _FormRegisterUserPage extends State<FormRegisterUserPage> {
             firstDate: DateTime(1900),
             lastDate: DateTime(2100),
             dateLabelText: 'Date',
-            onChanged: (val) => print(val),
+            onChanged: (val) {
+              _registerModel.userJoinAt = val;
+              print(val);
+            },
             validator: (val) {
               print(val);
-
+              _registerModel.userJoinAt = val;
               return null;
             },
             onSaved: (val) {

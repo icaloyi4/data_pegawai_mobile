@@ -29,7 +29,6 @@ class RegisterModel {
   late String? companyLocation;
   late String? companyCity;
   late String? companyCountry;
-
   RegisterModel.fromJson(Map<String, dynamic> json) {
     userName = json['user_name'];
     userEmail = json['user_email'];

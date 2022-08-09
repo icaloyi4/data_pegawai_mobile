@@ -485,11 +485,11 @@ class _FormCrudUserPage
       } else {
         int posDept = 0;
         for (var element in widget.dataDept ?? []) {
-          if (element.id == _userInputModel.departmentId) {
+          if (element._level == _userInputModel.departmentId) {
             _deptSelectedValue = widget.dataDept?[posDept];
             int posPosition = 0;
             for (var elementPos in widget.dataDept?[posDept].position ?? []) {
-              if (elementPos.id == _userInputModel.positionId) {
+              if (elementPos._level == _userInputModel.positionId) {
                 _positionSelectedValue =
                     widget.dataDept?[posDept].position[posPosition];
                 break;

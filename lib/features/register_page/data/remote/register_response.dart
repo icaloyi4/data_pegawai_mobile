@@ -1,12 +1,12 @@
-class LoginResponse {
+class RegisterResponse {
   bool? status;
   int? code;
   String? message;
   DataUser? data;
 
-  LoginResponse({this.status, this.code, this.message, this.data});
+  RegisterResponse({this.status, this.code, this.message, this.data});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
+  RegisterResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     code = json['code'];
     message = json['message'];
@@ -19,7 +19,7 @@ class LoginResponse {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data?.toJson();
     }
     return data;
   }

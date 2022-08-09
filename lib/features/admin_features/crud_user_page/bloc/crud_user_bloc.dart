@@ -77,23 +77,6 @@ class CrudUserBloc extends BaseBloc<CrudUserEvent, CrudUserState> {
 
   void registerUser(event) async {
     emitState(LoadingState());
-    // emitState(SuccesRegisterUser());
-    // // Get.back(closeOverlays: true);
-    // AlertMessage.showAlert(
-    //   event.context,
-    //   title: "Success",
-    //   message: "Employee already registered",
-    //   type: CoolAlertType.success,
-    //   confirmTxt: "Continue",
-    //   onConfirm: () {
-    //     // Navigator.of(event.context).pop();
-    //     if (Get.currentRoute == PageRouting.ADD_USER)
-    //       Get.back(closeOverlays: true);
-    //     print(Get.currentRoute);
-    //     if (Get.currentRoute == PageRouting.ADD_USER)
-    //       Get.back(closeOverlays: true);
-    //   },
-    // );
     await _repos.registerUser(
       event.userInputModel,
       event.isUpdate,

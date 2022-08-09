@@ -14,7 +14,8 @@ class GetDepartmentPositionResponse {
     status = json['status'];
     code = json['code'];
     message = json['message'];
-    data = List.from(json['data']).map((e) => DataDepartment.fromJson(e)).toList();
+    data =
+        List.from(json['data']).map((e) => DataDepartment.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -29,19 +30,20 @@ class GetDepartmentPositionResponse {
 
 class DataDepartment {
   DataDepartment({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
     required this.position,
   });
-  late final int id;
-  late final String name;
-  late final List<Position> position;
+  int? id;
+  String? name;
+  List<DataPosition> position = [];
 
   DataDepartment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    position =
-        List.from(json['position']).map((e) => Position.fromJson(e)).toList();
+    position = List.from(json['position'])
+        .map((e) => DataPosition.fromJson(e))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -53,19 +55,21 @@ class DataDepartment {
   }
 }
 
-class Position {
-  Position({
-    required this.id,
-    required this.departmentId,
+class DataPosition {
+  DataPosition({
+    this.id,
+    this.departmentId,
     this.name,
     this.level,
+    this.isNew = false,
   });
-  late int id;
-  late int departmentId;
+  bool isNew = false;
+  int? id;
+  int? departmentId;
   String? name;
   int? level;
 
-  Position.fromJson(Map<String, dynamic> json) {
+  DataPosition.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     departmentId = json['department_id'];
     name = json['name'];

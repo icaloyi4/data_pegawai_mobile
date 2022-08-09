@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (data != null) {
       try {
-        var dataJson = json.decode(data);
+        // var dataJson = json.decode(data);
         MyCons.dataUser = DataUser.fromJson(json.decode(data));
       } catch (e) {
         print(e);

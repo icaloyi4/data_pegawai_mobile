@@ -31,6 +31,40 @@ class CrudDepartmentRepositoryImpl implements CrudDepartmentRepository {
       onError("Internal Server Error", 500);
     }
   }
+  
+  @override
+  registerDepartment(DataDepartment departmentInputModel, bool isUpdate, {required Function() onSuccess, required Function(String message, int code) onError}) async {
+    try {
+      var response = await _remoteSource.registerDept(departmentInputModel, isUpdate);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess();
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
+  
+  @override
+  deleteUser(int idDepartment, {required Function() onSuccess, required Function(String message, int code) onError}) async {
+    try {
+      var response = await _remoteSource.deleteDepartment(idDepartment);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess();
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

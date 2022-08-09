@@ -34,16 +34,16 @@ class _FormRegisterCompanyPage
             child: SingleChildScrollView(
                 child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: formUser(),
+          child: formCompany(),
         ))),
         Card(
             child: Container(
                 alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                    onTap: () {
-                      // Get.toNamed(PageRouting.REGISTER_COMPANY);
-                    },
-                    child: buttonRegister())))
+                child: StreamBuilder<RegisterState>(
+                  stream: bloc.stateStream,
+                  initialData: InitState(),
+                  builder: (blocCtx, snapshot) =>
+                  mapStateHandler(snapshot.data))))
       ],
     ));
   }
@@ -53,7 +53,10 @@ class _FormRegisterCompanyPage
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(PageRouting.REGISTER_SUCCESS);
+          // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+          if (_keyFormCompany.currentState!.validate()) {
+            bloc.pushEvent(SignUp(_registerModel, context));
+          }
         },
         child: Container(
           decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
@@ -69,7 +72,7 @@ class _FormRegisterCompanyPage
     );
   }
 
-  Widget formUser() {
+  Widget formCompany() {
     return Form(
       key: _keyFormCompany,
       child: Column(
@@ -94,7 +97,7 @@ class _FormRegisterCompanyPage
               decoration: fieldDecoration('Email', Icons.email, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty';
+                  return 'Email cannot be empty';
                 }
                 _registerModel.companyEmail = value;
                 return null;
@@ -109,7 +112,7 @@ class _FormRegisterCompanyPage
               decoration: fieldDecoration('Phone', Icons.phone, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty';
+                  return 'Phone cannot be empty';
                 }
                 _registerModel.companyPhone = value;
                 return null;
@@ -125,7 +128,7 @@ class _FormRegisterCompanyPage
                   fieldDecoration('Company Address', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty';
+                  return 'Company address cannot be empty';
                 }
                 _registerModel.companyAddress = value;
                 return null;
@@ -140,7 +143,7 @@ class _FormRegisterCompanyPage
               decoration: fieldDecoration('Company City', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty';
+                  return 'Company city cannot be empty';
                 }
                 _registerModel.companyCity = value;
                 return null;
@@ -156,7 +159,7 @@ class _FormRegisterCompanyPage
                   fieldDecoration('Company Country', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty';
+                  return 'Company country cannot be empty';
                 }
                 _registerModel.companyCountry = value;
                 return null;
@@ -289,6 +292,11 @@ class _FormRegisterCompanyPage
 
   @override
   Widget mapStateHandler(RegisterState? state) {
+    if (state is LoadingState) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     // if (state is SuccessGetDataUser) {
     //   return Column(
     //     children: [
@@ -306,6 +314,6 @@ class _FormRegisterCompanyPage
     // } else {
     //   return Center(child: CircularProgressIndicator());
     // }
-    return Container();
+    return buttonRegister();
   }
 }

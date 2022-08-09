@@ -10,7 +10,11 @@ class ApiUrl {
   // static const login = "auth";
   static const login = "login";
   static const logout = "logout";
+  static const register = "register";
   static const user = "users";
+  static const department = "departments";
+  static const registerDepartment = "registerDepartment";
+  static const updateDepartment = "updateDepartment";
   static const getDepartmentPosition = "departments/getDepartmentWithPosition";
   static const deleteUser = "deleteUser";
 }

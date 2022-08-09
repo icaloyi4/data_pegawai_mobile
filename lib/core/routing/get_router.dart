@@ -1,3 +1,4 @@
+import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/crud_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/list_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/crud_user_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/list_user_page.dart';
@@ -31,7 +32,9 @@ class GetRouter {
       GetPage(name: PageRouting.HOME, page: () => MainPage()),
       GetPage(name: PageRouting.CRUD_USER, page: () => ListUserPage()),
       GetPage(name: PageRouting.ADD_USER, page: () => CrudUserPage()),
-      GetPage(name: PageRouting.CRUD_DEPARTMENT, page: () => ListDepartmentPage()),
+      GetPage(
+          name: PageRouting.CRUD_DEPARTMENT, page: () => ListDepartmentPage()),
+      GetPage(name: PageRouting.ADD_DEPARTMENT, page: () => CrudDepartmentPage()),
     ];
   }
 }

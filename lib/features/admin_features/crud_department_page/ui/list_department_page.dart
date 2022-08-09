@@ -1,11 +1,15 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/routing/page_routing.dart';
+import '../../../../core/widget/cool_alert.dart';
 import '../bloc/crud_department_bloc.dart';
 import '../data/remote/get_department_position_response.dart';
 
@@ -68,8 +72,8 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // await Get.toNamed(PageRouting.ADD_USER);
-          // bloc.pushEvent(GetDataCrudUser(context));
+          await Get.toNamed(PageRouting.ADD_DEPARTMENT);
+          bloc.pushEvent(GetDepartmenPosition(context));
         },
         backgroundColor: MyColors.mainColor,
         child: const Icon(
@@ -119,35 +123,64 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: styleBoxBorderAll(
-                      backgroundColor: Colors.transparent,
-                      withBorder: true,
-                      borderColors: Colors.red),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Icon(
-                      CupertinoIcons.trash,
-                      size: 20,
-                      color: Colors.red,
+              GestureDetector(
+                onTap: () {
+                  AlertMessage.showAlert(
+                    context,
+                    message:
+                        "Are you sure you want to delete ${elementAt.name}??",
+                    title: "Confirmation",
+                    type: CoolAlertType.confirm,
+                    confirmTxt: "Delete",
+                    confirmBtnColor: Colors.red,
+                    onConfirm: () {
+                      Get.back();
+                      if (elementAt.id != null)
+                        bloc.pushEvent(
+                            DeleteDepartment(context, elementAt.id!));
+                    },
+                    onCancel: () {
+                      Get.back();
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: styleBoxBorderAll(
+                        backgroundColor: Colors.transparent,
+                        withBorder: true,
+                        borderColors: Colors.red),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        CupertinoIcons.trash,
+                        size: 20,
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: styleBoxBorderAll(
-                      backgroundColor: Colors.transparent,
-                      withBorder: true,
-                      borderColors: MyColors.mainColor),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Icon(
-                      CupertinoIcons.pencil,
-                      size: 20,
+              GestureDetector(
+                onTap: () async {
+                  await Get.toNamed(PageRouting.ADD_DEPARTMENT,
+                      arguments: elementAt);
+                  bloc.pushEvent(GetDepartmenPosition(context));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: styleBoxBorderAll(
+                        backgroundColor: Colors.transparent,
+                        withBorder: true,
+                        borderColors: MyColors.mainColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        CupertinoIcons.pencil,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -159,7 +192,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
     );
   }
 
-  Widget itemList(BuildContext ctx, Position elementAt) {
+  Widget itemList(BuildContext ctx, DataPosition elementAt) {
     return Text("${elementAt.name}");
   }
 
