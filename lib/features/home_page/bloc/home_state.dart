@@ -17,6 +17,15 @@ class GetWeather extends HomeState {
   GetWeather(this.weather);
 }
 
+class SuccessGetNews extends HomeState {
+  final List<NewsData>? listNews;
+
+  SuccessGetNews(this.listNews);
+}
+
+class ErrorGetNews extends HomeState {
+  
+}
 // class SuccessGetDataUser extends UserState {
 //   final usr.UserData user;
 //   final List<OvertimeData> overtime;

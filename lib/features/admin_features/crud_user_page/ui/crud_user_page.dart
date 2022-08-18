@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
+import 'package:ojrek_hris/core/widget/error_text.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
 
 import '../../../../core/assets/my_cons.dart';
@@ -69,13 +70,14 @@ class _CrudUserName
       return FormCrudUserPage(state.dataDept);
     }
 
-    if (state is ErrorDeptPos)
+    if (state is ErrorDeptPos) {
       return Center(
-        child: Text(
-          "Something Wrong",
-          style: styleHeader(textStyleWeight: TextStyleWeight.Title3),
-        ),
-      );
+          child: ErrorText(
+              message: "Something Wrong, tap to try again",
+              tryAgain: () {
+                bloc.pushEvent(GetDepartmenPosition(context));
+              }));
+    }
 
     return Container();
   }

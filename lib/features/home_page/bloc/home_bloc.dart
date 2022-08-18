@@ -1,3 +1,5 @@
+import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ojrek_hris/core/base/base_bloc.dart';
 import 'package:ojrek_hris/core/base/bloc_event.dart';
@@ -5,6 +7,8 @@ import 'package:ojrek_hris/core/base/bloc_state.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/assets/my_cons.dart';
+import '../../../core/widget/cool_alert.dart';
+import '../data/remote/news_response.dart';
 import '../domain/repository/home_repository.dart';
 import 'package:weather/weather.dart';
 part 'home_state.dart';
@@ -20,10 +24,14 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     if (event is InitWeather) {
       initWeather(event);
     }
+    if (event is GetNews) {
+      getNews(event);
+    }
   }
 
   void initWeather(InitWeather event) async {
     try {
+      emitState(LoadingState());
       var position = await _determinePosition();
       // print(position);
       WeatherFactory wf = new WeatherFactory(MyCons.WEATHER_API_KEY);
@@ -72,5 +80,21 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  void getNews(GetNews event) async {
+    emitState(LoadingState());
+    await _repos.getNews(limit: event.limit,
+      onSuccess: (news) {
+        emitState(SuccessGetNews(news));
+      },
+      onError: (message, code) {
+        emitState(ErrorGetNews());
+        AlertMessage.showAlert(event.context,
+            title: "Failed",
+            message: "[$code] $message",
+            type: CoolAlertType.error);
+      },
+    );
   }
 }

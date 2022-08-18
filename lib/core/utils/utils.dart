@@ -26,11 +26,11 @@ String chageDateToString(DateTime date,
 }
 
 String changeDateFormat(
-    {required String date,
+    {required String? date,
     String format = MyCons.DATETIME_FORMAT_SERVER,
     String newFormat = MyCons.DATETIME_FORMAT_SERVER}) {
   try {
-    DateTime oldDatetime = new DateFormat(format).parse(date);
+    DateTime oldDatetime = new DateFormat(format).parse(date.toString());
     final DateFormat formatter = DateFormat(newFormat);
     return formatter.format(oldDatetime);
   } on Exception catch (e) {

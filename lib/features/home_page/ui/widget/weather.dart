@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
+import 'package:ojrek_hris/core/widget/error_text.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:weather/weather.dart';
 
@@ -213,7 +214,11 @@ class _Weather extends BaseState<HomeBloc, HomeState, WeatherCard> {
     if (state is ErrorState) {
       return Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Center(child: Text(state.message)),
+        child: ErrorText(
+            message: state.message,
+            tryAgain: () {
+              bloc.pushEvent(InitWeather());
+            }),
       );
     }
     if (state is GetWeather) {
@@ -221,7 +226,11 @@ class _Weather extends BaseState<HomeBloc, HomeState, WeatherCard> {
     }
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Center(child: Text("Something Wrong")),
+      child: ErrorText(
+          message: "Something Wrong, tap to try again",
+          tryAgain: () {
+            bloc.pushEvent(InitWeather());
+          }),
     );
   }
 }

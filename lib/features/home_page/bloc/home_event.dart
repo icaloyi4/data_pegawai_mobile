@@ -3,11 +3,11 @@ part of 'home_bloc.dart';
 @immutable
 abstract class HomeEvent extends BlocEvent {}
 
-class GetDataHome extends HomeEvent {
-  final String startDate;
-  final String endDate;
+class GetNews extends HomeEvent {
+  final BuildContext context;
+  int? limit;
 
-  GetDataHome(this.startDate, this.endDate);
+  GetNews(this.context, {this.limit});
 }
 
 class Logout extends HomeEvent {}

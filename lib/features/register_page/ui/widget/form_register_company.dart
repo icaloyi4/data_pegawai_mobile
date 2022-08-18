@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
@@ -38,10 +39,10 @@ class _FormRegisterCompanyPage
             child: Container(
                 alignment: Alignment.bottomCenter,
                 child: StreamBuilder<RegisterState>(
-                  stream: bloc.stateStream,
-                  initialData: InitState(),
-                  builder: (blocCtx, snapshot) =>
-                  mapStateHandler(snapshot.data))))
+                    stream: bloc.stateStream,
+                    initialData: InitState(),
+                    builder: (blocCtx, snapshot) =>
+                        mapStateHandler(snapshot.data))))
       ],
     ));
   }
@@ -197,11 +198,21 @@ class _FormRegisterCompanyPage
                       ),
                     );
                   },
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    color: Colors.blueGrey,
-                    child: Icon(Icons.location_pin),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      decoration: styleBoxBorderAll(
+                          backgroundColor: MyColors.mainColor,
+                          withBorder: true,
+                          borderColors: MyColors.mainColor),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Icon(
+                          CupertinoIcons.location_solid,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 )
               ],

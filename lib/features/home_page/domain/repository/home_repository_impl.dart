@@ -1,4 +1,5 @@
-
+import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
+import 'package:ojrek_hris/features/user_page/bloc/user_bloc.dart';
 
 import '../../data/local/home_local_source.dart';
 import '../../data/remote/home_remote_source.dart';
@@ -9,6 +10,25 @@ class HomeRepositoryImpl implements HomeRepository {
   final HomeLocalSource _localSource;
 
   HomeRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  Future<void> getNews(
+      {int? limit, required Function(List<NewsData>? news) onSuccess,
+      required Function(String message, int code) onError}) async {
+    try {
+      var response = await _remoteSource.getNews(limit);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess(response.body?.data);
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
 
   // @override
   // Future<void> getDataUser(

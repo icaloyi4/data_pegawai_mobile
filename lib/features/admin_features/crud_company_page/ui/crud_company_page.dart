@@ -1,6 +1,9 @@
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
@@ -234,29 +237,39 @@ class _CrudCompanyPage
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => PlacePicker(
-                    //       apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
-                    //       onPlacePicked: (result) {
-                    //         print(result);
-                    //         Navigator.of(context).pop();
-                    //       },
-                    //       useCurrentLocation: true,
-                    //       initialPosition: LatLng(6.2088, 106.8456),
-                    //     ),
-                    //   ),
-                    // );
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    color: Colors.blueGrey,
-                    child: Icon(Icons.location_pin),
-                  ),
-                )
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlacePicker(
+                            apiKey:
+                                MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
+                            onPlacePicked: (result) {
+                              print(result);
+                              Navigator.of(context).pop();
+                            },
+                            useCurrentLocation: true,
+                            initialPosition: LatLng(6.2088, 106.8456),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration: styleBoxBorderAll(
+                            backgroundColor: MyColors.mainColor,
+                            withBorder: true,
+                            borderColors: MyColors.mainColor),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Icon(
+                            CupertinoIcons.location_solid,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ))
               ],
             ),
           ),
