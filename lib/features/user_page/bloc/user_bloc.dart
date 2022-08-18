@@ -43,10 +43,20 @@ class UserBloc extends BaseBloc<UserEvent, UserState> {
           Get.offAllNamed(PageRouting.WELCOME);
         },
         onError: (message, code) async {
-          AlertMessage.showAlert(event.context,
-              title: "Failed",
-              message: "[$code] $message",
-              type: CoolAlertType.error);
+          AlertMessage.showAlert(
+            event.context,
+            title: "Failed",
+            message: "[$code] $message",
+            type: CoolAlertType.error,
+            onConfirm: () async {
+              var settingService = await SettingService.getService();
+              String? data = await settingService?.get(MyCons.myUser);
+              if (data != null) {
+                settingService?.del(MyCons.myUser);
+              }
+              Get.offAllNamed(PageRouting.WELCOME);
+            },
+          );
           if (code == 401) {
             var settingService = await SettingService.getService();
             String? data = await settingService?.get(MyCons.myUser);

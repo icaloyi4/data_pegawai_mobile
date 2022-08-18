@@ -19,6 +19,7 @@ class PageRouting {
   static const EDIT_COMPANY = "/edit-department";
 
   static const NEWS_WEBVIEW = "/news-webview";
-
-  static const  NEWS_ALL = "/news-all";
+  static const NEWS_ALL = "/news-all";
+  static const CRUD_NEWS = "/crud-news";
+  static const ADD_NEWS = "/add-news";
 }

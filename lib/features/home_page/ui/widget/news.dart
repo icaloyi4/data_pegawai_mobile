@@ -187,10 +187,10 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                height: _heightCard * 0.5,
                 child: (model.imgUrl != null)
                     ? Image.network(
                         model.imgUrl!,
-                        height: _heightCard * 0.5,
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,
                         // loadingBuilder: (context, child, loadingProgress) {
@@ -226,7 +226,6 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
                         Expanded(
                           child: Text(
                             "${model.title}",
-                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: styleHeader(
                                 textStyleWeight: TextStyleWeight.Title3),

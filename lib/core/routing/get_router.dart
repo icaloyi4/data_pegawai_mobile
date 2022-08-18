@@ -1,6 +1,8 @@
 import 'package:ojrek_hris/features/admin_features/crud_company_page/ui/crud_company_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/crud_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/list_department_page.dart';
+import 'package:ojrek_hris/features/admin_features/crud_news_page/ui/crud_news_page.dart';
+import 'package:ojrek_hris/features/admin_features/crud_news_page/ui/list_news_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/crud_user_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/list_user_page.dart';
 import 'package:ojrek_hris/features/home_page/ui/widget/news_all.dart';
@@ -37,10 +39,13 @@ class GetRouter {
       GetPage(name: PageRouting.ADD_USER, page: () => CrudUserPage()),
       GetPage(
           name: PageRouting.CRUD_DEPARTMENT, page: () => ListDepartmentPage()),
-      GetPage(name: PageRouting.ADD_DEPARTMENT, page: () => CrudDepartmentPage()),
-      GetPage(name: PageRouting.EDIT_COMPANY, page: () => CrudCompanyPage()),     
+      GetPage(
+          name: PageRouting.ADD_DEPARTMENT, page: () => CrudDepartmentPage()),
+      GetPage(name: PageRouting.EDIT_COMPANY, page: () => CrudCompanyPage()),
       GetPage(name: PageRouting.NEWS_WEBVIEW, page: () => NewsWebview()),
       GetPage(name: PageRouting.NEWS_ALL, page: () => NewsAllPage()),
+      GetPage(name: PageRouting.CRUD_NEWS, page: () => ListNewsPage()),
+      GetPage(name: PageRouting.ADD_NEWS, page: () => CrudNewsPage()),
     ];
   }
 }

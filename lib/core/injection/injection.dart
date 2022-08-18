@@ -11,6 +11,11 @@ import '../../features/admin_features/crud_department_page/data/local/crud_depar
 import '../../features/admin_features/crud_department_page/data/remote/crud_department_remote_source.dart';
 import '../../features/admin_features/crud_department_page/domain/repository/crud_department_repository.dart';
 import '../../features/admin_features/crud_department_page/domain/repository/crud_department_repository_impl.dart';
+import '../../features/admin_features/crud_news_page/bloc/crud_news_bloc.dart';
+import '../../features/admin_features/crud_news_page/data/local/crud_news_local_source.dart';
+import '../../features/admin_features/crud_news_page/data/remote/crud_news_remote_source.dart';
+import '../../features/admin_features/crud_news_page/domain/repository/crud_news_repository.dart';
+import '../../features/admin_features/crud_news_page/domain/repository/crud_news_repository_impl.dart';
 import '../../features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
 import '../../features/admin_features/crud_user_page/data/local/crud_user_local_source.dart';
 import '../../features/admin_features/crud_user_page/data/remote/crud_user_remote_source.dart';
@@ -37,7 +42,6 @@ import '../../features/user_page/data/local/user_local_source.dart';
 import '../../features/user_page/data/remote/user_remote_source.dart';
 import '../../features/user_page/domain/repository/user_repository.dart';
 import '../../features/user_page/domain/repository/user_repository_impl.dart';
-
 
 part 'injection.g.dart';
 
@@ -96,8 +100,12 @@ abstract class Injection {
   @Register.singleton(CrudDepartmentLocalSource)
   @Register.singleton(CrudDepartmentRepository,
       from: CrudDepartmentRepositoryImpl,
-      resolvers: {CrudDepartmentRemoteSource: "", CrudDepartmentLocalSource: ""})
-  @Register.factory(CrudDepartmentBloc, resolvers: {CrudDepartmentRepository: ""})
+      resolvers: {
+        CrudDepartmentRemoteSource: "",
+        CrudDepartmentLocalSource: ""
+      })
+  @Register.factory(CrudDepartmentBloc,
+      resolvers: {CrudDepartmentRepository: ""})
 
   //CRUD Company
   @Register.singleton(CrudCompanyRemoteSource, resolvers: {Dio: ""})
@@ -106,7 +114,14 @@ abstract class Injection {
       from: CrudCompanyRepositoryImpl,
       resolvers: {CrudCompanyRemoteSource: "", CrudCompanyLocalSource: ""})
   @Register.factory(CrudCompanyBloc, resolvers: {CrudCompanyRepository: ""})
-  
+
+  //CRUD News
+  @Register.singleton(CrudNewsRemoteSource, resolvers: {Dio: ""})
+  @Register.singleton(CrudNewsLocalSource)
+  @Register.singleton(CrudNewsRepository,
+      from: CrudNewsRepositoryImpl,
+      resolvers: {CrudNewsRemoteSource: "", CrudNewsLocalSource: ""})
+  @Register.factory(CrudNewsBloc, resolvers: {CrudNewsRepository: ""})
   void configure();
 }
 

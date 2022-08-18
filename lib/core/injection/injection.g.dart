@@ -49,6 +49,11 @@ class _$Injection extends Injection {
       ..registerSingleton<CrudCompanyRepository>((c) =>
           CrudCompanyRepositoryImpl(
               c<CrudCompanyRemoteSource>(), c<CrudCompanyLocalSource>()))
-      ..registerFactory((c) => CrudCompanyBloc(c<CrudCompanyRepository>()));
+      ..registerFactory((c) => CrudCompanyBloc(c<CrudCompanyRepository>()))
+      ..registerSingleton((c) => CrudNewsRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => CrudNewsLocalSource())
+      ..registerSingleton<CrudNewsRepository>((c) => CrudNewsRepositoryImpl(
+          c<CrudNewsRemoteSource>(), c<CrudNewsLocalSource>()))
+      ..registerFactory((c) => CrudNewsBloc(c<CrudNewsRepository>()));
   }
 }

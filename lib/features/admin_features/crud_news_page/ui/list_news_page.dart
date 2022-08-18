@@ -3,40 +3,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
-import 'package:ojrek_hris/core/widget/styling.dart';
+import 'package:ojrek_hris/core/widget/error_text.dart';
 
+import '../../../../core/assets/my_color.dart';
 import '../../../../core/assets/my_cons.dart';
 import '../../../../core/routing/page_routing.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/cool_alert.dart';
-import '../bloc/crud_department_bloc.dart';
-import '../data/remote/get_department_position_response.dart';
+import '../../../../core/widget/styling.dart';
+import '../bloc/crud_news_bloc.dart';
+import '../data/remote/news_response.dart';
 
-class ListDepartmentPage extends StatefulWidget {
+class ListNewsPage extends StatefulWidget {
   @override
-  _ListDepartmentPage createState() => _ListDepartmentPage();
+  _ListNewsPage createState() => _ListNewsPage();
 }
 
-class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
-    CrudDepartmentState, ListDepartmentPage> {
-  late List<DataDepartment> _dataUserFiltered;
-  late List<DataDepartment> _dataUser;
-  // List<DataUser> _user = [];
-
-  @override
-  void initState() {
-    super.initState();
-    bloc.pushEvent(GetDepartmenPosition(context));
-  }
-
+class _ListNewsPage
+    extends BaseState<CrudNewsBloc, CrudNewsState, ListNewsPage> {
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.5,
-        title: Text("Department",
+        title: Text("News",
             style: styleHeader(
                 textStyleWeight: TextStyleWeight.Title3,
                 color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),
@@ -61,7 +54,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: StreamBuilder<CrudDepartmentState>(
+              child: StreamBuilder<CrudNewsState>(
                   stream: bloc.stateStream,
                   initialData: LoadingState(),
                   builder: (blocCtx, snapshot) =>
@@ -72,8 +65,8 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Get.toNamed(PageRouting.ADD_DEPARTMENT);
-          bloc.pushEvent(GetDepartmenPosition(context));
+          await Get.toNamed(PageRouting.ADD_NEWS);
+          bloc.pushEvent(GetNews(context));
         },
         backgroundColor: MyColors.mainColor,
         child: const Icon(
@@ -84,7 +77,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
     );
   }
 
-  Widget listDepartment(List<DataDepartment> dataDepartment) {
+  Widget listNews(List<NewsData> dataDepartment) {
     // _dataUserFiltered = dataUser;
     // _dataUser.addAll(dataUser);
     return ListView.builder(
@@ -93,30 +86,82 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
       itemBuilder: (ctx, index) {
         return Container(
             color: Colors.white,
-            child: departmentList(ctx, dataDepartment.elementAt(index)));
+            child: newsList(ctx, dataDepartment.elementAt(index)));
       },
     );
   }
 
-  Widget departmentList(BuildContext ctx, DataDepartment elementAt) {
+  Widget newsList(BuildContext ctx, NewsData elementAt) {
     return ExpansionTile(
       textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
       title: textWithIcon(
-          icon: CupertinoIcons.building_2_fill,
+          icon: CupertinoIcons.news,
           iconCustomColor:
               MyCons.darkModeEnabled ? Colors.blueGrey : MyColors.mainColor,
-          text: "${elementAt.name}"),
+          text: "${elementAt.title}"),
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: elementAt.position.length,
-          itemBuilder: (ctx, index) {
-            return Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, bottom: 10, left: 20.0, right: 20),
-              child: itemList(ctx, elementAt.position.elementAt(index)),
-            );
-          },
+        // ListView.builder(
+        //   shrinkWrap: true,
+        //   itemCount: elementAt.position.length,
+        //   itemBuilder: (ctx, index) {
+        //     return Padding(
+        //       padding: const EdgeInsets.only(
+        //           top: 10, bottom: 10, left: 20.0, right: 20),
+        //       child: itemList(ctx, elementAt.position.elementAt(index)),
+        //     );
+        //   },
+        // ),
+        Row(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: (elementAt.imgUrl != null)
+                  ? Image.network(
+                      elementAt.imgUrl!,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    )
+                  : Center(
+                      child: Text("No Image Detected"),
+                    ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      // Expanded(
+                      //   child: Container(
+                      //     child: Text(
+                      //       "${elementAt.subtitle}",
+                      //       overflow: TextOverflow.ellipsis,
+                      //       maxLines: 5,
+                      //       style: styleHeader(
+                      //           textStyleWeight: TextStyleWeight.body),
+                      //     ),
+                      //   ),
+                      // ),
+                      Text(
+                        "${elementAt.subtitle}",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
+                        style:
+                            styleHeader(textStyleWeight: TextStyleWeight.body),
+                      ),
+                      Text(
+                        "${elementAt.updateBy} - ${changeDateFormat(date: elementAt.updateAt, newFormat: MyCons.DATETIME_FORMAT_BEAUTY)}",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         Container(
           color: Colors.grey[100],
@@ -128,7 +173,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
                   AlertMessage.showAlert(
                     context,
                     message:
-                        "Are you sure you want to delete ${elementAt.name}??",
+                        "Are you sure you want to delete ${elementAt.title}??",
                     title: "Confirmation",
                     type: CoolAlertType.confirm,
                     confirmTxt: "Delete",
@@ -136,8 +181,8 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
                     onConfirm: () {
                       Get.back();
                       if (elementAt.id != null)
-                        bloc.pushEvent(
-                            DeleteDepartment(context, elementAt.id!));
+                        bloc.pushEvent(CRUDNews(context,
+                            newsData: elementAt, typeCrud: TypeCrud.DELETE));
                     },
                     onCancel: () {
                       Get.back();
@@ -164,9 +209,8 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
               ),
               GestureDetector(
                 onTap: () async {
-                  await Get.toNamed(PageRouting.ADD_DEPARTMENT,
-                      arguments: elementAt);
-                  bloc.pushEvent(GetDepartmenPosition(context));
+                  await Get.toNamed(PageRouting.ADD_NEWS, arguments: elementAt);
+                  bloc.pushEvent(GetNews(context));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -192,18 +236,25 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
     );
   }
 
-  Widget itemList(BuildContext ctx, DataPosition elementAt) {
-    return Text("${elementAt.name}");
+  // Widget itemList(BuildContext ctx, DataPosition elementAt) {
+  //   return Text("${elementAt.name}");
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bloc.pushEvent(GetNews(context));
   }
 
   @override
-  CrudDepartmentBloc initBloc() {
+  CrudNewsBloc initBloc() {
     // TODO: implement initBloc
-    return KiwiContainer().resolve<CrudDepartmentBloc>();
+    return KiwiContainer().resolve<CrudNewsBloc>();
   }
 
   @override
-  Widget mapStateHandler(CrudDepartmentState? state) {
+  Widget mapStateHandler(CrudNewsState? state) {
     // TODO: implement mapStateHandler
     if (state is LoadingState) {
       return Center(
@@ -211,9 +262,9 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
       );
     }
 
-    if (state is SuccesGetDeptPos) {
+    if (state is SuccessGetNews) {
       // _dataUser = state.dataUser;
-      return listDepartment(state.dataDept);
+      return listNews(state.listNews!);
     }
 
     // if (state is SuccesGetDepartmentFilter) {
@@ -221,13 +272,12 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
     //   return listUser(_dataUserFiltered);
     // }
 
-    if (state is ErrorGetDepartment) {
-      return Center(
-        child: Text(
-          "Something wrong",
-          style: styleHeader(textStyleWeight: TextStyleWeight.Title2),
-        ),
-      );
+    if (state is ErrorGetNews) {
+      return ErrorText(
+          message: "Something wrong, try again",
+          tryAgain: () {
+            bloc.pushEvent(GetNews(context));
+          });
     }
 
     return Container();

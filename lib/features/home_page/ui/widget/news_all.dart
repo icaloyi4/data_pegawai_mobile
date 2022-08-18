@@ -91,7 +91,7 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
 
   Widget newsWidget(List<NewsData> _listnews) {
     final double itemHeight =
-        (MediaQuery.of(context).size.height - kToolbarHeight - 24) / 3;
+        (MediaQuery.of(context).size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = MediaQuery.of(context).size.width / 2;
     return GridView.count(
         // Create a grid with 2 columns. If you change the scrollDirection to
@@ -128,12 +128,13 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
                               child: Text("No Image Detected"),
                             ),
                     ),
-                    Expanded(
+                    Flexible(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "${_news.title}",
@@ -143,14 +144,14 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
                                     textStyleWeight: TextStyleWeight.Title3),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Expanded(
                                 child: Container(
                                   child: Text(
                                     "${_news.subtitle}",
-                                    maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 5,
                                     style: styleHeader(
                                         textStyleWeight: TextStyleWeight.body),
                                   ),
@@ -158,7 +159,6 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
                               ),
                               Text(
                                 "${_news.updateBy} - ${changeDateFormat(date: _news.updateAt, newFormat: MyCons.DATETIME_FORMAT_BEAUTY)}",
-                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),

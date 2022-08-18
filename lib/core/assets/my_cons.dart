@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../../features/login_page/data/remote/login_response.dart';
 
+enum TypeCrud { CREATE, UPDATE, DELETE }
+
 class MyCons {
   MyCons._();
   static String appVersion = "";
