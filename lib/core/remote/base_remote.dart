@@ -100,6 +100,7 @@ abstract class BaseRemote {
       headers.putIfAbsent("Accept", () => "application/json");
       headers.putIfAbsent("Content-Type", () => "application/json");
       headers.putIfAbsent(
+          // "Authorization", () => "Bearer ${MyCons.dataUser?.token}");
           "Authorization", () => "Bearer ${MyCons.dataUser?.token}");
     }
     Options opsi = Options(headers: headers);

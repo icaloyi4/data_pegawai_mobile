@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';

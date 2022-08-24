@@ -14,15 +14,18 @@ class LoginRepositoryImpl implements LoginRepository {
   Future<void> login(String email, password,
       {Function(LoginResponse? user)? onSuccess,
       Function(String? message, int? code)? onError}) async {
+    var response;
     try {
-      var response = await _remoteSource.login(email, password);
+      response = await _remoteSource.login(email, password);
       if (response.body?.code == 200) {
         onSuccess!(response.body);
       } else {
+        print(response);
+        // onError!(response.toString(), 500);
         onError!(response.errorBody?['message'], response.errorBody?['code']);
       }
     } catch (e) {
-      onError!("Internal Server Error", 500);
+      onError!(response.toString(), 500);
     }
   }
 
