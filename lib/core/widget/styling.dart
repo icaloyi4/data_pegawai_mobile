@@ -19,17 +19,26 @@ TextStyle styleHeader(
     {Color? color, TextStyleWeight textStyleWeight = TextStyleWeight.body}) {
   switch (textStyleWeight) {
     case TextStyleWeight.Title:
-      return TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: color);
+      return TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 30 * MyCons.heigh_percent,
+          color: color);
     case TextStyleWeight.Title2:
-      return TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: color);
+      return TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 25 * MyCons.heigh_percent,
+          color: color);
     case TextStyleWeight.Title3:
-      return TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: color);
+      return TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20 * MyCons.heigh_percent,
+          color: color);
     case TextStyleWeight.subtitle1:
-      return TextStyle(fontSize: 25, color: color);
+      return TextStyle(fontSize: 25 * MyCons.heigh_percent, color: color);
     case TextStyleWeight.subtitle2:
-      return TextStyle(fontSize: 20, color: color);
+      return TextStyle(fontSize: 20 * MyCons.heigh_percent, color: color);
     case TextStyleWeight.subtitle3:
-      return TextStyle(fontSize: 15, color: color);
+      return TextStyle(fontSize: 15 * MyCons.heigh_percent, color: color);
     case TextStyleWeight.body:
       return TextStyle(color: color);
   }

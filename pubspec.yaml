@@ -35,12 +35,12 @@ dependencies:
   dio: ^4.0.4
   dots_indicator: ^2.1.0
   # Bloc for state management
-  flutter_bloc: ^7.0.1
+  flutter_bloc: ^8.1.1
   fluttertoast: ^8.0.8
   get: ^4.6.1
-  google_fonts: ^2.2.0
+  google_fonts: ^3.0.1
   google_maps_flutter: ^2.1.8
-  geolocator: any
+  geolocator: ^9.0.1
   # google_map_location_picker: ^4.1.7
   google_maps_place_picker_mb: ^2.0.0-mb.20
   grouped_list: ^5.1.2
@@ -69,7 +69,7 @@ dev_dependencies:
   moor_generator: ^4.6.0+1
   build_runner: ^2.1.7
   kiwi_generator: ^4.0.1
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
   android: "launcher_icon"

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/assets/my_images.dart';
@@ -68,6 +69,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     MyCons.darkModeEnabled = brightness == Brightness.dark;
+    MyCons.width_percent = MediaQuery.of(context).size.width / 428;
+    MyCons.heigh_percent = MediaQuery.of(context).size.height / 926;
+    MyCons.Width_screen = MediaQuery.of(context).size.width;
+    MyCons.heigh_screen = MediaQuery.of(context).size.height;
+    MyCons.isWeb = kIsWeb;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor:

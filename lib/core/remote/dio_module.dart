@@ -1,8 +1,4 @@
-import 'dart:io';
 
-import 'package:dio/adapter_browser.dart';
-import 'package:flutter/foundation.dart';
-import 'package:ojrek_hris/core/config/flavor_config.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
@@ -22,11 +18,11 @@ class DioModule with DioMixin implements Dio {
     this.options = options;
 
     interceptors.add(LoggingInterceptor());
-    if (kIsWeb) {
-      httpClientAdapter = BrowserHttpClientAdapter();
-    } else {
+    // if (kIsWeb) {
+    //   httpClientAdapter = BrowserHttpClientAdapter();
+    // } else {
       httpClientAdapter = DefaultHttpClientAdapter();
-    }
+    // }
 
   }
 }
