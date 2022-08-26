@@ -80,7 +80,8 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
 
   @override
   Widget build(BuildContext context) {
-    _heightCard = MediaQuery.of(context).size.height * 0.4;
+    _heightCard =
+        (MyCons.isWeb ? MyCons.width_screen * 0.6 : MyCons.heigh_screen * 0.4);
     return StreamBuilder<HomeState>(
         stream: bloc.stateStream,
         initialData: LoadingState(),
@@ -187,7 +188,7 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: _heightCard * 0.5,
+                height: (MyCons.isWeb) ? _heightCard * 0.8 : _heightCard * 0.5,
                 child: (model.imgUrl != null)
                     ? Image.network(
                         model.imgUrl!,
@@ -268,6 +269,9 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
     if (_berita == null) {
       return Container();
     }
+    if (_berita!.isEmpty) {
+      return Container();
+    }
     return DotsIndicator(
       dotsCount: _berita!.length,
       position: pos.toDouble(),
@@ -293,6 +297,20 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
 
     if (state is SuccessGetNews) {
       _berita = state.listNews;
+      if (_berita!.isEmpty) {
+        return Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: _heightCard,
+              child: ErrorText(
+                message: "No news at this time",
+              )),
+        );
+      }
       return newsWidget(state.listNews);
     }
 

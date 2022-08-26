@@ -25,13 +25,11 @@ class MyCons {
 
   static DataUser? dataUser;
 
-
   static bool isWeb = false;
   static double width_percent = 1;
   static double heigh_percent = 1;
-  static double Width_screen = 1;
+  static double width_screen = 1;
   static double heigh_screen = 1;
-
 
   //Date Format
   static const String DATETIME_FORMAT_SERVER = "yyyy-MM-dd HH:mm:ss";

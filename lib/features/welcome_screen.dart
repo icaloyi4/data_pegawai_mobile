@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(child: header()),
               Container(
@@ -52,16 +52,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Widget header() {
     return Container(
+        color: MyCons.darkModeEnabled ? Colors.black : Colors.transparent,
+        width: MediaQuery.of(context).size.width,
         child: Image(
-      image: AssetImage(
-          MyCons.darkModeEnabled ? MyImages.doc_req_dark : MyImages.doc_req),
-    ));
+          fit: BoxFit.fitHeight,
+          image: AssetImage(MyCons.darkModeEnabled
+              ? MyImages.doc_req_dark
+              : MyImages.doc_req),
+        ));
   }
 
   Widget body() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             "Employee Management System",

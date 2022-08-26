@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 
 class ErrorText extends StatelessWidget {
   final String message;
-  final Function tryAgain;
+  final Function? tryAgain;
 
-  const ErrorText({required this.message, required this.tryAgain});
+  const ErrorText({required this.message, this.tryAgain});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
         onTap: () {
-          tryAgain();
+          if (tryAgain != null) tryAgain!();
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,9 +21,11 @@ class ErrorText extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Icon(
-              CupertinoIcons.refresh_circled_solid,
-            )
+            (tryAgain != null)
+                ? Icon(
+                    CupertinoIcons.refresh_circled_solid,
+                  )
+                : Container()
           ],
         ),
       ),

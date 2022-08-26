@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
     MyCons.darkModeEnabled = brightness == Brightness.dark;
     MyCons.width_percent = MediaQuery.of(context).size.width / 428;
     MyCons.heigh_percent = MediaQuery.of(context).size.height / 926;
-    MyCons.Width_screen = MediaQuery.of(context).size.width;
+    MyCons.width_screen = MediaQuery.of(context).size.width;
     MyCons.heigh_screen = MediaQuery.of(context).size.height;
     MyCons.isWeb = kIsWeb;
     return Scaffold(
@@ -91,7 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       image: AssetImage(MyCons.darkModeEnabled
                           ? MyImages.mainLogoDark
                           : MyImages.mainLogo),
-                      width: MediaQuery.of(context).size.width * 60 / 100),
+                      width: (kIsWeb)
+                          ? MediaQuery.of(context).size.height * 50 / 100
+                          : MediaQuery.of(context).size.width * 50 / 100),
                 ],
               ),
             ),

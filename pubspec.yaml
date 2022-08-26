@@ -53,6 +53,7 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
 #  routemaster: ^1.0.1
   # Local cache
+  side_navigation: ^1.0.2
   shared_preferences: ^2.0.12
   shimmer: ^2.0.0
   slide_digital_clock: ^1.0.2

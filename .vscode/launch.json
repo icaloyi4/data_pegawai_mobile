@@ -4,23 +4,33 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
-            "name": "data_pegawai_mobile",
+            "name": "OJREK",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "data_pegawai_mobile (profile mode)",
+            "name": "OJREK (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "data_pegawai_mobile (release mode)",
+            "name": "OJREK(release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "OJREK WEB",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port",
+                "58547"
+            ],
         }
     ]
 }

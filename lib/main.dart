@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/injection/injection.dart';
 import 'package:ojrek_hris/core/utils/app_theme.dart';
 
@@ -34,7 +32,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    
 
     return GetMaterialApp(
       defaultTransition: Transition.downToUp,

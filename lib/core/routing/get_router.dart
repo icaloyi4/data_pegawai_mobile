@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ojrek_hris/features/admin_features/crud_company_page/ui/crud_company_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/crud_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/list_department_page.dart';
@@ -15,6 +16,7 @@ import 'package:ojrek_hris/features/splash_screen.dart';
 import 'package:get/get.dart';
 
 import '../../features/login_page/ui/login_page.dart';
+import '../../features/main_page_web.dart';
 import '../../features/welcome_screen.dart';
 import 'page_routing.dart';
 
@@ -34,7 +36,9 @@ class GetRouter {
           name: PageRouting.REGISTER_SUCCESS,
           page: () => RegisterSuccessPage(),
           transition: Transition.rightToLeftWithFade),
-      GetPage(name: PageRouting.HOME, page: () => MainPage()),
+      GetPage(
+          name: PageRouting.HOME,
+          page: () => (kIsWeb) ? MainPageWeb() : MainPage()),
       GetPage(name: PageRouting.CRUD_USER, page: () => ListUserPage()),
       GetPage(name: PageRouting.ADD_USER, page: () => CrudUserPage()),
       GetPage(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/features/home_page/data/entities/card_list_model.dart';
 
 import '../../../../core/assets/my_color.dart';
@@ -38,7 +39,7 @@ class _MenuList extends State<MenuList> {
         physics: NeverScrollableScrollPhysics(),
         // Create a grid with 2 columns. If you change the scrollDirection to
         // horizontal, this produces 2 rows.
-        crossAxisCount: 3,
+        crossAxisCount: MyCons.isWeb ? 6 : 3,
         // Generate 100 widgets that display their index in the List.
         children: List.generate(_menu.length, (index) {
           return Padding(
