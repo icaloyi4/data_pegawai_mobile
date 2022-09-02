@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/widget/styling.dart';
 
 class NewsWebview extends StatefulWidget {

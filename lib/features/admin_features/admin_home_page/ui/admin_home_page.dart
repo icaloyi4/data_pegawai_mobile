@@ -8,6 +8,7 @@ import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/admin_home_page/data/entities/card_list_model.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/widget/cool_alert.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -21,8 +22,8 @@ class _AdminHomePage extends State<AdminHomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    _menu.add(new CardMenuModel(
-        "Announcement", "", CupertinoIcons.bell_circle_fill, null));
+    _menu.add(new CardMenuModel("Announcement", PageRouting.CRUD_ANNOUNCEMENTS,
+        CupertinoIcons.bell_circle_fill, null));
 
     _menu.add(new CardMenuModel("Company", PageRouting.EDIT_COMPANY,
         CupertinoIcons.building_2_fill, null));

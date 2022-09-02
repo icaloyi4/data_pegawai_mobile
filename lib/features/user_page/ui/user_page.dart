@@ -3,8 +3,10 @@ import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
 
+import '../../../core/assets/my_enum.dart';
 import '../../../core/widget/styling.dart';
 import 'widget/list_menu_user.dart';
+
 
 class UserPage extends StatefulWidget {
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
+import '../../../core/assets/my_enum.dart';
 import '../../../core/widget/styling.dart';
 import '../bloc/register_bloc.dart';
 import 'widget/form_register_company.dart';

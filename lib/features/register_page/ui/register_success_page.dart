@@ -8,6 +8,8 @@ import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
+import '../../../core/assets/my_enum.dart';
+
 class RegisterSuccessPage extends StatefulWidget {
   @override
   _RegisterSuccessPage createState() => _RegisterSuccessPage();

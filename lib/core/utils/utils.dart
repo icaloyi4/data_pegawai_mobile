@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../assets/my_enum.dart';
+
 DateTime parseStringtoDate(
     {required String date, String format = MyCons.DATETIME_FORMAT_SERVER}) {
   try {
@@ -38,7 +40,7 @@ String changeDateFormat(
   }
 }
 
-enum TypeSnacbar { ERROR, INFO, WARNING }
+
 
 void showSnackbar(String message,
     {TypeSnacbar typeSnakcbar = TypeSnacbar.ERROR}) {

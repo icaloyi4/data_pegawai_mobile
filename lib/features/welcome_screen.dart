@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
+import '../core/assets/my_enum.dart';
+
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();

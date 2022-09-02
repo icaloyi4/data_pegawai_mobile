@@ -9,6 +9,7 @@ import 'package:ojrek_hris/core/widget/cool_alert.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/data/remote/get_department_position_response.dart';
 
+import '../../../../../core/assets/my_enum.dart';
 import '../../bloc/crud_department_bloc.dart';
 
 class FormCrudDepartmentPage extends StatefulWidget {

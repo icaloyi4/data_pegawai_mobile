@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
-enum Status { SUCCESS, ERROR }
+import '../assets/my_enum.dart';
+
+
 
 class Result<T> {
   final int? code;

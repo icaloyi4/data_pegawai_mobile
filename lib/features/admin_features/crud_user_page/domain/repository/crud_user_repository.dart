@@ -9,14 +9,16 @@ abstract class CrudUserRepository {
       required Function(String message, int code) onError});
 
   Future<void> getDepartmenPosition(
-      {required Function(List<dept.Data> user) onSuccess,
+      {required Function(List<dept.DataDepartment> user) onSuccess,
       required Function(String message, int code) onError});
 
   Future<void> registerUser(DataUserRegister userInputModel, bool isUpdate,
-      {required Function() onSuccess, required Function(String message, int code) onError});
+      {required Function() onSuccess,
+      required Function(String message, int code) onError});
 
   Future<void> deleteUser(int idUser,
-      {required Function() onSuccess, required Function(String message, int code) onError});
+      {required Function() onSuccess,
+      required Function(String message, int code) onError});
 
   // Future<void> getOvertime(
   //     {String startDate,

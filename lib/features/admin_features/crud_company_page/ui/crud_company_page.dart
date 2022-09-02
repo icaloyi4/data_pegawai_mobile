@@ -1,16 +1,18 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_company_page/bloc/crud_company_bloc.dart';
 import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/base/base_stateful.dart';
 import '../../../../core/widget/cool_alert.dart';
 
@@ -162,9 +164,7 @@ class _CrudCompanyPage
           Container(
             child: TextFormField(
               enabled: true,
-              initialValue: _companyData?.address == null
-                  ? ""
-                  : _companyData?.address.toString(),
+              controller: _addressController,
               decoration:
                   fieldDecoration('Company Address', Icons.domain, false),
               validator: (value) {
@@ -182,9 +182,7 @@ class _CrudCompanyPage
           Container(
             child: TextFormField(
               enabled: true,
-              initialValue: _companyData?.city == null
-                  ? ""
-                  : _companyData?.city.toString(),
+              controller: _cityController,
               decoration: fieldDecoration('Company City', Icons.domain, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -201,9 +199,7 @@ class _CrudCompanyPage
           Container(
             child: TextFormField(
               enabled: true,
-              initialValue: _companyData?.country == null
-                  ? ""
-                  : _companyData?.country.toString(),
+              controller: _countryController,
               decoration:
                   fieldDecoration('Company Country', Icons.domain, false),
               validator: (value) {
@@ -224,9 +220,7 @@ class _CrudCompanyPage
                 Expanded(
                   child: TextFormField(
                     enabled: true,
-                    initialValue: _companyData?.location == null
-                        ? ""
-                        : _companyData?.location.toString(),
+                    controller: _locationController,
                     decoration: fieldDecoration(
                         'Location (Optional)', Icons.location_pin, false),
                     validator: (value) {
@@ -236,40 +230,67 @@ class _CrudCompanyPage
                     },
                   ),
                 ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlacePicker(
-                            apiKey:
-                                MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
-                            onPlacePicked: (result) {
-                              print(result);
-                              Navigator.of(context).pop();
-                            },
-                            useCurrentLocation: true,
-                            initialPosition: LatLng(6.2088, 106.8456),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        decoration: styleBoxBorderAll(
-                            backgroundColor: MyColors.mainColor,
-                            withBorder: true,
-                            borderColors: MyColors.mainColor),
+                (MyCons.isWeb)
+                    ? Container()
+                    : GestureDetector(
+                        onTap: () async {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => PlacePicker(
+                          //       apiKey:
+                          //           MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
+                          //       onPlacePicked: (result) {
+                          //         print(result);
+                          //         Navigator.of(context).pop();
+                          //       },
+                          //       useCurrentLocation: true,
+                          //       initialPosition: LatLng(6.2088, 106.8456),
+                          //     ),
+                          //   ),
+                          // );
+                          var result;
+                          if (_companyData?.location != null) {
+                            result = await Get.toNamed(PageRouting.MAP_PICKER,
+                                arguments: [
+                                  _companyData?.location,
+                                  TypeMap.MAP_PICKER
+                                ]);
+                          } else {
+                            result = await Get.toNamed(PageRouting.MAP_PICKER);
+                          }
+                          // print(result);
+                          if (result != null) {
+                            LatLng? curentLocation = result[0];
+                            List<Placemark> placemarks = result[1];
+                            _addressController.text =
+                                placemarks.first.name.toString();
+                            _cityController.text =
+                                placemarks.first.locality.toString();
+                            _countryController.text =
+                                placemarks.first.country.toString();
+                            _locationController.text =
+                                "${curentLocation?.latitude.toString()}, ${curentLocation?.longitude.toString()}";
+                            // print(placemarks);
+                            setState(() {});
+                          }
+                        },
                         child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Icon(
-                            CupertinoIcons.location_solid,
-                            color: Colors.white,
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            decoration: styleBoxBorderAll(
+                                backgroundColor: MyColors.mainColor,
+                                withBorder: true,
+                                borderColors: MyColors.mainColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                CupertinoIcons.location_solid,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ))
+                        ))
               ],
             ),
           ),
@@ -314,11 +335,33 @@ class _CrudCompanyPage
   }
 
   late Company? _companyData;
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _cityController = new TextEditingController();
+  TextEditingController _countryController = new TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _companyData = MyCons.dataUser?.company;
+    _addressController.text =
+        _companyData?.address == null ? "" : _companyData!.address!;
+    _locationController.text =
+        _companyData?.location == null ? "" : _companyData!.location!;
+    _cityController.text =
+        _companyData?.city == null ? "" : _companyData!.city!;
+    _countryController.text =
+        _companyData?.country == null ? "" : _companyData!.country!;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _addressController.dispose();
+    _cityController.dispose();
+    _countryController.dispose();
+    _locationController.dispose();
+    super.dispose();
   }
 
   @override

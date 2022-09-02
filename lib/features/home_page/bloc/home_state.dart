@@ -23,9 +23,15 @@ class SuccessGetNews extends HomeState {
   SuccessGetNews(this.listNews);
 }
 
-class ErrorGetNews extends HomeState {
-  
+class ErrorGetNews extends HomeState {}
+
+class SuccessGetAnnouncement extends HomeState {
+  final List<DataAnnouncements>? listAnnouncements;
+
+  SuccessGetAnnouncement(this.listAnnouncements);
 }
+
+class ErrorGetAnnouncement extends HomeState {}
 // class SuccessGetDataUser extends UserState {
 //   final usr.UserData user;
 //   final List<OvertimeData> overtime;

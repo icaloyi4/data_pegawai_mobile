@@ -4,8 +4,10 @@ import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:ojrek_hris/features/home_page/bloc/home_bloc.dart';
 import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/routing/page_routing.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/error_text.dart';
@@ -102,9 +104,15 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
         children: List.generate(_listnews.length, (index) {
           NewsData _news = _listnews.elementAt(index);
           return GestureDetector(
-            onTap: () {
-              Get.toNamed(PageRouting.NEWS_WEBVIEW,
-                  arguments: [_news.url, _news.title]);
+            onTap: () async {
+              if (MyCons.isWeb) {
+                if (!await launchUrl(Uri.parse(_news.url.toString()))) {
+                  throw 'Could not launch ${_news.url.toString()}';
+                }
+              } else {
+                Get.toNamed(PageRouting.NEWS_WEBVIEW,
+                    arguments: [_news.url, _news.title]);
+              }
             },
             child: Card(
               elevation: 2,

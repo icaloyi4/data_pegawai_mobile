@@ -20,7 +20,7 @@ class SuccesGetUserFilter extends CrudUserState {
 class ErrorGetUser extends CrudUserState {}
 
 class SuccesGetDeptPos extends CrudUserState {
-  final List<dept.Data> dataDept;
+  final List<dept.DataDepartment> dataDept;
 
   SuccesGetDeptPos(this.dataDept);
 }

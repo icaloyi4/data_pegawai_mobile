@@ -5,6 +5,7 @@ import 'package:ojrek_hris/core/base/base_bloc.dart';
 import 'package:ojrek_hris/core/base/bloc_event.dart';
 import 'package:ojrek_hris/core/base/bloc_state.dart';
 import 'package:flutter/foundation.dart';
+import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
 
 import '../../../core/assets/my_cons.dart';
 import '../../../core/widget/cool_alert.dart';
@@ -26,6 +27,9 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     }
     if (event is GetNews) {
       getNews(event);
+    }
+     if (event is GetAnnouncements) {
+      getAnnouncement(event);
     }
   }
 
@@ -90,6 +94,22 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
       },
       onError: (message, code) {
         emitState(ErrorGetNews());
+        AlertMessage.showAlert(event.context,
+            title: "Failed",
+            message: "[$code] $message",
+            type: CoolAlertType.error);
+      },
+    );
+  }
+  
+  void getAnnouncement(GetAnnouncements event) async {
+    emitState(LoadingState());
+    await _repos.getAnnouncements(
+      onSuccess: (announcements) {
+        emitState(SuccessGetAnnouncement(announcements));
+      },
+      onError: (message, code) {
+        emitState(ErrorGetAnnouncement());
         AlertMessage.showAlert(event.context,
             title: "Failed",
             message: "[$code] $message",

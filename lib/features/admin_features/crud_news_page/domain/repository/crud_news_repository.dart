@@ -1,5 +1,6 @@
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 
+import '../../../../../core/assets/my_enum.dart';
 import '../../data/remote/news_response.dart';
 
 abstract class CrudNewsRepository {

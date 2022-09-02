@@ -12,6 +12,7 @@ import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user
 import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_user_response.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/cool_alert.dart';
 
@@ -93,7 +94,7 @@ class _ListUserPage
       body: Column(
         children: [
           Container(
-            color: Colors.white,
+            color: Colors.transparent,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(

@@ -36,7 +36,7 @@ class CrudUserRepositoryImpl implements CrudUserRepository {
 
   @override
   Future<void> getDepartmenPosition(
-      {Function(List<dept.Data> user)? onSuccess,
+      {Function(List<dept.DataDepartment> user)? onSuccess,
       Function(String message, int code)? onError}) async {
     try {
       var response = await _remoteSource.getDeptPos();

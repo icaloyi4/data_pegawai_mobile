@@ -22,4 +22,11 @@ class PageRouting {
   static const NEWS_ALL = "/news-all";
   static const CRUD_NEWS = "/crud-news";
   static const ADD_NEWS = "/add-news";
+
+  static const CRUD_ANNOUNCEMENTS = "/crud-announcements";
+  static const ADD_ANNOUNCEMENTS = "/add-announcements";
+
+  static const MAP_PICKER="/map-picker";
+
+  static const SHOW_ANNOUNCEMENT="/show-announcement";
 }

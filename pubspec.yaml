@@ -41,6 +41,7 @@ dependencies:
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.1.8
   geolocator: ^9.0.1
+  geocoding: ^2.0.1
   # google_map_location_picker: ^4.1.7
   google_maps_place_picker_mb: ^2.0.0-mb.20
   grouped_list: ^5.1.2
@@ -57,6 +58,7 @@ dependencies:
   shared_preferences: ^2.0.12
   shimmer: ^2.0.0
   slide_digital_clock: ^1.0.2
+  url_launcher: ^6.1.5
   # weather_icons: ^3.0.0
   weather: ^2.0.1
   webview_flutter: ^3.0.4

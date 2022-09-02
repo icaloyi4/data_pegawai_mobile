@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../../../core/assets/my_cons.dart';
-import '../../../../core/base/base_stateful.dart';
-import '../bloc/crud_department_bloc.dart';
+import '../../../../core/assets/my_enum.dart';
 import 'widget/form_crud_department.dart';
 
 class CrudDepartmentPage extends StatefulWidget {

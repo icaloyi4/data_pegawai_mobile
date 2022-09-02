@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum Flavor { DEV, STAGING, PRODUCTION }
+import '../assets/my_enum.dart';
+
+
 
 class FlavorValues {
   FlavorValues({required this.baseUrl, required this.appVersion});

@@ -1,6 +1,11 @@
 import 'package:ojrek_hris/core/remote/dio_module.dart';
 import 'package:dio/dio.dart';
 import 'package:kiwi/kiwi.dart';
+import '../../features/admin_features/crud_announcement_page/bloc/crud_announcement_bloc.dart';
+import '../../features/admin_features/crud_announcement_page/data/local/crud_announcement_local_source.dart';
+import '../../features/admin_features/crud_announcement_page/data/remote/crud_announcement_remote_source.dart';
+import '../../features/admin_features/crud_announcement_page/domain/repository/crud_announcement_repository.dart';
+import '../../features/admin_features/crud_announcement_page/domain/repository/crud_announcement_repository_impl.dart';
 import '../../features/admin_features/crud_company_page/bloc/crud_company_bloc.dart';
 import '../../features/admin_features/crud_company_page/data/local/crud_company_local_source.dart';
 import '../../features/admin_features/crud_company_page/data/remote/crud_company_remote_source.dart';
@@ -122,6 +127,14 @@ abstract class Injection {
       from: CrudNewsRepositoryImpl,
       resolvers: {CrudNewsRemoteSource: "", CrudNewsLocalSource: ""})
   @Register.factory(CrudNewsBloc, resolvers: {CrudNewsRepository: ""})
+
+  //CRUD Announcements
+  @Register.singleton(CrudAnnouncementRemoteSource, resolvers: {Dio: ""})
+  @Register.singleton(CrudAnnouncementLocalSource)
+  @Register.singleton(CrudAnnouncementRepository,
+      from: CrudAnnouncementRepositoryImpl,
+      resolvers: {CrudAnnouncementRemoteSource: "", CrudAnnouncementLocalSource: ""})
+  @Register.factory(CrudAnnouncementBloc, resolvers: {CrudAnnouncementRepository: ""})
   void configure();
 }
 

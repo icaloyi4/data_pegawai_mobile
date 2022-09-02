@@ -8,6 +8,7 @@ import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/routing/page_routing.dart';
 import '../../../../core/widget/cool_alert.dart';
 import '../bloc/crud_department_bloc.dart';
@@ -92,7 +93,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
       itemCount: dataDepartment.length,
       itemBuilder: (ctx, index) {
         return Container(
-            color: Colors.white,
+            color: MyCons.darkModeEnabled ? Colors.blueGrey[200] : Colors.white,
             child: departmentList(ctx, dataDepartment.elementAt(index)));
       },
     );
@@ -101,6 +102,8 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
   Widget departmentList(BuildContext ctx, DataDepartment elementAt) {
     return ExpansionTile(
       textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
+      iconColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
+      collapsedIconColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
       title: textWithIcon(
           icon: CupertinoIcons.building_2_fill,
           iconCustomColor:
@@ -119,7 +122,7 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
           },
         ),
         Container(
-          color: Colors.grey[100],
+          color: MyCons.darkModeEnabled ? Colors.blueGrey[100] : Colors.grey[100],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -179,6 +182,9 @@ class _ListDepartmentPage extends BaseState<CrudDepartmentBloc,
                       padding: const EdgeInsets.all(10.0),
                       child: Icon(
                         CupertinoIcons.pencil,
+                        color: MyCons.darkModeEnabled
+                            ? MyColors.mainColor
+                            : Colors.white,
                         size: 20,
                       ),
                     ),

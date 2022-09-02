@@ -1,6 +1,8 @@
 import 'package:ojrek_hris/core/error/error_result.dart';
 import 'package:dio/dio.dart';
 
+import '../assets/my_enum.dart';
+
 typedef ResponseConverter<T> = T Function(dynamic response);
 Future<Result<T>> safeCallApi<T>(
     Future<Response<dynamic>> call, ResponseConverter<T>? converter) async {

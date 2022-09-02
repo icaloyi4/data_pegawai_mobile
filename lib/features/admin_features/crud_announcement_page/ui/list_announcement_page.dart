@@ -10,19 +10,18 @@ import '../../../../core/assets/my_color.dart';
 import '../../../../core/assets/my_cons.dart';
 import '../../../../core/assets/my_enum.dart';
 import '../../../../core/routing/page_routing.dart';
-import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/cool_alert.dart';
 import '../../../../core/widget/styling.dart';
-import '../bloc/crud_news_bloc.dart';
-import '../data/remote/news_response.dart';
+import '../bloc/crud_announcement_bloc.dart';
+import '../data/remote/announcement_response.dart';
 
-class ListNewsPage extends StatefulWidget {
+class ListAnnouncementPage extends StatefulWidget {
   @override
-  _ListNewsPage createState() => _ListNewsPage();
+  _ListAnnouncementPage createState() => _ListAnnouncementPage();
 }
 
-class _ListNewsPage
-    extends BaseState<CrudNewsBloc, CrudNewsState, ListNewsPage> {
+class _ListAnnouncementPage extends BaseState<CrudAnnouncementBloc,
+    CrudAnnouncementState, ListAnnouncementPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -30,7 +29,7 @@ class _ListNewsPage
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.5,
-        title: Text("News",
+        title: Text("Announcements",
             style: styleHeader(
                 textStyleWeight: TextStyleWeight.Title3,
                 color: MyCons.darkModeEnabled ? Colors.white : Colors.black54)),
@@ -55,7 +54,7 @@ class _ListNewsPage
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: StreamBuilder<CrudNewsState>(
+              child: StreamBuilder<CrudAnnouncementState>(
                   stream: bloc.stateStream,
                   initialData: LoadingState(),
                   builder: (blocCtx, snapshot) =>
@@ -66,8 +65,8 @@ class _ListNewsPage
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Get.toNamed(PageRouting.ADD_NEWS);
-          bloc.pushEvent(GetNews(context));
+          await Get.toNamed(PageRouting.ADD_ANNOUNCEMENTS);
+          bloc.pushEvent(GetAnnouncements(context));
         },
         backgroundColor: MyColors.mainColor,
         child: const Icon(
@@ -78,7 +77,7 @@ class _ListNewsPage
     );
   }
 
-  Widget listNews(List<NewsData> dataDepartment) {
+  Widget listAnnouncements(List<AnnouncementsData> dataDepartment) {
     // _dataUserFiltered = dataUser;
     // _dataUser.addAll(dataUser);
     return ListView.builder(
@@ -87,18 +86,18 @@ class _ListNewsPage
       itemBuilder: (ctx, index) {
         return Container(
             color: MyCons.darkModeEnabled ? Colors.blueGrey[200] : Colors.white,
-            child: newsList(ctx, dataDepartment.elementAt(index)));
+            child: announcementsList(ctx, dataDepartment.elementAt(index)));
       },
     );
   }
 
-  Widget newsList(BuildContext ctx, NewsData elementAt) {
+  Widget announcementsList(BuildContext ctx, AnnouncementsData elementAt) {
     return ExpansionTile(
       textColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
       iconColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
       collapsedIconColor: MyCons.darkModeEnabled ? Colors.blueGrey[600] : null,
       title: textWithIcon(
-          icon: CupertinoIcons.news,
+          icon: CupertinoIcons.bell_circle_fill,
           iconCustomColor:
               MyCons.darkModeEnabled ? Colors.blueGrey : MyColors.mainColor,
           text: "${elementAt.title}"),
@@ -154,11 +153,6 @@ class _ListNewsPage
                         style:
                             styleHeader(textStyleWeight: TextStyleWeight.body),
                       ),
-                      Text(
-                        "${elementAt.updateBy} - ${changeDateFormat(date: elementAt.updateAt, newFormat: MyCons.DATETIME_FORMAT_BEAUTY)}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
                     ],
                   ),
                 ),
@@ -167,7 +161,8 @@ class _ListNewsPage
           ],
         ),
         Container(
-          color: MyCons.darkModeEnabled ? Colors.blueGrey[100] : Colors.grey[100],
+          color:
+              MyCons.darkModeEnabled ? Colors.blueGrey[100] : Colors.grey[100],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -184,8 +179,9 @@ class _ListNewsPage
                     onConfirm: () {
                       Get.back();
                       if (elementAt.id != null)
-                        bloc.pushEvent(CRUDNews(context,
-                            newsData: elementAt, typeCrud: TypeCrud.DELETE));
+                        bloc.pushEvent(CRUDAnnouncements(context,
+                            announcementData: elementAt,
+                            typeCrud: TypeCrud.DELETE));
                     },
                     onCancel: () {
                       Get.back();
@@ -212,8 +208,9 @@ class _ListNewsPage
               ),
               GestureDetector(
                 onTap: () async {
-                  await Get.toNamed(PageRouting.ADD_NEWS, arguments: elementAt);
-                  bloc.pushEvent(GetNews(context));
+                  await Get.toNamed(PageRouting.ADD_ANNOUNCEMENTS,
+                      arguments: elementAt);
+                  bloc.pushEvent(GetAnnouncements(context));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -250,17 +247,17 @@ class _ListNewsPage
   void initState() {
     // TODO: implement initState
     super.initState();
-    bloc.pushEvent(GetNews(context));
+    bloc.pushEvent(GetAnnouncements(context));
   }
 
   @override
-  CrudNewsBloc initBloc() {
+  CrudAnnouncementBloc initBloc() {
     // TODO: implement initBloc
-    return KiwiContainer().resolve<CrudNewsBloc>();
+    return KiwiContainer().resolve<CrudAnnouncementBloc>();
   }
 
   @override
-  Widget mapStateHandler(CrudNewsState? state) {
+  Widget mapStateHandler(CrudAnnouncementState? state) {
     // TODO: implement mapStateHandler
     if (state is LoadingState) {
       return Center(
@@ -268,9 +265,13 @@ class _ListNewsPage
       );
     }
 
-    if (state is SuccessGetNews) {
+    if (state is SuccessGetAnnouncements) {
       // _dataUser = state.dataUser;
-      return listNews(state.listNews!);
+      if (state.listAnnouncements!.isEmpty) {
+        return ErrorText(message: "No Announcements found at this time");
+      } else {
+        return listAnnouncements(state.listAnnouncements!);
+      }
     }
 
     // if (state is SuccesGetDepartmentFilter) {
@@ -278,11 +279,11 @@ class _ListNewsPage
     //   return listUser(_dataUserFiltered);
     // }
 
-    if (state is ErrorGetNews) {
+    if (state is ErrorGetAnnouncements) {
       return ErrorText(
           message: "Something wrong, try again",
           tryAgain: () {
-            bloc.pushEvent(GetNews(context));
+            bloc.pushEvent(GetAnnouncements(context));
           });
     }
 

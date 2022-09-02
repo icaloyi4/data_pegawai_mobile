@@ -10,6 +10,8 @@ import 'package:ojrek_hris/core/widget/error_text.dart';
 import 'package:ojrek_hris/features/home_page/data/entities/news_dummy_model.dart';
 import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/base/base_stateful.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../core/widget/styling.dart';
@@ -172,9 +174,16 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
 
   Widget pageview(NewsData model) {
     return GestureDetector(
-      onTap: () {
-        Get.toNamed(PageRouting.NEWS_WEBVIEW,
-            arguments: [model.url, model.title]);
+      onTap: () async {
+        if (MyCons.isWeb) {
+          if (!await launchUrl(
+              Uri.parse(model.url.toString()))) {
+            throw 'Could not launch ${model.url.toString()}';
+          }
+        } else {
+          Get.toNamed(PageRouting.NEWS_WEBVIEW,
+              arguments: [model.url, model.title]);
+        }
       },
       child: Card(
         elevation: 5,

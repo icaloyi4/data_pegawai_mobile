@@ -7,6 +7,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
+import '../../../../core/assets/my_enum.dart';
 import '../../bloc/login_bloc.dart';
 
 class FormLoginPage extends StatefulWidget {

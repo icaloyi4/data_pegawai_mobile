@@ -1,3 +1,4 @@
+import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
 import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
 import 'package:ojrek_hris/features/user_page/bloc/user_bloc.dart';
 
@@ -17,6 +18,24 @@ class HomeRepositoryImpl implements HomeRepository {
       required Function(String message, int code) onError}) async {
     try {
       var response = await _remoteSource.getNews(limit);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess(response.body?.data);
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
+  
+  @override
+  Future<void> getAnnouncements({required Function(List<DataAnnouncements>? news) onSuccess,
+      required Function(String message, int code) onError}) async {
+    try {
+      var response = await _remoteSource.getAnnouncements();
       if (response.code == 401) {
         UserBloc.logout();
       }

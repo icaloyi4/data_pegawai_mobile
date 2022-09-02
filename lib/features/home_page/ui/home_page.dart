@@ -11,6 +11,7 @@ import 'package:ojrek_hris/features/home_page/ui/widget/news.dart';
 import 'package:ojrek_hris/features/home_page/ui/widget/weather.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 
+import '../../../core/assets/my_enum.dart';
 import '../../../core/routing/page_routing.dart';
 
 class HomePage extends StatefulWidget {

@@ -10,6 +10,12 @@ class GetNews extends HomeEvent {
   GetNews(this.context, {this.limit});
 }
 
+class GetAnnouncements extends HomeEvent {
+  final BuildContext context;
+
+  GetAnnouncements(this.context);
+}
+
 class Logout extends HomeEvent {}
 
 class InitWeather extends HomeEvent {}

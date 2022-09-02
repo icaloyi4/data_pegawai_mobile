@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
@@ -9,6 +11,8 @@ import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
 import "package:google_maps_flutter_platform_interface/src/types/location.dart";
 
+import '../../../../core/assets/my_enum.dart';
+import '../../../../core/routing/page_routing.dart';
 import '../../bloc/register_bloc.dart';
 
 class FormRegisterCompanyPage extends StatefulWidget {
@@ -24,6 +28,21 @@ class _FormRegisterCompanyPage
   var _passwordVisible = false;
   late RegisterModel _registerModel;
   var _keyFormCompany = new GlobalKey<FormState>();
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _cityController = new TextEditingController();
+  TextEditingController _countryController = new TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _addressController.dispose();
+    _cityController.dispose();
+    _countryController.dispose();
+    _locationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,6 +144,7 @@ class _FormRegisterCompanyPage
             child: TextFormField(
               decoration:
                   fieldDecoration('Company Address', Icons.domain, false),
+              controller: _addressController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company address cannot be empty';
@@ -140,6 +160,7 @@ class _FormRegisterCompanyPage
           Container(
             child: TextFormField(
               decoration: fieldDecoration('Company City', Icons.domain, false),
+              controller: _cityController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company city cannot be empty';
@@ -156,6 +177,7 @@ class _FormRegisterCompanyPage
             child: TextFormField(
               decoration:
                   fieldDecoration('Company Country', Icons.domain, false),
+              controller: _countryController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Company country cannot be empty';
@@ -175,46 +197,66 @@ class _FormRegisterCompanyPage
                   child: TextFormField(
                     decoration: fieldDecoration(
                         'Location (Optional)', Icons.location_pin, false),
+                    controller: _locationController,
                     validator: (value) {
                       _registerModel.companyLocation = value;
                       return null;
                     },
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlacePicker(
-                          apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
-                          onPlacePicked: (result) {
-                            print(result);
-                            Navigator.of(context).pop();
-                          },
-                          useCurrentLocation: true,
-                          initialPosition: LatLng(6.2088, 106.8456),
+                (MyCons.isWeb)
+                    ? Container()
+                    : GestureDetector(
+                        onTap: () async {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => PlacePicker(
+                          //       apiKey: MyCons.MAP_API_KEY, // Put YOUR OWN KEY here.
+                          //       onPlacePicked: (result) {
+                          //         print(result);
+                          //         Navigator.of(context).pop();
+                          //       },
+                          //       useCurrentLocation: true,
+                          //       initialPosition: LatLng(6.2088, 106.8456),
+                          //     ),
+                          //   ),
+                          // );
+                          var result =
+                              await Get.toNamed(PageRouting.MAP_PICKER);
+                          // print(result);
+                          if (result != null) {
+                            LatLng? curentLocation = result[0];
+                            List<Placemark> placemarks = result[1];
+                            _addressController.text =
+                                placemarks.first.name.toString();
+                            _cityController.text =
+                                placemarks.first.locality.toString();
+                            _countryController.text =
+                                placemarks.first.country.toString();
+                            _locationController.text =
+                                "${curentLocation?.latitude.toString()}, ${curentLocation?.longitude.toString()}";
+                            // print(placemarks);
+                            setState(() {});
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            decoration: styleBoxBorderAll(
+                                backgroundColor: MyColors.mainColor,
+                                withBorder: true,
+                                borderColors: MyColors.mainColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                CupertinoIcons.location_solid,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      decoration: styleBoxBorderAll(
-                          backgroundColor: MyColors.mainColor,
-                          withBorder: true,
-                          borderColors: MyColors.mainColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Icon(
-                          CupertinoIcons.location_solid,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                      )
               ],
             ),
           ),

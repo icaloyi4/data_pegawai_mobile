@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/features/login_page/ui/widget/form_login.dart';
 
+import '../../../core/assets/my_enum.dart';
 import '../../../core/widget/styling.dart';
 import '../bloc/login_bloc.dart';
 

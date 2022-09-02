@@ -1,12 +1,11 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_bloc.dart';
 import 'package:ojrek_hris/core/base/bloc_event.dart';
 import 'package:ojrek_hris/core/base/bloc_state.dart';
-import 'package:flutter/foundation.dart';
 
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/routing/page_routing.dart';
 import '../../../../core/widget/cool_alert.dart';
 import '../data/remote/news_response.dart';

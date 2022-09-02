@@ -10,4 +10,23 @@ class GetDataCrudAnnouncement extends CrudAnnouncementEvent {
   GetDataCrudAnnouncement(this.startDate, this.endDate);
 }
 
-class Logout extends CrudAnnouncementEvent {}
+class GetAnnouncements extends CrudAnnouncementEvent {
+  final BuildContext context;
+
+  GetAnnouncements(this.context);
+}
+
+class GetDepartment extends CrudAnnouncementEvent {
+  final BuildContext context;
+
+  GetDepartment(this.context);
+}
+
+class CRUDAnnouncements extends CrudAnnouncementEvent {
+  final BuildContext context;
+  final TypeCrud typeCrud;
+  final AnnouncementsData announcementData;
+  
+  CRUDAnnouncements(this.context,
+      {required this.typeCrud, required this.announcementData});
+}

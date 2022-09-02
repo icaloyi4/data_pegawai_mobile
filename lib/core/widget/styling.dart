@@ -1,19 +1,8 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:flutter/material.dart';
 
-enum TextStyleWeight {
-  Title,
-  Title2,
-  Title3,
-  subtitle1,
-  subtitle2,
-  subtitle3,
-  body,
-}
+import '../assets/my_enum.dart';
 
 TextStyle styleHeader(
     {Color? color, TextStyleWeight textStyleWeight = TextStyleWeight.body}) {

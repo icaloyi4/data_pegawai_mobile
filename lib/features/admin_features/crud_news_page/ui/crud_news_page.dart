@@ -6,6 +6,7 @@ import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/base/base_stateful.dart';
 import '../../../../core/widget/cool_alert.dart';
 import '../bloc/crud_news_bloc.dart';
@@ -131,8 +132,11 @@ class _CrudNewsPage
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Icon(Icons.newspaper),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Icon(
+                    Icons.newspaper,
+                    color: MyColors.mainColor,
+                  ),
                 ),
                 TextFormField(
                   enabled: true,
@@ -161,7 +165,7 @@ class _CrudNewsPage
             child: TextFormField(
               initialValue:
                   _newsData?.url == null ? "" : _newsData?.url.toString(),
-              decoration: fieldDecoration('News URL', Icons.phone, false),
+              decoration: fieldDecoration('News URL', Icons.http, false),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'News URL cannot be empty';
@@ -178,8 +182,7 @@ class _CrudNewsPage
             child: TextFormField(
               enabled: true,
               controller: _imageController,
-              decoration:
-                  fieldDecoration('Image News URL', Icons.domain, false),
+              decoration: fieldDecoration('Image News URL', Icons.image, false),
               onChanged: (value) {
                 setState(() {});
               },
@@ -247,7 +250,8 @@ class _CrudNewsPage
     // _newsData = MyCons.dataUser?.News;
     if (Get.arguments != null) {
       _newsData = Get.arguments;
-      _imageController.text = _newsData!.imgUrl.toString();
+      _imageController.text =
+          _newsData?.imgUrl == null ? "" : _newsData!.imgUrl.toString();
     } else {
       _newsData = new NewsData();
     }

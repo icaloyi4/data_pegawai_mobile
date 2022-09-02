@@ -3,6 +3,7 @@ import 'package:ojrek_hris/core/remote/base_remote.dart';
 import 'package:dio/dio.dart';
 import 'package:ojrek_hris/core/remote/response/default_response.dart';
 
+import '../../../../../core/assets/my_enum.dart';
 import '../../../../../core/error/error_result.dart';
 import '../../../../../core/remote/dio_model.dart';
 import 'news_response.dart';

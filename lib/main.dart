@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ojrek_hris/core/injection/injection.dart';
 import 'package:ojrek_hris/core/utils/app_theme.dart';
 
+import 'core/assets/my_enum.dart';
 import 'core/config/flavor_config.dart';
 import 'core/remote/dio_model.dart';
 import 'core/routing/get_router.dart';

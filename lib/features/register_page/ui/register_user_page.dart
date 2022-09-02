@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
+import '../../../core/assets/my_enum.dart';
 import '../../../core/widget/styling.dart';
-import '../bloc/register_bloc.dart';
 import 'widget/form_register_user.dart';
 
 class RegisterPage extends StatefulWidget {

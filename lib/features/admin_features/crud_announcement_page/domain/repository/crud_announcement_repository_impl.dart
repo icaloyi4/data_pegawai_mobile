@@ -1,14 +1,43 @@
+import 'package:ojrek_hris/core/base/base_remote_repository.dart';
+import 'package:ojrek_hris/features/admin_features/crud_announcement_page/data/remote/announcement_response.dart';
+import 'package:ojrek_hris/features/admin_features/crud_announcement_page/data/remote/get_department_response.dart';
 
-
+import '../../../../../core/assets/my_enum.dart';
 import '../../data/local/crud_announcement_local_source.dart';
 import '../../data/remote/crud_announcement_remote_source.dart';
 import 'crud_announcement_repository.dart';
 
-class CrudAnnouncementRepositoryImpl implements CrudAnnouncementRepository {
+class CrudAnnouncementRepositoryImpl extends BaseRemoteRepository
+    implements CrudAnnouncementRepository {
   final CrudAnnouncementRemoteSource _remoteSource;
   final CrudAnnouncementLocalSource _localSource;
 
   CrudAnnouncementRepositoryImpl(this._remoteSource, this._localSource);
+
+  @override
+  Future<void> getAnnouncements(
+      {required Function(List<AnnouncementsData>? news) onSuccess,
+      required Function(String message, int code) onError}) async {
+    var response = await _remoteSource.getAnnouncements();
+    responseProcess(response, onSuccess, onError);
+  }
+
+  @override
+  Future<void> crudAnnouncement(
+      {required AnnouncementsData announcementsData,
+      required TypeCrud typeCrud,
+      required onSuccess,
+      required Function(String message, int code) onError}) async {
+    var response = await _remoteSource.createUpdateAnnouncements(
+        announcementsData, typeCrud);
+    responseProcess(response, onSuccess, onError);
+  }
+
+  @override
+  Future<void> getDepartment({required Function(List<DepartmentData> department) onSuccess, required Function(dynamic message, dynamic code) onError}) async {
+    var response = await _remoteSource.getDepartments();
+    responseProcess(response, onSuccess, onError);
+  }
 
   // @override
   // Future<void> getDataUser(

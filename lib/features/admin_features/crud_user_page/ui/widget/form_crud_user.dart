@@ -12,11 +12,13 @@ import 'package:ojrek_hris/core/utils/utils.dart';
 import 'package:ojrek_hris/core/widget/cool_alert.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
-import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_department_position_response.dart';
-import 'package:ojrek_hris/features/admin_features/crud_user_page/data/remote/get_user_response.dart';
+
+import '../../../../../core/assets/my_enum.dart';
+import '../../data/remote/get_department_position_response.dart';
+import '../../data/remote/get_user_response.dart';
 
 class FormCrudUserPage extends StatefulWidget {
-  final List<Data>? dataDept;
+  final List<DataDepartment>? dataDept;
   FormCrudUserPage(this.dataDept);
 
   @override
@@ -177,7 +179,7 @@ class _FormCrudUserPage
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10, top: 5, bottom: 5),
-                      child: DropdownButton<Data>(
+                      child: DropdownButton<DataDepartment>(
                         isExpanded: true,
                         value: _deptSelectedValue,
                         icon: const Icon(CupertinoIcons.chevron_down),
@@ -198,8 +200,8 @@ class _FormCrudUserPage
                             _userInputModel.positionId = value?.position[0].id;
                           });
                         },
-                        items: widget.dataDept?.map((Data map) {
-                          return new DropdownMenuItem<Data>(
+                        items: widget.dataDept?.map((DataDepartment map) {
+                          return new DropdownMenuItem<DataDepartment>(
                               value: map, child: Text(map.name));
                         }).toList(),
                       ),
@@ -224,7 +226,7 @@ class _FormCrudUserPage
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10, top: 5, bottom: 5),
-                      child: DropdownButton<Position>(
+                      child: DropdownButton<DataPosition>(
                         isExpanded: true,
                         hint: Text("Select Position"),
                         value: _positionSelectedValue,
@@ -237,15 +239,16 @@ class _FormCrudUserPage
                           height: 2,
                           color: Colors.transparent,
                         ),
-                        onChanged: (Position? newValue) {
+                        onChanged: (DataPosition? newValue) {
                           setState(() {
                             _positionSelectedValue = newValue!;
                             _userInputModel.positionId = newValue.id;
                           });
                         },
                         items: _deptSelectedValue.position
-                            .map<DropdownMenuItem<Position>>((Position value) {
-                          return DropdownMenuItem<Position>(
+                            .map<DropdownMenuItem<DataPosition>>(
+                                (DataPosition value) {
+                          return DropdownMenuItem<DataPosition>(
                             value: value,
                             child: Text("${value.name}"),
                           );
@@ -485,11 +488,11 @@ class _FormCrudUserPage
       } else {
         int posDept = 0;
         for (var element in widget.dataDept ?? []) {
-          if (element._level == _userInputModel.departmentId) {
+          if (element.id == _userInputModel.departmentId) {
             _deptSelectedValue = widget.dataDept?[posDept];
             int posPosition = 0;
             for (var elementPos in widget.dataDept?[posDept].position ?? []) {
-              if (elementPos._level == _userInputModel.positionId) {
+              if (elementPos.id == _userInputModel.positionId) {
                 _positionSelectedValue =
                     widget.dataDept?[posDept].position[posPosition];
                 break;

@@ -62,7 +62,7 @@ class CrudUserBloc extends BaseBloc<CrudUserEvent, CrudUserState> {
   void getDepartmentPosition(event) async {
     emitState(LoadingState());
     await _repos.getDepartmenPosition(
-      onSuccess: (List<dept.Data> dept) {
+      onSuccess: (List<dept.DataDepartment> dept) {
         emitState(SuccesGetDeptPos(dept));
       },
       onError: (message, code) {
@@ -128,7 +128,10 @@ class CrudUserBloc extends BaseBloc<CrudUserEvent, CrudUserState> {
 
   void filterUser(FilterUser event) {
     var userFiltered = event.dataUser.where((element) {
-      return element.name.toString().toLowerCase().contains(event.filter.toString().toLowerCase());
+      return element.name
+          .toString()
+          .toLowerCase()
+          .contains(event.filter.toString().toLowerCase());
     }).toList();
     emitState(SuccesGetUserFilter(userFiltered));
   }

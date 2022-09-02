@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 
 import '../../../../core/assets/my_cons.dart';
 import '../../../../core/routing/page_routing.dart';
+import '../../../../core/services/setting_service.dart';
 import '../../../../core/widget/cool_alert.dart';
 import '../domain/repository/crud_company_repository.dart';
 
@@ -31,10 +34,14 @@ class CrudCompanyBloc extends BaseBloc<CrudCompanyEvent, CrudCompanyState> {
     emitState(LoadingState());
     await _repos.updateCompany(
       event.company,
-      onSuccess: () {
+      onSuccess: () async {
         emitState(SuccesUpdateCompany());
         // Get.back(closeOverlays: true);
         MyCons.dataUser?.company = event.company;
+        var settingService = await SettingService.getService();
+        var dataUser = jsonEncode(MyCons.dataUser?.toJson());
+        await settingService?.set(MyCons.myUser, dataUser);
+        MyCons.dataUser = MyCons.dataUser;
         AlertMessage.showAlert(
           event.context,
           title: "Success",

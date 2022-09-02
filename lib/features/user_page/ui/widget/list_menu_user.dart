@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
+import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
-import 'package:ojrek_hris/features/login_page/data/remote/login_response.dart';
 import 'package:ojrek_hris/features/user_page/bloc/user_bloc.dart';
+import 'package:ojrek_hris/core/remote/adapter_html.dart'
+    if (dart.library.io) 'package:ojrek_hris/core/remote/adapter_io.dart'
+    as html;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/assets/my_cons.dart';
+import '../../../../core/assets/my_enum.dart';
 import '../../../../core/widget/styling.dart';
 
 class ListMenu extends StatefulWidget {
@@ -180,11 +186,39 @@ class _ListMenu extends BaseState<UserBloc, UserState, ListMenu> {
                 width: 10,
               ),
               Expanded(
-                  child: Text(
-                "$subtitle",
-                style: styleHeader(textStyleWeight: TextStyleWeight.body),
-                overflow: TextOverflow.ellipsis,
-              ))
+                  child: (title.toString().toLowerCase() == "location")
+                      ? GestureDetector(
+                          onTap: () async {
+                            if (MyCons.isWeb) {
+                              // html.window.open(
+                              //     'https://maps.google.com/?q=${subtitle}',
+                              //     'new tab');
+                              // html.HtmlAdapter.openBrowser(
+                              //     'https://maps.google.com/?q=${subtitle}',
+                              //     'new tab');
+                              if (!await launchUrl(Uri.parse(
+                                  'https://maps.google.com/?q=${subtitle}'))) {
+                                throw 'Could not launch https://maps.google.com/?q=${subtitle}';
+                              }
+                            } else {
+                              Get.toNamed(PageRouting.MAP_PICKER,
+                                  arguments: [subtitle, TypeMap.MAP_OPEN]);
+                            }
+                          },
+                          child: Text(
+                            "Open Location",
+                            style: styleHeader(
+                                textStyleWeight: TextStyleWeight.body,
+                                color: Colors.blue),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      : Text(
+                          "$subtitle",
+                          style: styleHeader(
+                              textStyleWeight: TextStyleWeight.body),
+                          overflow: TextOverflow.ellipsis,
+                        ))
             ],
           ),
         ),

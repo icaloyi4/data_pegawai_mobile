@@ -9,6 +9,7 @@ import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
 
+import '../../../../core/assets/my_enum.dart';
 import '../../bloc/register_bloc.dart';
 
 class FormRegisterUserPage extends StatefulWidget {

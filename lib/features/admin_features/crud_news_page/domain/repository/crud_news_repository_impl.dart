@@ -1,6 +1,7 @@
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/features/admin_features/crud_news_page/data/remote/news_response.dart';
 
+import '../../../../../core/assets/my_enum.dart';
 import '../../../../../core/base/base_remote_repository.dart';
 import '../../../../user_page/bloc/user_bloc.dart';
 import '../../data/local/crud_news_local_source.dart';
