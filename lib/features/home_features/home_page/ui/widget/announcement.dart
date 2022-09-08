@@ -4,15 +4,15 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:ojrek_hris/features/home_page/bloc/home_bloc.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
+import 'package:ojrek_hris/features/home_features/home_page/bloc/home_bloc.dart';
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/announcement_response.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../core/assets/my_cons.dart';
-import '../../../../core/assets/my_enum.dart';
-import '../../../../core/base/base_stateful.dart';
-import '../../../../core/routing/page_routing.dart';
-import '../../../../core/widget/error_text.dart';
-import '../../../../core/widget/styling.dart';
+import '../../../../../core/assets/my_cons.dart';
+import '../../../../../core/assets/my_enum.dart';
+import '../../../../../core/base/base_stateful.dart';
+import '../../../../../core/routing/page_routing.dart';
+import '../../../../../core/widget/error_text.dart';
+import '../../../../../core/widget/styling.dart';
 
 class Announcement extends StatefulWidget {
   @override
@@ -232,7 +232,7 @@ class _Announcement extends BaseState<HomeBloc, HomeState, Announcement> {
               width: MediaQuery.of(context).size.width,
               height: _heightCard,
               child: ErrorText(
-                message: "No news at this time",
+                message: "No announcement at this time",
               )),
         );
       }

@@ -36,6 +36,7 @@ class MyCons {
   static const String DATE_FORMAT_SERVER = "yyyy-MM-dd";
   static const String TIME_FORMAT_SERVER = "HH:mm:ss";
   static const String HOURMIN_FORMAT_SERVER = "HH:mm";
+    static const String MONTHYEAR_FORMAT_SERVER = "yyyy-MM";
   static const String MONTHYEAR_FORMAT_BEAUTY = "MMMM, yyyy";
   static const String DATE_FORMAT_BEAUTY = "dd MMM yyyy";
   static const String DATETIME_FORMAT_BEAUTY = "dd MMM yyyy HH:mm";

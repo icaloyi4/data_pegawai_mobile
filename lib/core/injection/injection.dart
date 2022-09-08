@@ -26,11 +26,16 @@ import '../../features/admin_features/crud_user_page/data/local/crud_user_local_
 import '../../features/admin_features/crud_user_page/data/remote/crud_user_remote_source.dart';
 import '../../features/admin_features/crud_user_page/domain/repository/crud_user_repository.dart';
 import '../../features/admin_features/crud_user_page/domain/repository/crud_user_repository_impl.dart';
-import '../../features/home_page/bloc/home_bloc.dart';
-import '../../features/home_page/data/local/home_local_source.dart';
-import '../../features/home_page/data/remote/home_remote_source.dart';
-import '../../features/home_page/domain/repository/home_repository.dart';
-import '../../features/home_page/domain/repository/home_repository_impl.dart';
+import '../../features/home_features/attendance_page/bloc/attendance_bloc.dart';
+import '../../features/home_features/attendance_page/data/local/attendance_local_source.dart';
+import '../../features/home_features/attendance_page/data/remote/attendance_remote_source.dart';
+import '../../features/home_features/attendance_page/domain/repository/attendance_repository.dart';
+import '../../features/home_features/attendance_page/domain/repository/attendance_repository_impl.dart';
+import '../../features/home_features/home_page/bloc/home_bloc.dart';
+import '../../features/home_features/home_page/data/local/home_local_source.dart';
+import '../../features/home_features/home_page/data/remote/home_remote_source.dart';
+import '../../features/home_features/home_page/domain/repository/home_repository.dart';
+import '../../features/home_features/home_page/domain/repository/home_repository_impl.dart';
 import '../../features/register_page/bloc/register_bloc.dart';
 import '../../features/register_page/data/local/register_local_source.dart';
 import '../../features/register_page/domain/repository/register_repository.dart';
@@ -135,6 +140,14 @@ abstract class Injection {
       from: CrudAnnouncementRepositoryImpl,
       resolvers: {CrudAnnouncementRemoteSource: "", CrudAnnouncementLocalSource: ""})
   @Register.factory(CrudAnnouncementBloc, resolvers: {CrudAnnouncementRepository: ""})
+
+  //CRUD Announcements
+  @Register.singleton(AttendanceRemoteSource, resolvers: {Dio: ""})
+  @Register.singleton(AttendanceLocalSource)
+  @Register.singleton(AttendanceRepository,
+      from: AttendanceRepositoryImpl,
+      resolvers: {AttendanceRemoteSource: "", AttendanceLocalSource: ""})
+  @Register.factory(AttendanceBloc, resolvers: {AttendanceRepository: ""})
   void configure();
 }
 

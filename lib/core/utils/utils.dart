@@ -40,8 +40,6 @@ String changeDateFormat(
   }
 }
 
-
-
 void showSnackbar(String message,
     {TypeSnacbar typeSnakcbar = TypeSnacbar.ERROR}) {
   switch (typeSnakcbar) {

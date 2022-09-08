@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
-import 'package:ojrek_hris/features/home_page/bloc/home_bloc.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
+import 'package:ojrek_hris/features/home_features/home_page/bloc/home_bloc.dart';
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/news_response.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/assets/my_cons.dart';
-import '../../../../core/assets/my_enum.dart';
-import '../../../../core/routing/page_routing.dart';
-import '../../../../core/utils/utils.dart';
-import '../../../../core/widget/error_text.dart';
-import '../../../../core/widget/styling.dart';
+import '../../../../../core/assets/my_cons.dart';
+import '../../../../../core/assets/my_enum.dart';
+import '../../../../../core/routing/page_routing.dart';
+import '../../../../../core/utils/utils.dart';
+import '../../../../../core/widget/error_text.dart';
+import '../../../../../core/widget/styling.dart';
 
 class NewsAllPage extends StatefulWidget {
   @override

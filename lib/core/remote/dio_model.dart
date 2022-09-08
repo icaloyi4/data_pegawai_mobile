@@ -17,6 +17,7 @@ class ApiUrl {
   static const announcements = "announcements";
   static const department = "departments";
   static const companies = "companies";
+  static const attendance = "attendances";
   static const registerDepartment = "registerDepartment";
   static const updateDepartment = "updateDepartment";
   static const getDepartmentPosition = "departments/getDepartmentWithPosition";

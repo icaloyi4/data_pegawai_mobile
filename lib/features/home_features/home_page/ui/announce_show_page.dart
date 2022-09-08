@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/assets/my_enum.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
-
-import '../../../core/assets/my_cons.dart';
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/announcement_response.dart';
 
 class AnnounceShowPage extends StatelessWidget {
   final DataAnnouncements dataAnnouncements = Get.arguments;

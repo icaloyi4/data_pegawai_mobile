@@ -1,12 +1,11 @@
 import 'package:ojrek_hris/core/remote/base_remote.dart';
 import 'package:dio/dio.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
 
-import '../../../../core/assets/my_cons.dart';
-import '../../../../core/error/error_result.dart';
-import '../../../../core/remote/dio_model.dart';
-
+import '../../../../../core/assets/my_cons.dart';
+import '../../../../../core/error/error_result.dart';
+import '../../../../../core/remote/dio_model.dart';
+import 'announcement_response.dart';
+import 'news_response.dart';
 class HomeRemoteSource extends BaseRemote {
   HomeRemoteSource(Dio dio) : super(dio);
 

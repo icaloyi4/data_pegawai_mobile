@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:ojrek_hris/core/widget/maps_picker.dart';
 import 'package:ojrek_hris/features/admin_features/crud_announcement_page/ui/crud_announcement_page.dart';
-import 'package:ojrek_hris/features/admin_features/crud_announcement_page/ui/widget/form_crud_announcement_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_company_page/ui/crud_company_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/crud_department_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/ui/list_department_page.dart';
@@ -9,9 +8,8 @@ import 'package:ojrek_hris/features/admin_features/crud_news_page/ui/crud_news_p
 import 'package:ojrek_hris/features/admin_features/crud_news_page/ui/list_news_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/crud_user_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/list_user_page.dart';
-import 'package:ojrek_hris/features/home_page/ui/announce_show_page.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/news_all.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/news_webview.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/ui/attendance_page.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/ui/widget/list_attendance_page.dart';
 import 'package:ojrek_hris/features/main_page.dart';
 import 'package:ojrek_hris/features/register_page/ui/register_company_page.dart';
 import 'package:ojrek_hris/features/register_page/ui/register_success_page.dart';
@@ -20,6 +18,9 @@ import 'package:ojrek_hris/features/splash_screen.dart';
 import 'package:get/get.dart';
 
 import '../../features/admin_features/crud_announcement_page/ui/list_announcement_page.dart';
+import '../../features/home_features/home_page/ui/announce_show_page.dart';
+import '../../features/home_features/home_page/ui/widget/news_all.dart';
+import '../../features/home_features/home_page/ui/widget/news_webview.dart';
 import '../../features/login_page/ui/login_page.dart';
 import '../../features/main_page_web.dart';
 import '../../features/welcome_screen.dart';
@@ -62,9 +63,9 @@ class GetRouter {
       GetPage(
           name: PageRouting.ADD_ANNOUNCEMENTS,
           page: () => CrudAnnouncementPage()),
-          GetPage(
-          name: PageRouting.SHOW_ANNOUNCEMENT,
-          page: () => AnnounceShowPage()),
+      GetPage(
+          name: PageRouting.SHOW_ANNOUNCEMENT, page: () => AnnounceShowPage()),
+      GetPage(name: PageRouting.ATTENDANCE, page: () => AttendancePage()),
     ];
   }
 }

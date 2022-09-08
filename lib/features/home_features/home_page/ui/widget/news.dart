@@ -7,14 +7,13 @@ import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
 import 'package:ojrek_hris/core/widget/error_text.dart';
-import 'package:ojrek_hris/features/home_page/data/entities/news_dummy_model.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/news_response.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../core/assets/my_enum.dart';
-import '../../../../core/base/base_stateful.dart';
-import '../../../../core/utils/utils.dart';
-import '../../../../core/widget/styling.dart';
+import '../../../../../core/assets/my_enum.dart';
+import '../../../../../core/base/base_stateful.dart';
+import '../../../../../core/utils/utils.dart';
+import '../../../../../core/widget/styling.dart';
 import '../../bloc/home_bloc.dart';
 
 class News extends StatefulWidget {

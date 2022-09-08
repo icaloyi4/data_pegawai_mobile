@@ -5,7 +5,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../core/assets/my_color.dart';
 import '../core/assets/my_cons.dart';
 import 'admin_features/admin_home_page/ui/admin_home_page.dart';
-import 'home_page/ui/home_page.dart';
+import 'home_features/home_page/ui/home_page.dart';
 import 'user_page/ui/user_page.dart';
 
 class MainPage extends StatefulWidget {

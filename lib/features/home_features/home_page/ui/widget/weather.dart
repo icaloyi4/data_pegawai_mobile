@@ -7,7 +7,7 @@ import 'package:ojrek_hris/core/widget/error_text.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:weather/weather.dart';
 
-import '../../../../core/assets/my_cons.dart';
+import '../../../../../core/assets/my_cons.dart';
 import '../../bloc/home_bloc.dart';
 
 class WeatherCard extends StatefulWidget {

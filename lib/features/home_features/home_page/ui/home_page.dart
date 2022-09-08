@@ -1,18 +1,15 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/announcement.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/header.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/menu_list.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/news.dart';
-import 'package:ojrek_hris/features/home_page/ui/widget/weather.dart';
-import 'package:slide_digital_clock/slide_digital_clock.dart';
 
-import '../../../core/assets/my_enum.dart';
-import '../../../core/routing/page_routing.dart';
+import '../../../../core/assets/my_enum.dart';
+import '../../../../core/routing/page_routing.dart';
+import 'widget/announcement.dart';
+import 'widget/header.dart';
+import 'widget/menu_list.dart';
+import 'widget/news.dart';
+import 'widget/weather.dart';
 
 class HomePage extends StatefulWidget {
   @override

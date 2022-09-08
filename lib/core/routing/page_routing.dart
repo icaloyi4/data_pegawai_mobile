@@ -29,4 +29,5 @@ class PageRouting {
   static const MAP_PICKER="/map-picker";
 
   static const SHOW_ANNOUNCEMENT="/show-announcement";
+  static const ATTENDANCE="/attendance";
 }

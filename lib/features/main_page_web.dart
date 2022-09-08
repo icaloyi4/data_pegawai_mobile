@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 import '../core/assets/my_color.dart';
@@ -9,7 +8,7 @@ import '../core/assets/my_enum.dart';
 import '../core/utils/utils.dart';
 import '../core/widget/styling.dart';
 import 'admin_features/admin_home_page/ui/admin_home_page.dart';
-import 'home_page/ui/home_page.dart';
+import 'home_features/home_page/ui/home_page.dart';
 import 'user_page/ui/user_page.dart';
 
 class MainPageWeb extends StatefulWidget {

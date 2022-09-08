@@ -61,6 +61,11 @@ class _$Injection extends Injection {
           CrudAnnouncementRepositoryImpl(c<CrudAnnouncementRemoteSource>(),
               c<CrudAnnouncementLocalSource>()))
       ..registerFactory(
-          (c) => CrudAnnouncementBloc(c<CrudAnnouncementRepository>()));
+          (c) => CrudAnnouncementBloc(c<CrudAnnouncementRepository>()))
+      ..registerSingleton((c) => AttendanceRemoteSource(c<Dio>()))
+      ..registerSingleton((c) => AttendanceLocalSource())
+      ..registerSingleton<AttendanceRepository>((c) => AttendanceRepositoryImpl(
+          c<AttendanceRemoteSource>(), c<AttendanceLocalSource>()))
+      ..registerFactory((c) => AttendanceBloc(c<AttendanceRepository>()));
   }
 }

@@ -1,5 +1,6 @@
-import 'package:ojrek_hris/features/home_page/data/remote/announcement_response.dart';
-import 'package:ojrek_hris/features/home_page/data/remote/news_response.dart';
+
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/announcement_response.dart';
+import 'package:ojrek_hris/features/home_features/home_page/data/remote/news_response.dart';
 import 'package:ojrek_hris/features/user_page/bloc/user_bloc.dart';
 
 import '../../data/local/home_local_source.dart';
