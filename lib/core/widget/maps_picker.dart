@@ -115,6 +115,10 @@ class _MapPickerPage extends State<MapPickerPage> {
             //Map widget from google_maps_flutter package
             zoomGesturesEnabled: true, //enable Zoom in, out on map
             myLocationButtonEnabled: false,
+            scrollGesturesEnabled: false,
+            tiltGesturesEnabled: false,
+            rotateGesturesEnabled: false,
+            zoomControlsEnabled: false,
             initialCameraPosition: CameraPosition(
               //innital position in map
               target: startLocation!, //initial position

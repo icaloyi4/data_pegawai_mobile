@@ -49,11 +49,14 @@ BoxDecoration styleBoxCard({Color color = Colors.white}) {
 }
 
 BoxDecoration styleBoxBorderAll(
-    {Color? backgroundColor, bool withBorder = false, Color? borderColors}) {
+    {Color? backgroundColor,
+    bool withBorder = false,
+    Color? borderColors,
+    double borderRadius = 15.0}) {
   return BoxDecoration(
       color: backgroundColor ??
           (MyCons.darkModeEnabled ? Colors.transparent : Colors.white),
-      borderRadius: BorderRadius.all(Radius.circular(15)),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
       border: withBorder
           ? Border.all(
               width: 1,
@@ -74,7 +77,7 @@ BoxDecoration styleBoxAllWithColor(
 }
 
 InputDecoration fieldDecoration(String label,
-    {required IconData icon, Color borderColor = Colors.black38}) {
+    {String? hintText, IconData? icon, Color borderColor = Colors.black38}) {
   return new InputDecoration(
       enabledBorder: new OutlineInputBorder(
         borderRadius: new BorderRadius.circular(10.0),
@@ -96,7 +99,9 @@ InputDecoration fieldDecoration(String label,
         color: Colors.red, // or any other color
       ),
       labelText: label,
-      prefixIcon: Icon(icon));
+      hintText: hintText,
+      alignLabelWithHint: true,
+      prefixIcon: (icon == null) ? null : Icon(icon));
 }
 
 InputDecoration decorationDropdown(String label) {
@@ -124,8 +129,12 @@ Widget textWithIcon(
     {required IconData icon,
     required String text,
     Color? iconCustomColor,
-    TextStyle? textStyle}) {
+    TextStyle? textStyle,
+    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center}) {
   return Row(
+    mainAxisAlignment: mainAxisAlignment,
+    crossAxisAlignment: crossAxisAlignment,
     children: [
       Icon(
         icon,

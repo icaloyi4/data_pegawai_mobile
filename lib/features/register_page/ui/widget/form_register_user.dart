@@ -6,6 +6,7 @@ import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
 
@@ -49,19 +50,20 @@ class _FormRegisterUserPage extends State<FormRegisterUserPage> {
   }
 
   Widget buttonLogin() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-        child: Text(
-          "Continue",
-          style: styleHeader(
-              color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-        ),
-        alignment: Alignment.center,
-        height: 50,
-      ),
-    );
+    return MainButton(label: "Continue");
+    // return Padding(
+    //   padding: const EdgeInsets.all(10.0),
+    //   child: Container(
+    //     decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //     child: Text(
+    //       "Continue",
+    //       style: styleHeader(
+    //           color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //     ),
+    //     alignment: Alignment.center,
+    //     height: 50,
+    //   ),
+    // );
   }
 
   Widget formUser() {

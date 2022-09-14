@@ -5,6 +5,7 @@ import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/routing/page_routing.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 
 import '../../../../core/assets/my_enum.dart';
@@ -50,30 +51,42 @@ class _FormLoginPage extends BaseState<LoginBloc, LoginState, FormLoginPage> {
   }
 
   Widget buttonLogin() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GestureDetector(
-        onTap: () {
-          if (_formLogin.currentState != null) {
+    return MainButton(
+      label: "Login",
+      onTap: () {
+        if (_formLogin.currentState != null) {
             if (_formLogin.currentState!.validate()) {
               bloc.pushEvent(LoginProcess(_emailController.text.toString(),
                   _passwordController.text.toString(), _mainContext));
             }
             // Get.offAllNamed(PageRouting.HOME);
           }
-        },
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Login",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
+      },
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(20.0),
+    //   child: GestureDetector(
+    //     onTap: () {
+    //       if (_formLogin.currentState != null) {
+    //         if (_formLogin.currentState!.validate()) {
+    //           bloc.pushEvent(LoginProcess(_emailController.text.toString(),
+    //               _passwordController.text.toString(), _mainContext));
+    //         }
+    //         // Get.offAllNamed(PageRouting.HOME);
+    //       }
+    //     },
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Login",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formLogin() {

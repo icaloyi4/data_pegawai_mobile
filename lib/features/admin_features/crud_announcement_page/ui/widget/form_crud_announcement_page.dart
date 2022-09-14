@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_announcement_page/bloc/crud_announcement_bloc.dart';
 import 'package:ojrek_hris/features/admin_features/crud_announcement_page/data/remote/announcement_response.dart';
@@ -58,43 +59,68 @@ class _FormCrudAnnouncementPage extends BaseState<CrudAnnouncementBloc,
   }
 
   Widget buttonSave() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: () {
-          // Get.toNamed(PageRouting.REGISTER_SUCCESS);
-          if (_keyFormNews.currentState!.validate()) {
-            AlertMessage.showAlert(
-              context,
-              message: "Are you sure?",
-              title: "Confirmation",
-              type: CoolAlertType.confirm,
-              onConfirm: () {
-                Get.back();
-                if (_announcementsData != null) {
-                  bloc.pushEvent(CRUDAnnouncements(context,
-                      typeCrud: _isUpdate ? TypeCrud.UPDATE : TypeCrud.CREATE,
-                      announcementData: _announcementsData!));
-                }
-              },
-              onCancel: () {
-                Get.back();
-              },
-            );
-          }
-        },
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Save",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
+    return MainButton(
+      label: "Save",
+      onTap: () {
+        // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+        if (_keyFormNews.currentState!.validate()) {
+          AlertMessage.showAlert(
+            context,
+            message: "Are you sure?",
+            title: "Confirmation",
+            type: CoolAlertType.confirm,
+            onConfirm: () {
+              Get.back();
+              if (_announcementsData != null) {
+                bloc.pushEvent(CRUDAnnouncements(context,
+                    typeCrud: _isUpdate ? TypeCrud.UPDATE : TypeCrud.CREATE,
+                    announcementData: _announcementsData!));
+              }
+            },
+            onCancel: () {
+              Get.back();
+            },
+          );
+        }
+      },
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(10.0),
+    //   child: GestureDetector(
+    //     onTap: () {
+    //       // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+    //       if (_keyFormNews.currentState!.validate()) {
+    //         AlertMessage.showAlert(
+    //           context,
+    //           message: "Are you sure?",
+    //           title: "Confirmation",
+    //           type: CoolAlertType.confirm,
+    //           onConfirm: () {
+    //             Get.back();
+    //             if (_announcementsData != null) {
+    //               bloc.pushEvent(CRUDAnnouncements(context,
+    //                   typeCrud: _isUpdate ? TypeCrud.UPDATE : TypeCrud.CREATE,
+    //                   announcementData: _announcementsData!));
+    //             }
+    //           },
+    //           onCancel: () {
+    //             Get.back();
+    //           },
+    //         );
+    //       }
+    //     },
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Save",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formAnnouncements() {

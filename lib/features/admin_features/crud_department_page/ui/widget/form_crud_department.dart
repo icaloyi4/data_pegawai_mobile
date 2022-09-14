@@ -10,6 +10,7 @@ import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_department_page/data/remote/get_department_position_response.dart';
 
 import '../../../../../core/assets/my_enum.dart';
+import '../../../../../core/widget/main_button.dart';
 import '../../bloc/crud_department_bloc.dart';
 
 class FormCrudDepartmentPage extends StatefulWidget {
@@ -51,9 +52,11 @@ class _FormCrudDepartmentPage extends BaseState<CrudDepartmentBloc,
   }
 
   Widget buttonLogin() {
-    return GestureDetector(
+    return MainButton(
+      label: "Continue",
       onTap: () {
-        if (_formKey.currentState!.validate()) {
+        // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+          if (_formKey.currentState!.validate()) {
           // Get.back();
           AlertMessage.showAlert(
             context,
@@ -73,20 +76,43 @@ class _FormCrudDepartmentPage extends BaseState<CrudDepartmentBloc,
           );
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Continue",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
     );
+    // return GestureDetector(
+    //   onTap: () {
+    //     if (_formKey.currentState!.validate()) {
+    //       // Get.back();
+    //       AlertMessage.showAlert(
+    //         context,
+    //         message: "Are you sure?",
+    //         title: "Confirmation",
+    //         type: CoolAlertType.confirm,
+    //         onConfirm: () {
+    //           Get.back();
+    //           bloc.pushEvent(RegisterDepartment(
+    //               context, _departmentInputModel, _isUpdate));
+    //           // bloc.pushEvent(RegisterDepartment(
+    //           //     context, _DepartmentInputModel, _isUpdate));
+    //         },
+    //         onCancel: () {
+    //           Get.back();
+    //         },
+    //       );
+    //     }
+    //   },
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(10.0),
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Continue",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formDepartment() {

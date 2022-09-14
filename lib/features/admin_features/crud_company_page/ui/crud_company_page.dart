@@ -15,6 +15,7 @@ import '../../../../core/assets/my_cons.dart';
 import '../../../../core/assets/my_enum.dart';
 import '../../../../core/base/base_stateful.dart';
 import '../../../../core/widget/cool_alert.dart';
+import '../../../../core/widget/main_button.dart';
 
 class CrudCompanyPage extends StatefulWidget {
   @override
@@ -64,11 +65,10 @@ class _CrudCompanyPage
   }
 
   Widget buttonSave() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: () {
-          // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+    return MainButton(
+      label: "Save",
+      onTap: () {
+        // Get.toNamed(PageRouting.REGISTER_SUCCESS);
           if (_keyFormCompany.currentState!.validate()) {
             AlertMessage.showAlert(
               context,
@@ -84,19 +84,41 @@ class _CrudCompanyPage
               },
             );
           }
-        },
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Save",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
+      },
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(10.0),
+    //   child: GestureDetector(
+    //     onTap: () {
+    //       // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+    //       if (_keyFormCompany.currentState!.validate()) {
+    //         AlertMessage.showAlert(
+    //           context,
+    //           message: "Are you sure?",
+    //           title: "Confirmation",
+    //           type: CoolAlertType.confirm,
+    //           onConfirm: () {
+    //             Get.back();
+    //             bloc.pushEvent(UpdateCompany(context, _companyData));
+    //           },
+    //           onCancel: () {
+    //             Get.back();
+    //           },
+    //         );
+    //       }
+    //     },
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Save",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formCompany() {

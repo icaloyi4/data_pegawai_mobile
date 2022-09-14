@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:ojrek_hris/core/widget/camera.dart';
 import 'package:ojrek_hris/core/widget/maps_picker.dart';
 import 'package:ojrek_hris/features/admin_features/crud_announcement_page/ui/crud_announcement_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_company_page/ui/crud_company_page.dart';
@@ -9,6 +10,8 @@ import 'package:ojrek_hris/features/admin_features/crud_news_page/ui/list_news_p
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/crud_user_page.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/ui/list_user_page.dart';
 import 'package:ojrek_hris/features/home_features/attendance_page/ui/attendance_page.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/ui/check_in_page.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/ui/detail_attendance_page.dart';
 import 'package:ojrek_hris/features/home_features/attendance_page/ui/widget/list_attendance_page.dart';
 import 'package:ojrek_hris/features/main_page.dart';
 import 'package:ojrek_hris/features/register_page/ui/register_company_page.dart';
@@ -66,6 +69,12 @@ class GetRouter {
       GetPage(
           name: PageRouting.SHOW_ANNOUNCEMENT, page: () => AnnounceShowPage()),
       GetPage(name: PageRouting.ATTENDANCE, page: () => AttendancePage()),
+      GetPage(name: PageRouting.DETAIL_ATTENDANCE, page: () => DetailAttendancePage()),
+      GetPage(name: PageRouting.CHECK_IN_ATTENDANCE, page: () => CheckInPage()),
+      GetPage(name: PageRouting.USING_CAMERA, page: () => UsingCamera()),
     ];
   }
+}
+
+class CHECK_IN_ATTENDANCE {
 }

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
 import 'package:ojrek_hris/core/widget/cool_alert.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user_bloc.dart';
 
@@ -61,9 +62,8 @@ class _FormCrudUserPage
   }
 
   Widget buttonSave() {
-    return GestureDetector(
-      onTap: () {
-        if (_formKey.currentState!.validate()) {
+    return MainButton(label: "Save", onTap: (){
+      if (_formKey.currentState!.validate()) {
           // Get.back();
           AlertMessage.showAlert(
             context,
@@ -79,21 +79,40 @@ class _FormCrudUserPage
             },
           );
         }
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Continue",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
-    );
+    },);
+    // return GestureDetector(
+    //   onTap: () {
+    //     if (_formKey.currentState!.validate()) {
+    //       // Get.back();
+    //       AlertMessage.showAlert(
+    //         context,
+    //         message: "Are you sure?",
+    //         title: "Confirmation",
+    //         type: CoolAlertType.confirm,
+    //         onConfirm: () {
+    //           Get.back();
+    //           bloc.pushEvent(RegisterUser(context, _userInputModel, _isUpdate));
+    //         },
+    //         onCancel: () {
+    //           Get.back();
+    //         },
+    //       );
+    //     }
+    //   },
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(10.0),
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Continue",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formUser() {

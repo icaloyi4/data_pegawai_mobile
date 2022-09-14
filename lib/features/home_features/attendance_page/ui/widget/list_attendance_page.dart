@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:ojrek_hris/core/assets/my_color.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/assets/my_enum.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 
+import '../../../../../core/routing/page_routing.dart';
 import '../../../../../core/widget/styling.dart';
 import '../../data/remote/get_attendance_response.dart';
 
@@ -90,59 +93,72 @@ class _ListAttendance extends State<ListAttendance> {
   }
 
   Widget chekButtonType() {
-    var newestCheckIn = changeDateFormat(
-        date: widget.attendanceList[0].checkIn.toString(),
-        newFormat: MyCons.DATE_FORMAT_SERVER);
-    var dateNow =
-        chageDateToString(DateTime.now(), format: MyCons.DATE_FORMAT_SERVER);
-    if (newestCheckIn==dateNow) {
-      if (widget.attendanceList[0].checkOut == null) {
-        return buttonCheck(message: "Check Out");
+    if (widget.attendanceList.isNotEmpty) {
+      var newestCheckIn = changeDateFormat(
+          date: widget.attendanceList[0].checkIn.toString(),
+          newFormat: MyCons.DATE_FORMAT_SERVER);
+      var dateNow =
+          chageDateToString(DateTime.now(), format: MyCons.DATE_FORMAT_SERVER);
+      if (newestCheckIn == dateNow) {
+        if (widget.attendanceList[0].checkOut == null) {
+          return buttonCheck(message: "Check Out");
+        }
+        return Container();
+      } else {
+        return buttonCheck();
       }
-      return Container();
     } else {
       return buttonCheck();
     }
   }
 
   Widget buttonCheck({String message = "Check In"}) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: () {
-          // Get.toNamed(PageRouting.REGISTER_SUCCESS);
-          // if (_keyFormNews.currentState!.validate()) {
-          //   AlertMessage.showAlert(
-          //     context,
-          //     message: "Are you sure?",
-          //     title: "Confirmation",
-          //     type: CoolAlertType.confirm,
-          //     onConfirm: () {
-          //       Get.back();
-          //       if (_newsData != null) {
-          //         bloc.pushEvent(CRUDNews(context,
-          //             typeCrud: _isUpdate ? TypeCrud.UPDATE : TypeCrud.CREATE,
-          //             newsData: _newsData!));
-          //       }
-          //     },
-          //     onCancel: () {
-          //       Get.back();
-          //     },
-          //   );
-          // }
-        },
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "$message",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
+    return MainButton(
+      label: message,
+      onTap: () async {
+        if (widget.attendanceList.isNotEmpty) {
+            if (widget.attendanceList[0].checkOut == null) {
+              await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+                  arguments: [true, widget.attendanceList[0]]);
+            } else {
+              await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+                  arguments: [false]);
+            }
+          } else {
+            await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+                arguments: [false]);
+          }
+      },
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(10.0),
+    //   child: GestureDetector(
+    //     onTap: () async {
+    //       if (widget.attendanceList.isNotEmpty) {
+    //         if (widget.attendanceList[0].checkOut == null) {
+    //           await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+    //               arguments: [true, widget.attendanceList[0]]);
+    //         } else {
+    //           await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+    //               arguments: [false]);
+    //         }
+    //       } else {
+    //         await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+    //             arguments: [false]);
+    //       }
+    //     },
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "$message",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget itemAttendance(BuildContext ctx, AttendanceData element) {
@@ -156,6 +172,7 @@ class _ListAttendance extends State<ListAttendance> {
         //       type: CoolAlertType.info,
         //       title: "Information");
         // }
+        Get.toNamed(PageRouting.DETAIL_ATTENDANCE, arguments: element);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

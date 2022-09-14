@@ -7,6 +7,7 @@ import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/base/base_stateful.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:ojrek_hris/core/widget/main_button.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/register_page/data/remote/register_model.dart';
 import "package:google_maps_flutter_platform_interface/src/types/location.dart";
@@ -67,27 +68,36 @@ class _FormRegisterCompanyPage
   }
 
   Widget buttonRegister() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: () {
-          // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+    return MainButton(
+      label: "Continue",
+      onTap: () {
+        // Get.toNamed(PageRouting.REGISTER_SUCCESS);
           if (_keyFormCompany.currentState!.validate()) {
             bloc.pushEvent(SignUp(_registerModel, context));
           }
-        },
-        child: Container(
-          decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
-          child: Text(
-            "Continue",
-            style: styleHeader(
-                color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
-          ),
-          alignment: Alignment.center,
-          height: 50,
-        ),
-      ),
+      },
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(10.0),
+    //   child: GestureDetector(
+    //     onTap: () {
+    //       // Get.toNamed(PageRouting.REGISTER_SUCCESS);
+    //       if (_keyFormCompany.currentState!.validate()) {
+    //         bloc.pushEvent(SignUp(_registerModel, context));
+    //       }
+    //     },
+    //     child: Container(
+    //       decoration: styleBoxAllWithColor(colors: MyColors.mainColor),
+    //       child: Text(
+    //         "Continue",
+    //         style: styleHeader(
+    //             color: Colors.white, textStyleWeight: TextStyleWeight.Title3),
+    //       ),
+    //       alignment: Alignment.center,
+    //       height: 50,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget formCompany() {
