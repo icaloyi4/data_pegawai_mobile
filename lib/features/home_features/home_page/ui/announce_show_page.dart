@@ -5,6 +5,8 @@ import 'package:ojrek_hris/core/assets/my_enum.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
 import 'package:ojrek_hris/features/home_features/home_page/data/remote/announcement_response.dart';
 
+import '../../../../core/routing/page_routing.dart';
+
 class AnnounceShowPage extends StatelessWidget {
   final DataAnnouncements dataAnnouncements = Get.arguments;
 
@@ -27,17 +29,24 @@ class AnnounceShowPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 (dataAnnouncements.imgUrl != null)
-                        ?Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: Image.network(
-                            dataAnnouncements.imgUrl!,
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(dataAnnouncements.imgUrl!,
                             width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          )
-                  ),
-                ): Container(),
+                            fit: BoxFit.cover, loadingBuilder:
+                                (BuildContext context, Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        }))
+                    : Container(),
                 Text(
                   "${dataAnnouncements.title}",
                   style: styleHeader(textStyleWeight: TextStyleWeight.Title2),
@@ -49,6 +58,28 @@ class AnnounceShowPage extends StatelessWidget {
                   "${dataAnnouncements.subtitle}",
                   style: styleHeader(textStyleWeight: TextStyleWeight.body),
                 ),
+                (dataAnnouncements.url != null)
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(PageRouting.NEWS_WEBVIEW, arguments: [
+                                dataAnnouncements.url,
+                                dataAnnouncements.title
+                              ]);
+                            },
+                            child: Text(
+                              "For more info : ${dataAnnouncements.url}",
+                              style: styleHeader(
+                                  textStyleWeight: TextStyleWeight.body),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Container()
               ],
             ),
           ),

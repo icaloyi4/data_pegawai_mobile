@@ -1,3 +1,4 @@
+import 'package:ojrek_hris/features/home_features/attendance_page/data/remote/check_in_out.dart';
 import 'package:ojrek_hris/features/home_features/attendance_page/data/remote/get_attendance_response.dart';
 
 import '../../../../user_page/bloc/user_bloc.dart';
@@ -12,7 +13,9 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   AttendanceRepositoryImpl(this._remoteSource, this._localSource);
 
   @override
-  Future<void> getAttendance({required Function(List<AttendanceData> attendanceList) onSuccess, required Function(String message, int code) onError}) async {
+  Future<void> getAttendance(
+      {required Function(List<AttendanceData> attendanceList) onSuccess,
+      required Function(String message, int code) onError}) async {
     try {
       var response = await _remoteSource.getAttendance();
       if (response.code == 401) {
@@ -27,6 +30,42 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       onError("Internal Server Error", 500);
     }
   }
+
+  @override
+  Future<void> checkInOut(CheckInOutModel data,
+      {required Function() onSuccess,
+      required Function(dynamic code, dynamic message) onError}) async {
+    try {
+      var response = await _remoteSource.checkInOut(data);
+      if (response.code == 401) {
+        UserBloc.logout();
+      }
+      if (response.body?.code == 200) {
+        onSuccess();
+      } else {
+        onError(response.errorBody?['message'], response.errorBody?['code']);
+      }
+    } catch (e) {
+      onError("Internal Server Error", 500);
+    }
+  }
+
+  // @override
+  // Future<void> checkInOut(CheckInOutModel data,{required Function() onSuccess, required Function(dynamic code, dynamic message) onError}) async {
+  //   try {
+  //     var response = await _remoteSource.checkInOut();
+  //     if (response.code == 401) {
+  //       UserBloc.logout();
+  //     }
+  //     if (response.body?.code == 200) {
+  //       onSuccess(response.body!.data);
+  //     } else {
+  //       onError(response.errorBody?['message'], response.errorBody?['code']);
+  //     }
+  //   } catch (e) {
+  //     onError("Internal Server Error", 500);
+  //   }
+  // }
 
   // @override
   // Future<void> logout(

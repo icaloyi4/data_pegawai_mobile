@@ -75,43 +75,45 @@ class _AdminHomePage extends State<AdminHomePage> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Container(
+                      height: 150 * MyCons.heigh_percent,
+                      width: 150 * MyCons.width_percent,
                       child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Container(
-                            decoration: styleBoxAllWithColor(
-                                colors: MyColors.mainColor10),
-                            height: 100,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                _menu[index].icon,
-                                size: 75,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                decoration: styleBoxAllWithColor(
+                                    colors: MyColors.mainColor10),
+                                height: 75 * MyCons.heigh_percent,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    _menu[index].icon,
+                                    size: 50 * MyCons.heigh_percent,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(
+                              height: 10 * MyCons.heigh_percent,
+                            ),
+                            Container(
+                              height: 20 * MyCons.heigh_percent,
+                              alignment: Alignment.center,
+                              child: Text(
+                                _menu[index].title,
+                                textAlign: TextAlign.center,
+                                style: styleHeader(
+                                    textStyleWeight: TextStyleWeight.body),
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 20,
-                          alignment: Alignment.center,
-                          child: Text(
-                            _menu[index].title,
-                            textAlign: TextAlign.center,
-                            style: styleHeader(
-                                textStyleWeight: TextStyleWeight.body),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
+                      )),
                 ),
               ),
             );

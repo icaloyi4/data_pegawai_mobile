@@ -175,8 +175,7 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
     return GestureDetector(
       onTap: () async {
         if (MyCons.isWeb) {
-          if (!await launchUrl(
-              Uri.parse(model.url.toString()))) {
+          if (!await launchUrl(Uri.parse(model.url.toString()))) {
             throw 'Could not launch ${model.url.toString()}';
           }
         } else {
@@ -198,10 +197,21 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
               Container(
                 height: (MyCons.isWeb) ? _heightCard * 0.8 : _heightCard * 0.5,
                 child: (model.imgUrl != null)
-                    ? Image.network(
-                        model.imgUrl!,
+                    ? Image.network(model.imgUrl!,
                         width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover, loadingBuilder:
+                            (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      }
                         // loadingBuilder: (context, child, loadingProgress) {
                         //   print(loadingProgress);
                         //   return Shimmer.fromColors(
@@ -219,7 +229,7 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
                         //         message: error.toString(), tryAgain: () {}),
                         //   );
                         // },
-                      )
+                        )
                     : Center(
                         child: Text("No Image Detected"),
                       ),
@@ -246,7 +256,7 @@ class _News extends BaseState<HomeBloc, HomeState, News> {
                         Container(
                           child: Text(
                             "${model.subtitle}",
-                            maxLines: 5,
+                            maxLines: (7 * MyCons.heigh_percent).round(),
                             overflow: TextOverflow.ellipsis,
                             style: styleHeader(
                                 textStyleWeight: TextStyleWeight.body),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ojrek_hris/core/remote/dio_model.dart';
 import 'package:ojrek_hris/core/widget/expandable_card.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timelines/timelines.dart';
@@ -116,9 +117,23 @@ class _DetailAttendancePage extends State<DetailAttendancePage> {
                           height: 10,
                         ),
                         Image.network(
-                          _attendanceData.imagePathCheckIn.toString(),
+                          ApiUrl.baseUrl +
+                              _attendanceData.imagePathCheckIn.toString(),
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fitWidth,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                           height: 10,
@@ -181,11 +196,23 @@ class _DetailAttendancePage extends State<DetailAttendancePage> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Image.network(
-                                _attendanceData.imagePathCheckOut!,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fitWidth,
-                              ),
+                              Image.network(_attendanceData.imagePathCheckOut!,
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.fitWidth, loadingBuilder:
+                                      (BuildContext context, Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              }),
                               SizedBox(
                                 height: 10,
                               ),

@@ -84,6 +84,8 @@ class _AttendancePage
       // _dataUser = state.dataUser;
       return ListAttendance(
         attendanceList: state.attendanceList,
+        bloc : bloc,
+        parentPageCtx: context,
       );
     }
 

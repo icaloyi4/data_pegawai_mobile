@@ -7,6 +7,7 @@ import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/assets/my_enum.dart';
 import 'package:ojrek_hris/core/utils/utils.dart';
 import 'package:ojrek_hris/core/widget/main_button.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/bloc/attendance_bloc.dart';
 
 import '../../../../../core/routing/page_routing.dart';
 import '../../../../../core/widget/styling.dart';
@@ -14,8 +15,10 @@ import '../../data/remote/get_attendance_response.dart';
 
 class ListAttendance extends StatefulWidget {
   final List<AttendanceData> attendanceList;
+  final AttendanceBloc bloc;
+  final BuildContext parentPageCtx;
 
-  const ListAttendance({required this.attendanceList});
+  const ListAttendance({required this.attendanceList, required this.bloc, required this.parentPageCtx});
   @override
   _ListAttendance createState() => _ListAttendance();
 }
@@ -117,17 +120,17 @@ class _ListAttendance extends State<ListAttendance> {
       label: message,
       onTap: () async {
         if (widget.attendanceList.isNotEmpty) {
-            if (widget.attendanceList[0].checkOut == null) {
-              await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
-                  arguments: [true, widget.attendanceList[0]]);
-            } else {
-              await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
-                  arguments: [false]);
-            }
+          if (widget.attendanceList[0].checkOut == null) {
+            await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
+                arguments: [false, widget.attendanceList[0]]);
           } else {
             await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE,
-                arguments: [false]);
+                arguments: [true, null]);
           }
+        } else {
+          await Get.toNamed(PageRouting.CHECK_IN_ATTENDANCE, arguments: [true,null]);
+        }
+        widget.bloc.pushEvent(GetAttendance(context));
       },
     );
     // return Padding(

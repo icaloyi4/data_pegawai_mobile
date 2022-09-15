@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 //import 'dart:io' if (dart.library.html) 'package:dio/adapter_browser.dart' as html;
 import 'package:dio/dio.dart';
 import 'package:dio/adapter_browser.dart'
-    if (dart.library.io) 'package:ojrek_hris/core/remote/adapter_browser.dart' as html;
+    if (dart.library.io) 'package:ojrek_hris/core/remote/adapter_browser.dart'
+    as html;
 // import 'package:ojrek_hris/core/remote/adapter_browser.dart'
 //     if (dart.library.html) 'package:dio/adapter_browser.dart' as html;
 
@@ -14,7 +15,7 @@ import 'logging_interceptors.dart';
 class DioModule with DioMixin implements Dio {
   DioModule() {
     options = BaseOptions(
-      baseUrl: ApiUrl.baseUrl,
+      baseUrl: ApiUrl.baseUrlApi,
       contentType: 'application/json',
       connectTimeout: 30000,
       sendTimeout: 30000,

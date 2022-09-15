@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ojrek_hris/core/assets/my_cons.dart';
 import 'package:ojrek_hris/core/assets/my_enum.dart';
 import 'package:ojrek_hris/core/widget/styling.dart';
+import 'package:ojrek_hris/features/home_features/attendance_page/data/remote/check_in_out.dart';
 import 'package:ojrek_hris/features/home_features/attendance_page/data/remote/get_attendance_response.dart';
 
 import '../../../../../core/widget/line.dart';
@@ -14,8 +15,13 @@ class DetailMap extends StatefulWidget {
   final LatLng? startLocation;
   final AttendanceData? attendanceData;
   final TypeMap typeMap;
+  CheckInOutModel? checkInOutModel;
 
-  DetailMap({this.startLocation, this.attendanceData, required this.typeMap});
+  DetailMap(
+      {this.startLocation,
+      this.attendanceData,
+      required this.typeMap,
+      this.checkInOutModel});
 
   @override
   _DetailMap createState() => _DetailMap();
@@ -65,8 +71,13 @@ class _DetailMap extends State<DetailMap> {
         return Stack(children: [
           GoogleMap(
             //Map widget from google_maps_flutter package
-            zoomGesturesEnabled: true, //enable Zoom in, out on map
+
+            zoomGesturesEnabled: false, //enable Zoom in, out on map
             myLocationButtonEnabled: false,
+            scrollGesturesEnabled: false,
+            tiltGesturesEnabled: false,
+            rotateGesturesEnabled: false,
+            zoomControlsEnabled: false,
             initialCameraPosition: CameraPosition(
               //innital position in map
               target: _currentLocation!, //initial position
@@ -92,9 +103,12 @@ class _DetailMap extends State<DetailMap> {
               //     cameraPosition!.target.longitude);
               setState(() {
                 //get place name from lat and lang
+
                 location = placemarks.first.administrativeArea.toString() +
                     ", " +
                     placemarks.first.street.toString();
+
+                
               });
             },
           ),
@@ -109,7 +123,7 @@ class _DetailMap extends State<DetailMap> {
           Positioned(
               //widget to display location name
               bottom: 10 * MyCons.heigh_percent,
-              right: 10 * MyCons.heigh_percent,
+              left: 10 * MyCons.heigh_percent,
               child: Padding(
                 padding: EdgeInsets.all(15),
                 child: Card(
@@ -138,7 +152,7 @@ class _DetailMap extends State<DetailMap> {
         return Stack(children: [
           GoogleMap(
             //Map widget from google_maps_flutter package
-            zoomGesturesEnabled: true, //enable Zoom in, out on map
+            zoomGesturesEnabled: false, //enable Zoom in, out on map
             myLocationButtonEnabled: false,
             scrollGesturesEnabled: false,
             tiltGesturesEnabled: false,
@@ -197,6 +211,9 @@ class _DetailMap extends State<DetailMap> {
           placemarks.first.street.toString() +
           ", " +
           placemarks.first.postalCode.toString();
+          if (widget.checkInOutModel != null)
+                  widget.checkInOutModel?.location =
+                      "${_currentLocation!.latitude},${_currentLocation!.longitude}";
     });
   }
 

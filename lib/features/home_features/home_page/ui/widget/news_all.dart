@@ -127,11 +127,22 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
                     Container(
                       height: itemHeight * 0.5,
                       child: (_news.imgUrl != null)
-                          ? Image.network(
-                              _news.imgUrl!,
+                          ? Image.network(_news.imgUrl!,
                               width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.cover,
-                            )
+                              fit: BoxFit.cover, loadingBuilder:
+                                  (BuildContext context, Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            })
                           : Center(
                               child: Text("No Image Detected"),
                             ),
@@ -159,7 +170,8 @@ class _NewsAllPage extends BaseState<HomeBloc, HomeState, NewsAllPage> {
                                   child: Text(
                                     "${_news.subtitle}",
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 5,
+                                    maxLines:
+                                        (8 * MyCons.heigh_percent).round(),
                                     style: styleHeader(
                                         textStyleWeight: TextStyleWeight.body),
                                   ),

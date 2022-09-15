@@ -180,7 +180,7 @@ class _Announcement extends BaseState<HomeBloc, HomeState, Announcement> {
                   Expanded(
                     child: Text(
                       "${model.subtitle}",
-                      maxLines: 5,
+                      maxLines: (10 * MyCons.heigh_percent).round(),
                       overflow: TextOverflow.ellipsis,
                       style: styleHeader(textStyleWeight: TextStyleWeight.body),
                     ),

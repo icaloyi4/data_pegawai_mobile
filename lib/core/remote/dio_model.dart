@@ -3,7 +3,9 @@ import 'package:ojrek_hris/features/admin_features/crud_user_page/bloc/crud_user
 class ApiUrl {
   ApiUrl._();
   // static const baseUrl = "http://127.0.0.1:8000/api/";
-  static const baseUrl = "https://fea5-103-120-168-38.ap.ngrok.io/api/";
+  static const baseUrlApi = baseUrl + "/api/";
+  static const baseUrl = "https://5edf-103-235-32-130.ap.ngrok.io";
+
   // static const baseUrlDev =
   //     "http://103.101.225.146:8080/APIMOBILE/"; //http//:192.168.1.2:8082/APIMOBILE/
   // static const baseUrlDev =

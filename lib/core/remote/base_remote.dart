@@ -56,6 +56,32 @@ abstract class BaseRemote {
 
     return response;
   }
+  Future<Result<T>> postMethodWithFormData<T>(
+    String endpoint, {
+    Map<String, String>? headers,
+    FormData? data,
+    ResponseConverter<T>? converter,
+  }) async {
+    if (headers == null) {
+      headers = {
+        "Accept": "application/json",
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MyCons.dataUser?.token}"
+      };
+    } else {
+      headers.putIfAbsent("Accept", () => "application/json");
+      headers.putIfAbsent("Content-Type", () => "application/json");
+      headers.putIfAbsent(
+          "Authorization", () => "Bearer ${MyCons.dataUser?.token}");
+    }
+    Options opsi = Options(headers: headers);
+    // var responsenya = await _dio.post(endpoint, data: data, options: opsi);
+    // print(responsenya);
+    var response = await safeCallApi(
+        _dio.post(endpoint, data: data, options: opsi), converter);
+
+    return response;
+  }
 
   Future<Result<T>> putMethod<T>(
     String endpoint, {

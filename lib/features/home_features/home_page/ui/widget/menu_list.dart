@@ -19,8 +19,9 @@ class _MenuList extends State<MenuList> {
   @override
   void initState() {
     // TODO: implement initState
-    _menu.add(new CardMenuModel("Attendance", PageRouting.ATTENDANCE,
-        CupertinoIcons.calendar_today, null));
+    if (!MyCons.isWeb)
+      _menu.add(new CardMenuModel("Attendance", PageRouting.ATTENDANCE,
+          CupertinoIcons.calendar_today, null));
     _menu.add(new CardMenuModel(
         "Document", "", CupertinoIcons.archivebox_fill, null));
     _menu.add(

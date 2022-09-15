@@ -18,7 +18,7 @@ void main() {
   FlavorConfig(
     flavor: Flavor.PRODUCTION,
     values: FlavorValues(
-      baseUrl: ApiUrl.baseUrl,
+      baseUrl: ApiUrl.baseUrlApi,
       appVersion: packageInfoApp.getVersion(),
     ),
   );

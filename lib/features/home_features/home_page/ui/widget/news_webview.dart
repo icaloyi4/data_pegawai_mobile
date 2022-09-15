@@ -9,12 +9,7 @@ import '../../../../../core/assets/my_enum.dart';
 import '../../../../../core/widget/styling.dart';
 
 class NewsWebview extends StatefulWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-
+  
   @override
   _NewsWebview createState() => _NewsWebview();
 }

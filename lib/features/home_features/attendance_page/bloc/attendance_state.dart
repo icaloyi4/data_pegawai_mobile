@@ -15,6 +15,12 @@ class SuccessGetAttendance extends AttendanceState {
 
 class ErrorGetAttendance extends AttendanceState {}
 
+class SuccessCheckInOut extends AttendanceState {
+
+}
+
+class ErrorCheckInOut extends AttendanceState {}
+
 // class SuccessGetDataUser extends UserState {
 //   final usr.UserData user;
 //   final List<OvertimeData> overtime;
